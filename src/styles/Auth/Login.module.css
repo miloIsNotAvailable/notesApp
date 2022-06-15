@@ -1,0 +1,25 @@
+.login_bg {
+    position: absolute;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg);
+    font-family: 'Poppins';
+    color: var(--font-color)
+}
+
+.login_img {
+    --img-size: 25%;
+    display: grid;
+    place-self: center;
+    width: var(--img-size);
+    height: var(--img-size);
+    align-self: center;
+}
+
+.wrap_login_forms {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

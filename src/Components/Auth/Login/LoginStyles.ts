@@ -1,0 +1,1 @@
+export { default as styles } from '../../../styles/Auth/Login.module.css'
