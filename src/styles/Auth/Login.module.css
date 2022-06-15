@@ -26,23 +26,25 @@
 
 .login_redirect {
     display: grid;
-    width: 100%;
+    width: auto;
     place-items: center;
     color: var(--green);
     text-decoration: none;
     font-size: 1vw;
+    margin: 0 1rem;
 }
 
 .submit_button {
     cursor: pointer;
     display: grid;
-    width: 100%;
+    width: auto;
     place-items: center;
     color: var(--red);
-    font-size: 1.5vw;
+    font-size: 1vw;
     font-weight: bold;
     margin: 1rem 0;
     transition: all 100ms ease;
+    margin: 0 1rem;
 }
 
 .submit_button > * {
@@ -51,4 +53,11 @@
 
 .submit_button > p:hover {
     color: var(--purple)
+}
+
+.wrap_submit {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
 }

@@ -67,7 +67,7 @@
     width: 100%;
     place-items: center;
     color: var(--red);
-    font-size: 1vw;
+    font-size: .5vw;
     font-weight: normal;
     margin: 0;
     transition: all 100ms ease;

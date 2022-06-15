@@ -10,8 +10,10 @@ const BuildLogin: FC = () => {
         <div className={ styles.wrap_login_forms }>
             <Email/>
             <Password/>
-            <SubmitButton/>
-            <RedirectToRegister/>
+            <div className={ styles.wrap_submit }>
+                <SubmitButton/>
+                <RedirectToRegister/>
+            </div>
         </div>
     )
 }

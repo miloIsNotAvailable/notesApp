@@ -13,6 +13,10 @@ const SubmitButton: FC = () => {
     )
     
     const handleSubmit = () => {
+        if(
+            selector.getUserEmail.error || 
+            selector.getUserPassword.error
+        ) return
         console.log( selector )
     }
 
