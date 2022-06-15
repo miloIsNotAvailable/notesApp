@@ -1,11 +1,4 @@
 import { useEffect } from "react"
-import { useQuery } from "urql"
-
-const query = `
-  query {
-    hello
-  }
-`
 
 function App() {
 
