@@ -1,19 +1,25 @@
 import { useEffect } from "react"
+import { useQuery } from "./hooks/graphql/useQuery";
+
+const query = `
+query say( $msg: String ) {
+  say( msg: $msg ) {
+    msg
+  }
+}
+`
 
 function App() {
 
-  useEffect( () => {
-    fetch('http://localhost:4000/graphql', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify({query: "{ hello }"})
-    })
-      .then(r => r.json())
-      .then(data => console.log('data returned:', data));
-  }, [] )
+  const { data, error, loading } = useQuery( query, {
+    variables: {
+      msg: 'hello'
+    }
+  } )
+
+  if( data ) console.log( data )  
+  if( loading ) console.log( loading )  
+  if( error ) console.log( error )  
 
   return (
     <div>

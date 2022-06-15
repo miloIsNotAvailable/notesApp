@@ -7,16 +7,25 @@ import { create } from './db/orm/create.js'
 
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
+  
+  type sayHi {
+    msg: String
+  }
+
   type Query {
     hello: String
+    say( msg: String ): sayHi
   }
 `);
 
 // The root provides a resolver function for each API endpoint
 var root = {
   hello: () => {
-    return 'Hello!';
+    return 'hi!';
   },
+  say: ( args: any ) => {
+    return args
+  }
 };
 
 var app = express();
