@@ -4,7 +4,7 @@
     flex-direction: column;
     width: 100%;
     height: calc(var(--input-height));
-    margin: 3rem 0;
+    margin: 3rem 0 1rem 0;
 }
 
 .form_layout_input {
@@ -60,4 +60,15 @@
     font-family: 'Poppins';
     color: var( --font-color );
     font-weight: bolder;
+}
+
+.error_msg {
+    display: grid;
+    width: 100%;
+    place-items: center;
+    color: var(--red);
+    font-size: 1vw;
+    font-weight: normal;
+    margin: 0;
+    transition: all 100ms ease;
 }
