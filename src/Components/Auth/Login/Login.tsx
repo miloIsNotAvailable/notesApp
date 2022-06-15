@@ -5,6 +5,7 @@ import { default as BgImg } from '../../../graphics/loading.svg'
 import Email from "../Forms/Email";
 import Password from "../Forms/Password";
 import BuildLogin from "./BuildLogin";
+import LoginBg from "./LoginBg";
 
 const query = `
 query say( $msg: String ) {
@@ -29,7 +30,7 @@ const Login: FC = () => {
     return (
         <div className={ styles.login_bg }>
             <BuildLogin/>
-            <img src={ BgImg } alt="" className={ styles.login_img }/>
+            <LoginBg/>
         </div>
     )
 }
