@@ -12,9 +12,16 @@ var schema = buildSchema(`
     msg: String
   }
 
+  type User {
+    id: String
+    username: String
+    email: String
+  }
+
   type Query {
     hello: String
     say( msg: String ): sayHi
+    user: [User]
   }
 `);
 
@@ -25,6 +32,10 @@ var root = {
   },
   say: ( args: any ) => {
     return args
+  },
+  user: async() => {
+    const data = await create()
+    return data
   }
 };
 

@@ -1,4 +1,5 @@
-CREATE TABLE user {
-    id UUID PRIMARY KEY,
-    name STRING
-}
+CREATE TABLE create_user (
+    id UUID      PRIMARY KEY,
+    username     VARCHAR(255),
+    email        VARCHAR(255),
+);
