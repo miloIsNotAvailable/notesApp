@@ -1,12 +1,14 @@
 import { FC } from "react";
 import { useQuery } from "../../../hooks/graphql/useQuery";
 import { styles } from "./RegisterStyles";
-import { default as BgImg } from '../../../graphics/loading.svg'
-import Email from "../Forms/Email";
-import Password from "../Forms/Password";
-import BuildLogin from "./BuildRegister";
 import LoginBg from "./RegisterBg";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import BuildRegister from "./BuildRegister";
+import { useLazyFetch } from "../../../hooks/queries/useLazyFetch";
+import { useAppSelector } from "../../../store/hooks";
+import { getSetLoadingState } from "../../../interfaces/reduxInterfaces/Auth/authReduxInterfaces";
+import Bg from "../Forms/Bg";
+import Loading from "../Forms/Loading";
 
 const query = `
 query say( $msg: String ) {
@@ -18,15 +20,11 @@ query say( $msg: String ) {
 
 const Login: FC = () => {
 
-    const { data, error, loading } = useQuery( query, {
-        variables: {
-          msg: 'hello'
-        }
-    } )
-    
-    if( data ) console.log( data )  
-    if( loading ) console.log( loading )  
-    if( error ) console.log( error )  
+    // const { data, error, loading } = useQuery( query, {
+    //     variables: {
+    //       msg: 'hello'
+    //     }
+    // } )
 
     return (
       <motion.div className={ styles.register_bg }
@@ -35,8 +33,9 @@ const Login: FC = () => {
         animate={ { opacity: 1, transform: 'translateX(0%)' } }
         exit={ { opacity: 0, transform: 'translateX(100%)' } }
       >
-          <BuildLogin/>
-          <LoginBg/>
+          <BuildRegister/>
+          <Loading/>
+          <Bg />
       </motion.div>
     )
 }

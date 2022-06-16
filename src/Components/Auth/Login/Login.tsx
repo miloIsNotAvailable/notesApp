@@ -7,6 +7,7 @@ import Password from "../Forms/Password";
 import BuildLogin from "./BuildLogin";
 import LoginBg from "./LoginBg";
 import { motion } from "framer-motion";
+import Bg from "../Forms/Bg";
 
 const query = `
 query say( $msg: String ) {
@@ -37,7 +38,7 @@ const Login: FC = () => {
         key="/"
       >
           <BuildLogin/>
-          <LoginBg/>
+          <Bg />
       </motion.div>
     )
 }

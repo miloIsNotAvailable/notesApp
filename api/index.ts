@@ -73,18 +73,40 @@ app.use( '/find_user', async( req, res ) => {
       }
   } )
 
-  res.json( {data: data} )
+  res.json( { data: data } )
 } )
 
-// orm.create( {
+app.use( '/create_user', async( req, res ) => {
+  console.log( req.body )
+  const { getUserEmail, getUserUsername } = req.body
+
+  const findExisting = await orm.select( {
+      table: 'create_user', 
+      where: {
+        email: getUserEmail.email
+      }
+  } )
+  
+  console.log( findExisting )
+
+  const data = !findExisting.length && await orm.create( {
+      table: 'create_user', 
+      data: {
+        values: {
+          id: v4(),
+          username: getUserUsername.username,
+          email: getUserEmail.email
+        }
+      }
+  } )
+
+  console.log( data )
+  !findExisting.length ? res.json( { data: data } ) : res.json( { error: 'user already exists' } )
+} )
+
+// orm.remove( {
 //   table: 'create_user',
-//   data: {
-//     values: {
-//       id: v4(),
-//       username: 'jenny',
-//       email: 'jenny@gmail.com'
-//     }
-//   }
+//   where: { email: 'hello@gmail.com' }
 // } )
 
 connect()

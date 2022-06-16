@@ -19,4 +19,9 @@ export type formDataType = {
     error: string | undefined
 }
 
+export type checkForLoading = {
+    loading: boolean
+}
+
 export type getFormDataState = { getFormData: formDataType }
+export type getSetLoadingState = { checkForDataLoading: checkForLoading }

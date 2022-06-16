@@ -61,3 +61,10 @@
     width: 100%;
     justify-content: center;
 }
+
+.wrap_register_bg {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;   
+}

@@ -1,10 +1,18 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import getUserEmail from './Auth/getEmail'
 import getUserPassword from './Auth/getPassword'
+import getUserUsername from './Auth/getUsername'
+
+import checkForDataLoading from './Auth/checkforLoading'
 
 export const store = configureStore({
   reducer: {
-    getFormData: combineReducers( { getUserEmail, getUserPassword } )
+    getFormData: combineReducers( { 
+      getUserEmail, 
+      getUserPassword, 
+      getUserUsername 
+    } ),
+    checkForDataLoading
   }
 })
 
