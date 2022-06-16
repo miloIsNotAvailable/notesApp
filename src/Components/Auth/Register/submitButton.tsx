@@ -5,7 +5,7 @@ import { formDataType, getFormDataState } from "../../../interfaces/reduxInterfa
 import { setUserEmail } from "../../../store/Auth/getEmail";
 import { setUserPassword } from "../../../store/Auth/getPassword";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { styles } from "./LoginStyles";
+import { styles } from "./RegisterStyles";
 
 const SubmitButton: FC = () => {
 

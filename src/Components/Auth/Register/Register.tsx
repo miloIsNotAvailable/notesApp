@@ -1,12 +1,12 @@
 import { FC } from "react";
 import { useQuery } from "../../../hooks/graphql/useQuery";
-import { styles } from "./LoginStyles";
+import { styles } from "./RegisterStyles";
 import { default as BgImg } from '../../../graphics/loading.svg'
 import Email from "../Forms/Email";
 import Password from "../Forms/Password";
-import BuildLogin from "./BuildLogin";
-import LoginBg from "./LoginBg";
-import { motion } from "framer-motion";
+import BuildLogin from "./BuildRegister";
+import LoginBg from "./RegisterBg";
+import { AnimatePresence, motion } from "framer-motion";
 
 const query = `
 query say( $msg: String ) {
@@ -29,12 +29,11 @@ const Login: FC = () => {
     if( error ) console.log( error )  
 
     return (
-      <motion.div className={ styles.login_bg }
-      transition={ { duration: .5, type: "spring" } }
+      <motion.div className={ styles.register_bg }
+        transition={ { duration: .5, type: "spring" } }
         initial={ { opacity: 0, transform: 'translateX(-100%)' } }
         animate={ { opacity: 1, transform: 'translateX(0%)' } }
         exit={ { opacity: 0, transform: 'translateX(100%)' } }
-        key="/"
       >
           <BuildLogin/>
           <LoginBg/>

@@ -6,6 +6,7 @@ import { connect } from './db/orm/connectdb.js'
 import { create } from './db/orm/create.js'
 import { ORM } from './db/orm/Orm.js'
 import { v4 } from 'uuid'
+import bodyParser from 'body-parser'
 
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
@@ -45,6 +46,14 @@ var app = express();
 
 app.use( cors() )
 
+// create application/json parser
+var jsonParser = bodyParser.json()
+ 
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+app.use( urlencodedParser )
+app.use( jsonParser )
+
 app.use('/graphql', graphqlHTTP({
   schema: schema,
   rootValue: root,
@@ -52,6 +61,21 @@ app.use('/graphql', graphqlHTTP({
 }));
 
 const orm = new ORM()
+
+app.use( '/find_user', async( req, res ) => {
+  console.log( req.body )
+  const { getUserEmail, getUserPassword } = req.body
+
+  const data = await orm.select( {
+      table: 'create_user', 
+      where: {
+        email: getUserEmail.email
+      }
+  } )
+
+  res.json( {data: data} )
+} )
+
 // orm.create( {
 //   table: 'create_user',
 //   data: {
@@ -60,16 +84,6 @@ const orm = new ORM()
 //       username: 'jenny',
 //       email: 'jenny@gmail.com'
 //     }
-//   }
-// } )
-
-// orm.remove( {
-//   table: 'create_user', 
-//   where: {
-//     username: 'ye'
-//   },
-//   AND: {
-//     id: '31c1'
 //   }
 // } )
 

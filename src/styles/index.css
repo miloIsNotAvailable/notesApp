@@ -25,3 +25,8 @@ code {
   --orange: #FFCCAF;
   --input-height: 3vw;
 }
+
+body {
+  background-color: var(--bg);
+  overflow-x: hidden;
+}
