@@ -23,6 +23,14 @@ const Loading: FC = () => {
                     exit={ { left: '50%', width: '50%' } }
                 >
                     <Bg/>
+                    <motion.div
+                        className={ styles.wrap_loading_word }
+                        initial={ { opacity: 0 } }
+                        animate={ { opacity: 1 } }
+                        exit={ { opacity: 0 } }
+                    >
+                        loading
+                    </motion.div>
                 </motion.div>
             }
         </AnimatePresence>

@@ -2,6 +2,7 @@ import { FC, useEffect } from "react";
 import { CombinedState } from "redux";
 import { useLazyFetch } from "../../../hooks/queries/useLazyFetch";
 import { formDataType, getFormDataState } from "../../../interfaces/reduxInterfaces/Auth/authReduxInterfaces";
+import { setLoadingData } from "../../../store/Auth/checkforLoading";
 import { setUserEmail } from "../../../store/Auth/getEmail";
 import { setUserPassword } from "../../../store/Auth/getPassword";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
@@ -14,9 +15,15 @@ const SubmitButton: FC = () => {
     )
     
     const [ { data, loading, error }, setQueryResult ] = useLazyFetch<string>()
+    const dispatch = useAppDispatch()
 
     useEffect( () => {
         if( data ) console.log( data )
+        // check if data is being fetched
+        // for the loading animation
+        dispatch( 
+            setLoadingData( { loading } ) 
+        )
 
         if( data?.data.length ) console.log( selector )
     } )

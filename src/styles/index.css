@@ -30,3 +30,42 @@ body {
   background-color: var(--bg);
   overflow-x: hidden;
 }
+
+@keyframes juggle {
+  0% {
+    transform: translate(0, 10% )
+  } 25% {
+    transform: translate(30%, -10%)
+  } 50% {
+    transform: translate( 65%, 10% );
+  } 75% {
+    transform: translate(40%, -10%)
+  } 
+  100% {
+    transform: translate( 0, 10% );
+  }
+}
+
+@keyframes movePaw {
+  0% {
+    transform: translate( 0, 0 )
+  } 50% {
+    transform: translate( 5%, -1% );
+  } 100% {
+    transform: translate( 0, 0 );
+  }
+}
+
+#Ellipse20 {
+  animation: juggle 2s linear infinite;
+}
+
+#Ellipse21 {
+  animation-delay: -0.7s !important;
+  animation: juggle 2s linear infinite;
+}
+
+#Ellipse22 {
+  animation-delay: -1.4s !important;
+  animation: juggle 2s linear infinite;
+}
