@@ -63,15 +63,15 @@ const orm = new ORM()
 //   }
 // } )
 
-orm.select( {
-  table: 'create_user', 
-  where: {
-    username: 'ye'
-  },
-  AND: {
-    id: 'a'
-  }
-} )
+// orm.remove( {
+//   table: 'create_user', 
+//   where: {
+//     username: 'ye'
+//   },
+//   AND: {
+//     id: '31c1'
+//   }
+// } )
 
 connect()
 // create()
