@@ -4,6 +4,8 @@ import { buildSchema } from 'graphql'
 import cors from 'cors'
 import { connect } from './db/orm/connectdb.js'
 import { create } from './db/orm/create.js'
+import { ORM } from './db/orm/Orm.js'
+import { v4 } from 'uuid'
 
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
@@ -49,8 +51,30 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true,
 }));
 
+const orm = new ORM()
+// orm.create( {
+//   table: 'create_user',
+//   data: {
+//     values: {
+//       id: v4(),
+//       username: 'jenny',
+//       email: 'jenny@gmail.com'
+//     }
+//   }
+// } )
+
+orm.select( {
+  table: 'create_user', 
+  where: {
+    username: 'ye'
+  },
+  AND: {
+    id: 'a'
+  }
+} )
+
 connect()
-create()
+// create()
 
 app.listen(4000);
 console.log('Running a GraphQL API server at http://localhost:4000/graphql');
