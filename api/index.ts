@@ -160,6 +160,19 @@ app.use( '/create_user', async( req, res ) => {
       }
   } )
 
+  if( !!data.length ) {
+
+    const accessToken = process.env.ACCESS_TOKEN 
+    && jwt.sign( data[0], process.env.ACCESS_TOKEN )
+    
+    accessToken && res.setHeader( "Set-Cookie",
+    serialize( "JWTtoken", accessToken , {
+        path: "/",
+        // sameSite: "lax",
+        httpOnly: true,
+    } ) )
+  }
+
   console.log( data )
   !findExisting.length ? res.json( { data: data } ) : res.json( { error: 'user already exists' } )
 } )

@@ -42,15 +42,15 @@
     width: 80%;
 } 
 
-:not(
-    .form_layout_input[type="password"]
-):valid {
+.form_layout_input:valid {
     color: var(--green)
 }
 
-:not(
-    .form_layout_input[type="password"]
-):invalid {
+.form_layout_input[type="password"]:valid {
+    color: var(--font-color)
+}
+
+.form_layout_input:invalid {
     color: var(--red)
 }
 

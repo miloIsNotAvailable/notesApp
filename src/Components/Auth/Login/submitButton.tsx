@@ -25,8 +25,6 @@ const SubmitButton: FC = () => {
         dispatch( 
             setLoadingData( { loading } ) 
         )
-
-        if( !data?.error ) console.log( selector )
     } )
 
     const navigate = useNavigate()
@@ -44,7 +42,8 @@ const SubmitButton: FC = () => {
               },          
             body: JSON.stringify( selector )
         } )
-        setTimeout( () => {
+
+        if( !data?.error ) setTimeout( () => {
             navigate( '/home' )
         }, 1000 )
     }

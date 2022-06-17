@@ -2,6 +2,8 @@ import { FC, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useFetch } from "../../hooks/queries/useFetch";
 import { useLazyFetch } from "../../hooks/queries/useLazyFetch";
+import { styles } from "./HomeStyles";
+import Navbar from "./Navbar/build/Navbar";
 
 const Home: FC = () => {
 
@@ -20,11 +22,18 @@ const Home: FC = () => {
     }, [ data, loading, error ] )
 
     return (
-        <div onClick={ () => {
-            setLogout( 'http://localhost:4000/logout' )
-            navigate( '/' ) 
-        } }>
-            hello
+        <div className={ styles.home_wrap } 
+        style={ {
+            width: '100%',
+            height: '100%',
+        } }
+        // onClick={ () => {
+        //     setLogout( 'http://localhost:4000/logout' )
+        //     navigate( '/' ) 
+        // } }
+        >
+            {/* hello */}
+            <Navbar/>
         </div>
     )
 }

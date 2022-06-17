@@ -17,6 +17,7 @@ code {
 :root {
   --font-color: #FFFFFF;
   --bg: #4B4949;
+  --grey: #605C5C;
   --red: #FFAFAF;
   --yellow: #EAC43D;
   --green: #CBFFD0;
@@ -24,6 +25,7 @@ code {
   --purple: #C7D5FA;
   --orange: #FFCCAF;
   --input-height: 3vw;
+  --icon-size: 3vw;
 }
 
 body {

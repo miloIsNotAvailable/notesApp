@@ -1,0 +1,7 @@
+.home_wrap {
+    display: grid;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    grid-template-rows: 3vw auto;
+}

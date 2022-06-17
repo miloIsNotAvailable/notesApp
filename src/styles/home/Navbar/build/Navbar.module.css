@@ -1,0 +1,8 @@
+.navbar_wrap {
+    --display-grid-icon: calc( var(--icon-size) + 2rem );
+    --display-grid: var(--display-grid-icon) auto var(--display-grid-icon) var(--display-grid-icon) var(--display-grid-icon);
+    display: grid;
+    grid-template-columns: var(--display-grid);
+    height: 3vw;
+    width: 100%;
+}

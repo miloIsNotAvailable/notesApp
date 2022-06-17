@@ -1,4 +1,5 @@
 import { FC, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { CombinedState } from "redux";
 import { useLazyFetch } from "../../../hooks/queries/useLazyFetch";
 import { formDataType, getFormDataState } from "../../../interfaces/reduxInterfaces/Auth/authReduxInterfaces";
@@ -21,6 +22,7 @@ const SubmitButton: FC = () => {
     const dispatch = useAppDispatch()
 
     const [ { data, loading, error }, setQueryResult ] = useLazyFetch<string>()
+    const navigate = useNavigate()
 
     useEffect( () => {
         if( data ) console.log( data )
@@ -29,8 +31,6 @@ const SubmitButton: FC = () => {
         dispatch( 
             setLoadingData( { loading } ) 
         )
-
-        if( !data?.error ) console.log( selector )
     } )
 
     const handleSubmit = () => {
@@ -47,6 +47,10 @@ const SubmitButton: FC = () => {
               },          
             body: JSON.stringify( selector )
         } )
+
+        if( !data?.error ) setTimeout( () => {
+            navigate( '/home' )
+        }, 1000 )
     }
 
     return (

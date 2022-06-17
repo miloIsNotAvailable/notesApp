@@ -1,0 +1,6 @@
+.menu_icon {
+    display: grid;
+    place-self: center;
+    width: var(--icon-size);
+    height: auto;
+}
