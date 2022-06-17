@@ -90,7 +90,7 @@ export const ORM = class {
         let res: any
 
         try {
-            const queryFrom = `INSERT INTO ${ table }(${ keys }) VALUES (${ vals })`
+            const queryFrom = `INSERT INTO ${ table }(${ keys }) VALUES (${ vals }) RETURNING ${ keys }`
             const r = await client.query( queryFrom )
             res = r.rows
         }catch( e ) {

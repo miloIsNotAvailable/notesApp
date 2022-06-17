@@ -61,3 +61,41 @@
     width: 100%;
     justify-content: center;
 }
+
+@media (max-width: 600px) {
+    
+    .login_bg {
+        position: absolute;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 50% 50%;
+        width: 100%;
+        height: 100%;
+        background-color: var(--bg);
+        font-family: 'Poppins';
+        color: var(--font-color)
+    }
+    
+    .login_redirect {
+        display: grid;
+        width: auto;
+        place-items: center;
+        color: var(--green);
+        text-decoration: none;
+        font-size: 1rem;
+        margin: 3rem 1rem;
+    }
+    
+    .submit_button {
+        cursor: pointer;
+        display: grid;
+        width: auto;
+        place-items: center;
+        color: var(--red);
+        font-size: 1rem;
+        font-weight: bold;
+        margin: 3rem 0;
+        transition: all 100ms ease;
+        margin: 0 1rem;
+    }
+}

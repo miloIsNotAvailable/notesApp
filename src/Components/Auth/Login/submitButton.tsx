@@ -25,7 +25,7 @@ const SubmitButton: FC = () => {
             setLoadingData( { loading } ) 
         )
 
-        if( data?.data.length ) console.log( selector )
+        if( !data?.error ) console.log( selector )
     } )
 
     const handleSubmit = () => {
@@ -34,10 +34,10 @@ const SubmitButton: FC = () => {
             selector.getUserPassword.error
         ) return
 
-        setQueryResult( 'http://localhost:4000/find_user', {
+        setQueryResult( 'http://localhost:4000/login', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
               },          
             body: JSON.stringify( selector )
         } )

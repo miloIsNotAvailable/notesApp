@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { NextFunction } from 'express'
 import { graphqlHTTP } from 'express-graphql'
 import { buildSchema } from 'graphql'
 import cors from 'cors'
@@ -7,6 +7,12 @@ import { create } from './db/orm/create.js'
 import { ORM } from './db/orm/Orm.js'
 import { v4 } from 'uuid'
 import bodyParser from 'body-parser'
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+import { serialize } from 'cookie'
+import cookiePaser from 'cookie-parser'
+
+dotenv.config()
 
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
@@ -44,7 +50,12 @@ var root = {
 
 var app = express();
 
-app.use( cors() )
+app.use( cors( {
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  origin: ['http://localhost:3000', 'http://localhost:4000']
+} ) )
+app.use( cookiePaser() )
 
 // create application/json parser
 var jsonParser = bodyParser.json()
@@ -62,18 +73,54 @@ app.use('/graphql', graphqlHTTP({
 
 const orm = new ORM()
 
-app.use( '/find_user', async( req, res ) => {
+app.use( '/home', ( req, res ) => {
+  const authHeaders = req.cookies?.JWTtoken
+  const token =  authHeaders || null
+
+  let decoded: any;
+  if( token ) {
+    if( !process.env.ACCESS_TOKEN  )return
+
+    jwt.verify( 
+      token, 
+      process.env.ACCESS_TOKEN, ( err: any, user: any ) => {
+        if( err ) res.sendStatus( 403 )
+        decoded = user
+      }  )
+  }
+
+  res.json( { decoded } )
+} )
+
+app.use( '/login', async( req, res ) => {
   console.log( req.body )
   const { getUserEmail, getUserPassword } = req.body
 
   const data = await orm.select( {
       table: 'create_user', 
       where: {
-        email: getUserEmail.email
+        email: getUserEmail?.email
       }
   } )
 
-  res.json( { data: data } )
+  let token: any;
+
+  if( !!data.length ) {
+
+      const accessToken = process.env.ACCESS_TOKEN 
+      && jwt.sign( data[0], process.env.ACCESS_TOKEN )
+
+      token = accessToken
+      
+      accessToken && res.setHeader( "Set-Cookie",
+      serialize( "JWTtoken", accessToken , {
+          path: "/",
+          // sameSite: "lax",
+          httpOnly: true,
+      } ) )
+  }
+
+  data.length ? res.json( { data } ) : res.json( { error: 'user not found' } )
 } )
 
 app.use( '/create_user', async( req, res ) => {

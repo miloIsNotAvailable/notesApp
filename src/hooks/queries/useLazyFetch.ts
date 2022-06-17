@@ -23,7 +23,12 @@ export const useLazyFetch: <T=any>() => T | any = <T>() => {
         
         setLoading( true )
 
-        const data = await fetch( link, vars )
+        const data = await fetch( link, {
+            method: vars?.method, 
+            body: vars?.body,
+            headers: vars?.headers,
+            credentials: "include"
+        } )
         const res = await data.json()
         
         if( !data.ok ) ( async() => {

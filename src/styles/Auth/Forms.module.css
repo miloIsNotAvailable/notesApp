@@ -101,3 +101,46 @@
     height: var(--img-size);
     align-self: center;
 }
+
+@media ( max-width: 600px ) {
+    .form_layout_wrap {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: calc(var(--input-height));
+        margin: 3rem 0 1rem 0;
+    }
+    
+    .form_layout_input {
+        position: relative;
+        display: grid;
+        align-self: center;
+        justify-self: center;
+        width: 80%;
+        height: var(--input-height);
+        background-color: var(--bg);
+        outline: none;
+        border: none;
+        text-align: center;
+        font-size: 1rem;
+        font-family: 'Poppins';
+        color: var( --font-color );
+        font-weight: normal;
+    }
+
+    .form_layout_wrap::after {
+        content: "";
+        position: absolute;
+        display: block;
+        height: 2px;
+        width: 40%;
+        background-color: white;
+        top: 100%;
+        left: 50%;
+        margin: 1rem 0;
+        transform: translate(-50%, 0);
+        transition: all 300ms ease-out;
+    }
+    
+}
