@@ -89,7 +89,19 @@ app.use( '/home', ( req, res ) => {
       }  )
   }
 
-  res.json( { decoded } )
+  !authHeaders ? res.json( { data: null } ) : res.json( { decoded } )
+} )
+
+app.use( '/logout', ( req, res ) => {
+  
+  res.setHeader( 'Set-Cookie', 
+    serialize( 'JWTtoken', '', {
+      path: "/",
+      // sameSite: "lax",
+      httpOnly: true,
+    } ) 
+  )
+  res.json( {} )
 } )
 
 app.use( '/login', async( req, res ) => {
@@ -103,6 +115,7 @@ app.use( '/login', async( req, res ) => {
       }
   } )
 
+  console.log( data )
   let token: any;
 
   if( !!data.length ) {
