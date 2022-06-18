@@ -54,7 +54,7 @@ var app = express();
 app.use( cors( {
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
-  origin: ['http://localhost:3000', 'http://localhost:4000', 'https://app-of-the-heck.herokuapp.com/']
+  origin: ['http://localhost:3000', 'http://localhost:4000', 'https://app-of-the-heck.herokuapp.com/', 'https://notes-app-three-beta.vercel.app']
 } ) )
 app.use( cookiePaser() )
 
