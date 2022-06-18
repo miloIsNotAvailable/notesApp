@@ -19,7 +19,7 @@ const Home: FC = () => {
     useEffect( () => {
 
         console.log( data, loading, error )
-        if( data && !data?.decoded?.id && !loading ) navigate( '/' ) 
+        // if( data && !data?.decoded?.id && !loading ) navigate( '/' ) 
     }, [ data, loading, error ] )
 
     return (
