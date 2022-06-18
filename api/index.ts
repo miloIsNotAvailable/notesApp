@@ -98,7 +98,7 @@ app.use( '/get_home', ( req, res ) => {
       }  )
   }
 
-  !authHeaders ? res.json( { data: null } ) : res.json( { decoded } )
+  !authHeaders ? res.json( { data: null, cookies: req.cookies } ) : res.json( { decoded } )
 } )
 
 app.use( '/logout', ( req, res ) => {
@@ -108,7 +108,6 @@ app.use( '/logout', ( req, res ) => {
       path: "/",
       sameSite: "none",
       httpOnly: true,
-      domain: process.env.NODE_ENV === 'development' ? '.localhost' : '.vercel.com',
     } ) 
   )
   res.json( {} )
@@ -139,7 +138,6 @@ app.use( '/login', async( req, res ) => {
       serialize( "JWTtoken", accessToken , {
           path: "/",
           sameSite: "none",
-          domain: process.env.NODE_ENV === 'development' ? '.localhost' : '.vercel.com',
           httpOnly: true,
       } ) )
   }
