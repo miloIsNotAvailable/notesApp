@@ -15,10 +15,10 @@ const Home: FC = () => {
 
     const navigate = useNavigate()
     const [ logout, setLogout ] = useLazyFetch() 
-    if( !loading ) console.log( data, loading, error )
-
+    
     useEffect( () => {
-
+        
+        console.log( data, loading, error )
         // if( data && !data?.decoded?.id && !loading ) navigate( '/' ) 
     }, [ data, loading, error ] )
 
