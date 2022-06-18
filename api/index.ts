@@ -59,19 +59,6 @@ app.use( cors( {
 } ) )
 app.use( cookiePaser() )
 
-console.log(  'env -> ' + __dirname  )
-const publicPath = __dirname
-
-app.use( express.static( publicPath ) )
-
-app.get( "*", ( req, res ) => {
-  res.sendFile( path.resolve( publicPath ) )
-} )
-
-app.use( "/*", ( req, res ) => {
-  res.sendFile( path.join( publicPath ) )
-} )
-
 // create application/json parser
 var jsonParser = bodyParser.json()
  
