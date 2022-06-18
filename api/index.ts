@@ -58,7 +58,8 @@ app.use( cors( {
 } ) )
 app.use( cookiePaser() )
 
-const publicPath = path.join( __dirname, '..', 'dist' )
+const publicPath = path.join( __dirname, '..' )
+// console.log( publicPath )
 app.use(express.static(publicPath));
 
 app.get('*', (req, res) => {
