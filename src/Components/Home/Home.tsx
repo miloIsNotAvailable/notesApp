@@ -10,7 +10,7 @@ const Home: FC = () => {
 
     const node_env: any = process.env.NODE_ENV
     const [ { data, error, loading } ] = useFetch( 
-        `${ check_env }/home`, 
+        `${ check_env }/get_home`, 
         { body: {} } 
     )
 

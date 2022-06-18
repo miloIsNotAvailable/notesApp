@@ -74,7 +74,7 @@ app.use('/graphql', graphqlHTTP({
 
 const orm = new ORM()
 
-app.use( '/home', ( req, res ) => {
+app.use( '/get_home', ( req, res ) => {
   const authHeaders = req.cookies?.JWTtoken
   const token =  authHeaders || null
 
