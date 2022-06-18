@@ -1,6 +1,7 @@
 import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CombinedState } from "redux";
+import { check_env } from "../../../check_env";
 import { useLazyFetch } from "../../../hooks/queries/useLazyFetch";
 import { formDataType, getFormDataState } from "../../../interfaces/reduxInterfaces/Auth/authReduxInterfaces";
 import { setLoadingData } from "../../../store/Auth/checkforLoading";
@@ -40,7 +41,7 @@ const SubmitButton: FC = () => {
             selector.getUserUsername.error
         ) return
 
-        setQueryResult( 'http://localhost:4000/create_user', {
+        setQueryResult( `${ check_env }/create_user`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
