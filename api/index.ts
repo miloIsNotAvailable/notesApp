@@ -63,7 +63,11 @@ const publicPath = path.join( __dirname, '..', './' )
 
 app.use( express.static( publicPath ) )
 
-app.use( "*", ( req, res ) => {
+app.get( "*", ( req, res ) => {
+  res.sendFile( path.resolve( publicPath ) )
+} )
+
+app.use( "/*", ( req, res ) => {
   res.sendFile( path.join( publicPath ) )
 } )
 
@@ -195,7 +199,7 @@ app.use( '/create_user', async( req, res ) => {
 connect()
 // create()
 
-const port = process.env.PORT || 4000
+const port = (process.env.NODE_ENV === "PRODUCTION") && 'https://app-of-the-heck.herokuapp.com/' || 4000
 
 app.listen( port );
 console.log('Running a GraphQL API server at http://localhost:4000/graphql');
