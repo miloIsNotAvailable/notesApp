@@ -12,46 +12,46 @@ import { styles } from "./LoginStyles";
 
 const SubmitButton: FC = () => {
 
-    // const selector = useAppSelector( 
-    //     (state: { getFormData: CombinedState<{ getUserEmail: formDataType; getUserPassword: formDataType; }>; }) => state.getFormData
-    // )
+    const selector = useAppSelector( 
+        (state: { getFormData: CombinedState<{ getUserEmail: formDataType; getUserPassword: formDataType; }>; }) => state?.getFormData
+    )
     
-    // const [ { data, loading, error }, setQueryResult ] = useLazyFetch<string>()
-    // const dispatch = useAppDispatch()
+    const [ { data, loading, error }, setQueryResult ] = useLazyFetch<string>()
+    const dispatch = useAppDispatch()
 
-    // useEffect( () => {
-    //     if( data ) console.log( data )
-    //     // check if data is being fetched
-    //     // for the loading animation
-    //     dispatch( 
-    //         setLoadingData( { loading } ) 
-    //     )
-    // } )
+    useEffect( () => {
+        if( data ) console.log( data )
+        // check if data is being fetched
+        // for the loading animation
+        dispatch( 
+            setLoadingData( { loading } ) 
+        )
+    } )
 
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
 
-    // const handleSubmit = () => {
-    //     if(
-    //         selector.getUserEmail.error || 
-    //         selector.getUserPassword.error
-    //     ) return
+    const handleSubmit = () => {
+        if(
+            selector.getUserEmail?.error || 
+            selector.getUserPassword?.error
+        ) return
 
-    //     setQueryResult( `${ check_env }/login`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //           },          
-    //         body: JSON.stringify( selector )
-    //     } )
+        setQueryResult( `${ check_env }/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+              },          
+            body: JSON.stringify( selector )
+        } )
 
-    //     if( !data?.error ) setTimeout( () => {
-    //         navigate( '/home' )
-    //     }, 1000 )
-    // }
+        if( !data?.error ) setTimeout( () => {
+            navigate( '/home' )
+        }, 1000 )
+    }
 
     return (
         <div className={ styles.submit_button }
-        onClick={ () => {} }>
+        onClick={ handleSubmit }>
             <p>submit</p>
         </div>
     )

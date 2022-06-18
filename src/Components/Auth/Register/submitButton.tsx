@@ -36,9 +36,9 @@ const SubmitButton: FC = () => {
 
     const handleSubmit = () => {
         if(
-            selector.getUserEmail.error || 
-            selector.getUserPassword.error ||
-            selector.getUserUsername.error
+            selector.getUserEmail?.error || 
+            selector.getUserPassword?.error ||
+            selector.getUserUsername?.error
         ) return
 
         setQueryResult( `${ check_env }/create_user`, {
