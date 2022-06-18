@@ -57,6 +57,7 @@ app.use( cors( {
   origin: ['http://localhost:3000', 'http://localhost:4000', 'https://app-of-the-heck.herokuapp.com/', 'https://notes-app-three-beta.vercel.app']
 } ) )
 app.use( cookiePaser() )
+app.set("trust proxy", 1);
 
 const publicPath = path.join( __dirname, '..' )
 // console.log( publicPath )
@@ -144,7 +145,7 @@ app.use( '/login', async( req, res ) => {
       } ) )
   }
 
-  data.length ? res.json( { data } ) : res.json( { error: 'user not found' } )
+  data.length ? res.json( { data, cookie: req.cookies?.JWTtoken } ) : res.json( { error: 'user not found' } )
 } )
 
 app.use( '/create_user', async( req, res ) => {
