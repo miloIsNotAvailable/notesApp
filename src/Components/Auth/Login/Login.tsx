@@ -20,15 +20,15 @@ query say( $msg: String ) {
 
 const Login: FC = () => {
 
-    // const { data, error, loading } = useQuery( query, {
-    //     variables: {
-    //       msg: 'hello'
-    //     }
-    // } )
+    const { data, error, loading } = useQuery( query, {
+        variables: {
+          msg: 'hello'
+        }
+    } )
     
-    // if( data ) console.log( data )  
-    // if( loading ) console.log( loading )  
-    // if( error ) console.log( error )  
+    if( data ) console.log( data )  
+    if( loading ) console.log( loading )  
+    if( error ) console.log( error )  
 
     return (
       <motion.div className={ styles.login_bg }
