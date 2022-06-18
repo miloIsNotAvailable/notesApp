@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { check_env } from "../../check_env";
 import { useQueryType } from "../../interfaces/hooksInterfaces/graphqlTypes";
 
 export const useQuery = ( 
@@ -22,7 +23,7 @@ export const useQuery = (
             error: undefined 
         } )
 
-        fetch('http://localhost:4000/graphql', {
+        fetch(`${ check_env }/graphql`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
