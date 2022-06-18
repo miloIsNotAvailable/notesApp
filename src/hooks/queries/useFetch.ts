@@ -58,16 +58,21 @@ export const useFetch: (
                 }, 
                 credentials: 'include',
                 body: JSON.stringify( body )
-            } ).then( res => res.json() )
+            } ).then( res => {
 
-            if( !data.ok ) {
-                const error = await data.text()
-                setResult( {
-                    data: undefined, 
-                    loading: false,
-                    error
-                } ) 
-            }
+                ( async() => {
+                    if( !res.ok ) {
+                        const error = await data.text()
+                        setResult( {
+                            data: undefined, 
+                            loading: false,
+                            error
+                        } ) 
+                    }
+                } )()
+                console.log( res.json() )
+                return res.json()
+            } )
 
             const res = await data
             setResult( {
