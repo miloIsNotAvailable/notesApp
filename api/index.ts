@@ -86,6 +86,8 @@ app.use( '/get_home', ( req, res ) => {
   const authHeaders = req.cookies?.JWTtoken
   const token =  authHeaders || null
 
+  console.log( req.cookies )
+
   let decoded: any;
   if( token ) {
     if( !process.env.ACCESS_TOKEN  )return
