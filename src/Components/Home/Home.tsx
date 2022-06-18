@@ -28,10 +28,10 @@ const Home: FC = () => {
             width: '100%',
             height: '100%',
         } }
-        // onClick={ () => {
-        //     setLogout( 'http://localhost:4000/logout' )
-        //     navigate( '/' ) 
-        // } }
+        onClick={ () => {
+            setLogout( 'http://localhost:4000/logout' )
+            navigate( '/' ) 
+        } }
         >
             {/* hello */}
             <Navbar/>
