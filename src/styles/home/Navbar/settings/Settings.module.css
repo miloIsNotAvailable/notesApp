@@ -1,0 +1,9 @@
+.settings_wrap {
+    display: grid;
+    place-items: center;
+}
+
+.settings_icon {
+    width: var( --icon-size );
+    height: auto;
+}

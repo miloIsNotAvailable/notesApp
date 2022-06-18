@@ -1,0 +1,31 @@
+.account_wrap {
+    position: relative;
+    display: grid;
+    place-items: center;
+}
+
+.account_icon {
+    width: calc(var(--icon-size) - .5rem);
+    height: calc(var(--icon-size) - .5rem);
+    border-radius: 50%;
+    background-color: var(--yellow);
+}
+
+.account_menu_bar {
+    position: absolute;
+    top: calc(100% + 1rem);
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: calc( ( var( --icon-size ) + 2rem ) * 3 );
+    height: calc( var( --icon-size ) * 2 );
+    max-height: 0;
+    overflow: hidden;
+    background-color: var(--grey);
+    border-radius: .5rem;
+    transition: all 100ms ease;
+}
+
+.account_wrap:focus-within .account_menu_bar, .account_wrap:active .account_menu_bar {
+    max-height: calc( var( --icon-size ) * 2 );
+}
