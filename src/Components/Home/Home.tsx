@@ -8,7 +8,6 @@ import Navbar from "./Navbar/build/Navbar";
 
 const Home: FC = () => {
 
-    const node_env: any = process.env.NODE_ENV
     const [ { data, error, loading } ] = useFetch( 
         `${ check_env }/get_home`, 
         { body: {} } 
@@ -18,7 +17,7 @@ const Home: FC = () => {
     const [ logout, setLogout ] = useLazyFetch() 
     
     useEffect( () => {
-        console.log( node_env )
+        console.log( check_env )
         console.log( data, loading, error )
         // if( data && !data?.decoded?.id && !loading ) navigate( '/' ) 
     }, [ data, loading, error ] )

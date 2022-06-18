@@ -100,6 +100,7 @@ app.use( '/logout', ( req, res ) => {
       path: "/",
       sameSite: "none",
       httpOnly: true,
+      domain: process.env.NODE_ENV === 'development' ? '.localhost' : '.vercel.com',
     } ) 
   )
   res.json( {} )
@@ -129,7 +130,8 @@ app.use( '/login', async( req, res ) => {
       accessToken && res.setHeader( "Set-Cookie",
       serialize( "JWTtoken", accessToken , {
           path: "/",
-          // sameSite: "lax",
+          sameSite: "none",
+          domain: process.env.NODE_ENV === 'development' ? '.localhost' : '.vercel.com',
           httpOnly: true,
       } ) )
   }
