@@ -59,17 +59,22 @@ app.use( cors( {
 } ) )
 app.use( cookiePaser() )
 
-const publicPath = path.join( __dirname, '..', './' )
+console.log(  'env -> ' + process.env.NODE_ENV  )
+if( process.env.NODE_ENV === "production" ) {
 
-app.use( express.static( publicPath ) )
+  const publicPath = path.join( __dirname, '..', 'build' )
+  
+  app.use( express.static( publicPath ) )
+  
+  app.get( "*", ( req, res ) => {
+    res.sendFile( path.resolve( publicPath ) )
+  } )
+  
+  app.use( "/*", ( req, res ) => {
+    res.sendFile( path.join( publicPath ) )
+  } )
+}
 
-app.get( "*", ( req, res ) => {
-  res.sendFile( path.resolve( publicPath ) )
-} )
-
-app.use( "/*", ( req, res ) => {
-  res.sendFile( path.join( publicPath ) )
-} )
 
 // create application/json parser
 var jsonParser = bodyParser.json()
@@ -199,7 +204,7 @@ app.use( '/create_user', async( req, res ) => {
 connect()
 // create()
 
-const port = (process.env.NODE_ENV === "PRODUCTION") && 'https://app-of-the-heck.herokuapp.com/' || 4000
+const port = (process.env.NODE_ENV === "production") && 'https://app-of-the-heck.herokuapp.com/' || 4000
 
 app.listen( port );
 console.log('Running a GraphQL API server at http://localhost:4000/graphql');
