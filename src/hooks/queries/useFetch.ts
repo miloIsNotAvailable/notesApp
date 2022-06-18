@@ -55,6 +55,7 @@ export const useFetch: (
                 method: method || "POST",
                 headers: headers || {
                     'Content-Type': 'application/json',
+                    "Access-Control-Allow-Credentials": "true",
                 }, 
                 credentials: 'include',
                 body: JSON.stringify( body )

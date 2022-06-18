@@ -98,7 +98,7 @@ app.use( '/logout', ( req, res ) => {
   res.setHeader( 'Set-Cookie', 
     serialize( 'JWTtoken', '', {
       path: "/",
-      // sameSite: "lax",
+      sameSite: "none",
       httpOnly: true,
     } ) 
   )
