@@ -90,7 +90,7 @@ app.use( '/get_home', ( req, res ) => {
       }  )
   }
 
-  !authHeaders ? res.json( { data: null } ) : res.json( { decoded } )
+  !authHeaders ? res.json( { data: null, cookies: req.cookies } ) : res.json( { decoded } )
 } )
 
 app.use( '/logout', ( req, res ) => {
