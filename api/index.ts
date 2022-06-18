@@ -109,7 +109,7 @@ app.use( '/logout', ( req, res ) => {
     serialize( 'JWTtoken', '', {
       path: "/",
       sameSite: "none",
-      httpOnly: true,
+      httpOnly: false,
     } ) 
   )
   res.json( {} )
@@ -140,7 +140,7 @@ app.use( '/login', async( req, res ) => {
       serialize( "JWTtoken", accessToken , {
           path: "/",
           sameSite: "none",
-          httpOnly: true,
+          httpOnly: false,
       } ) )
   }
 
@@ -180,7 +180,7 @@ app.use( '/create_user', async( req, res ) => {
     serialize( "JWTtoken", accessToken , {
         path: "/",
         // sameSite: "lax",
-        httpOnly: true,
+        httpOnly: false,
     } ) )
   }
 
