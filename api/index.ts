@@ -145,7 +145,7 @@ app.use( '/login', async( req, res ) => {
       } ) )
   }
 
-  data.length ? res.json( { data, cookie: req.cookies?.JWTtoken } ) : res.json( { error: 'user not found' } )
+  data.length ? res.json( { data, cookie: req.cookies, done: 'done' } ) : res.json( { error: 'user not found' } )
 } )
 
 app.use( '/create_user', async( req, res ) => {
