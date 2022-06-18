@@ -58,6 +58,13 @@ app.use( cors( {
 } ) )
 app.use( cookiePaser() )
 
+const publicPath = path.join( __dirname, '..', 'dist' )
+app.use(express.static(publicPath));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(publicPath, 'index.html'));
+});
+
 // create application/json parser
 var jsonParser = bodyParser.json()
  
@@ -90,7 +97,7 @@ app.use( '/get_home', ( req, res ) => {
       }  )
   }
 
-  !authHeaders ? res.json( { data: null, cookies: req.cookies } ) : res.json( { decoded } )
+  !authHeaders ? res.json( { data: null } ) : res.json( { decoded } )
 } )
 
 app.use( '/logout', ( req, res ) => {
