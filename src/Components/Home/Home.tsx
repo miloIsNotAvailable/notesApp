@@ -9,7 +9,7 @@ import Navbar from "./Navbar/build/Navbar";
 const Home: FC = () => {
 
     const [ { data, error, loading } ] = useFetch( 
-        `/get_home`, 
+        `${ check_env }/get_home`, 
         { body: {} } 
     )
 
