@@ -58,7 +58,7 @@ export const useFetch: (
                 }, 
                 credentials: 'include',
                 body: JSON.stringify( body )
-            } )
+            } ).then( res => res.json() )
 
             if( !data.ok ) {
                 const error = await data.text()
@@ -69,7 +69,7 @@ export const useFetch: (
                 } ) 
             }
 
-            const res = await data.json()
+            const res = await data
             setResult( {
                 data: res, 
                 loading: false,
