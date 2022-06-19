@@ -12,6 +12,8 @@ import dotenv from 'dotenv'
 import { serialize } from 'cookie'
 import cookiePaser from 'cookie-parser'
 import path from 'path'
+import { createElement } from 'react'
+import ReactDOMServer from 'react-dom/server'
 
 dotenv.config()
 
@@ -57,13 +59,12 @@ app.use( cors( {
   origin: ['http://localhost:3000', 'http://localhost:4000', 'https://app-of-the-heck.herokuapp.com/', 'https://notes-app-three-beta.vercel.app']
 } ) )
 app.use( cookiePaser() )
-app.set("trust proxy", 1);
 
 const publicPath = path.join( __dirname, '..' )
-// console.log( publicPath )
+console.log( publicPath )
 app.use(express.static(publicPath));
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(publicPath, 'roothtml.html'));
 });
 
@@ -87,8 +88,6 @@ app.use( '/get_home', ( req, res ) => {
   const authHeaders = req.cookies?.JWTtoken
   const token =  authHeaders || null
 
-  console.log( req.cookies )
-
   let decoded: any;
   if( token ) {
     if( !process.env.ACCESS_TOKEN  )return
@@ -101,7 +100,7 @@ app.use( '/get_home', ( req, res ) => {
       }  )
   }
 
-  !authHeaders ? res.json( { data: null, cookies: req.cookies } ) : res.json( { decoded } )
+  !authHeaders ? res.json( { data: null } ) : res.json( { decoded } )
 } )
 
 app.use( '/logout', ( req, res ) => {
@@ -110,7 +109,7 @@ app.use( '/logout', ( req, res ) => {
     serialize( 'JWTtoken', '', {
       path: "/",
       sameSite: "none",
-      httpOnly: false,
+      httpOnly: true,
     } ) 
   )
   res.json( {} )
@@ -141,11 +140,11 @@ app.use( '/login', async( req, res ) => {
       serialize( "JWTtoken", accessToken , {
           path: "/",
           sameSite: "none",
-          httpOnly: false,
+          httpOnly: true,
       } ) )
   }
 
-  data.length ? res.json( { data, cookie: req.cookies, done: 'done' } ) : res.json( { error: 'user not found' } )
+  data.length ? res.json( { data } ) : res.json( { error: 'user not found' } )
 } )
 
 app.use( '/create_user', async( req, res ) => {
@@ -181,7 +180,7 @@ app.use( '/create_user', async( req, res ) => {
     serialize( "JWTtoken", accessToken , {
         path: "/",
         // sameSite: "lax",
-        httpOnly: false,
+        httpOnly: true,
     } ) )
   }
 
@@ -201,3 +200,5 @@ const port = process.env.PORT || 4000
 
 app.listen( port );
 console.log('Running a GraphQL API server at http://localhost:4000/graphql');
+
+export default app
