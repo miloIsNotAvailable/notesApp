@@ -8,18 +8,19 @@ import Navbar from "./Navbar/build/Navbar";
 
 const Home: FC = () => {
 
+    const d = localStorage.getItem( 'accessToken' )
+
     const [ { data, error, loading } ] = useFetch( 
         `${ check_env }/get_home`, 
-        { body: {} } 
+        { body: { accToken: d } } 
     )
-
+    
     const navigate = useNavigate()
     const [ logout, setLogout ] = useLazyFetch() 
     
-    useEffect( () => {
-        console.log( check_env )
+    useEffect( () => {        
         console.log( data, loading, error )
-        // if( data && !data?.decoded?.id && !loading ) navigate( '/' ) 
+        if( data && !data?.decoded?.id && !loading ) navigate( '/' ) 
     }, [ data, loading, error ] )
 
     return (
@@ -29,8 +30,8 @@ const Home: FC = () => {
             height: '100%',
         } }
         onClick={ () => {
-            setLogout( 'http://localhost:4000/logout' )
-            navigate( '/' ) 
+            // localStorage.setItem( 'accessToken', "" )
+            // navigate( '/' ) 
         } }
         >
             {/* hello */}

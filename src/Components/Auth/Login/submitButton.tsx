@@ -20,7 +20,10 @@ const SubmitButton: FC = () => {
     const dispatch = useAppDispatch()
 
     useEffect( () => {
-        if( data ) console.log( data )
+        if( data ) {
+            console.log( data )
+            localStorage.setItem( 'accessToken', data?.accessToken )
+        }
         // check if data is being fetched
         // for the loading animation
         dispatch( 

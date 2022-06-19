@@ -1,6 +1,6 @@
 import { FC } from "react";
 import AccountIcon from "./AccountIcon";
-import AccountMenuBar from "./AccountMenuBar";
+import AccountMenuBar from "../menu/Layouts/AccountMenuBar";
 import { styles } from "./AccountStyles";
 
 const Account: FC = () => {

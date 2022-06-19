@@ -1,0 +1,1 @@
+export { default as styles } from '../../../../../styles/home/Navbar/account/Account.module.css'

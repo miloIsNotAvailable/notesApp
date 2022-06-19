@@ -83,22 +83,23 @@ app.use('/graphql', graphqlHTTP({
 const orm = new ORM()
 
 app.use( '/get_home', ( req, res ) => {
+  const { accToken } = req.body
   const authHeaders = req.cookies?.JWTtoken
   const token =  authHeaders || null
 
   let decoded: any;
-  if( token ) {
+  if( accToken ) {
     if( !process.env.ACCESS_TOKEN  )return
 
-    jwt.verify( 
-      token, 
+    accToken && jwt.verify( 
+      accToken, 
       process.env.ACCESS_TOKEN, ( err: any, user: any ) => {
         if( err ) res.sendStatus( 403 )
         decoded = user
       }  )
   }
 
-  !authHeaders ? res.json( { data: null } ) : res.json( { decoded } )
+  !accToken ? res.json( { data: null } ) : res.json( { decoded } )
 } )
 
 app.use( '/logout', ( req, res ) => {
