@@ -23,39 +23,56 @@ const AccountMenuBar: FC = () => {
         dispatch( setAccountOpen( { open: false } ) )
     }
 
+    const arr = [ 
+        { type: "back", onClick: handleOpen }, 
+        { type: email }, 
+        { type: username } 
+    ]
+
     if( selector ) return (
         <AnimatePresence>
             {
                 selector && 
-                <motion.div className={ styles.account_menu_bar }
-                    initial={ { maxHeight: 0 } }
-                    animate={ { maxHeight: "calc( ( var( --icon-size ) + 1rem ) * 3 )" } }
-                    exit={ { maxHeight: "auto" } }
-                >
-                    <MenuOptionsLayout>
-                        <div/>
-                        <div onClick={ handleOpen }>{ "back" }</div>
-                    </MenuOptionsLayout>
-                    <MenuOptionsLayout>
-                        <div/>
-                        <div>{ email }</div>
-                    </MenuOptionsLayout>
-                    <MenuOptionsLayout>
-                        <div/>
-                        <div>{ username }</div>
-                    </MenuOptionsLayout>
+                <motion.div className={ styles.account_menu_bar }>
+                    {
+                        arr.map( ( { type, onClick } ) => (
+                            <MenuOptionsLayout>
+                                <div/>
+                                <motion.div onClick={ onClick }
+                                    initial={ { transform: 'translate(100%, 0)' } }
+                                    animate={ { transform: 'translate(0%, 0)' } }
+                                    exit={ { transform: 'translate(-100%, 0)' } }
+                                >
+                                    { type }
+                                </motion.div>
+                            </MenuOptionsLayout>
+                        ) )
+                    }
+
                 </motion.div>
             }
         </AnimatePresence>
     ) 
 
     return( 
-        <AnimatePresence>
+        <AnimatePresence exitBeforeEnter>
             {
                 !selector && 
                 <motion.div className={ styles.account_menu_bar }>
-                    <Logout />
-                    <UserInfo />
+                    <motion.div 
+                        initial={ { transform: 'translate(-100%, 0)' } }
+                        animate={ { transform: 'translate(0%, 0)' } }
+                        exit={ { transform: 'translate(100%, 0)' } }
+                    >
+                        <Logout />
+                    </motion.div>
+                    <motion.div
+                        initial={ { transform: 'translate(-100%, 0)' } }
+                        animate={ { transform: 'translate(0%, 0)' } }
+                        exit={ { transform: 'translate(100%, 0)' } }
+                    >
+                        <UserInfo />
+                    </motion.div>
                 </motion.div>
             }
         </AnimatePresence>

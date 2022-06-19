@@ -1,0 +1,1 @@
+export { default as styles } from '../../../../../styles/home/Mainscreen/CreateNewProject/image/NoteImage.module.css'

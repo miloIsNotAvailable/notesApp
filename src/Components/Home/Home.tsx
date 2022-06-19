@@ -5,6 +5,7 @@ import { CreateUserContext, useData } from "../../contexts/HomeContext";
 import { useFetch } from "../../hooks/queries/useFetch";
 import { styles } from "./HomeStyles";
 import Navbar from "./Navbar/build/Navbar";
+import Mainscreen from "./Mainscreen/build";
 
 const Home: FC = () => {
 
@@ -14,6 +15,7 @@ const Home: FC = () => {
         <UserContextProvider value={ null }>
             <div className={ styles.home_wrap } >
                 <Navbar/>
+                <Mainscreen/>
             </div>
         </UserContextProvider>
     )

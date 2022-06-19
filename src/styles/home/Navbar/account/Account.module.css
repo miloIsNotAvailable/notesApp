@@ -23,7 +23,7 @@
     overflow: hidden;
     background-color: var(--grey);
     border-radius: .5rem;
-    transition: all 100ms ease;
+    transition: all 500ms ease;
 }
 
 .account_wrap:focus-within .account_menu_bar, .account_wrap:active .account_menu_bar {

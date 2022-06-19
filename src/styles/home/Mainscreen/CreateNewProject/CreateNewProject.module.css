@@ -1,0 +1,19 @@
+.new_project_wrap {
+    --mainscreen-icon-size: 2.5vw;
+    --display-icon-grid: calc( var(--mainscreen-icon-size) + 1rem );
+    display: grid;
+    place-self: center;
+    grid-template-columns: auto var(--display-icon-grid) var(--display-icon-grid) var(--display-icon-grid);
+    width: 50%;
+    height: var(--mainscreen-icon-size);
+    border-radius: .5rem;
+    border: 2px solid var(--grey);
+    margin: 1rem 0;
+}
+
+.note_icon {
+    display: flex;
+    place-self: center;
+    width: calc( 100% - 1rem );
+    height: calc( 100% - 1rem );
+}
