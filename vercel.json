@@ -1,12 +1,5 @@
 {
-  "version": 2,
     "rewrites":  [
       {"source": "/(.*)", "destination": "/"}
-    ],
-    "builds": [
-      {
-        "source": "/api/index.ts",
-        "module": "@now/node"
-      }
     ]
   }
