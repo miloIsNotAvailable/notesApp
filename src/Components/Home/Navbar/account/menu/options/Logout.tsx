@@ -14,7 +14,7 @@ const Logout: FC = () => {
     return (
         <div>
             <MenuOptionsLayout >
-                <div></div>
+                <img src={ '' }/>
                 <div onClick={ handleLogout }>logout</div>
             </MenuOptionsLayout>
         </div>

@@ -1,1 +1,1 @@
-export { default as styles } from '../../../../../../styles/home/Navbar/menu/MenuLayoutOptions.module.css'
+export { default as styles } from '../../../../../../styles/home/Navbar/account/MenuLayoutOptions.module.css'

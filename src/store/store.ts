@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import getUserEmail from './Auth/getEmail'
 import getUserPassword from './Auth/getPassword'
 import getUserUsername from './Auth/getUsername'
+import getAccountOpen from './Home/accountIsOpen'
 
 import checkForDataLoading from './Auth/checkforLoading'
 
@@ -12,7 +13,8 @@ export const store = configureStore({
       getUserPassword, 
       getUserUsername 
     } ),
-    checkForDataLoading
+    checkForDataLoading,
+    getAccountOpen
   }
 })
 

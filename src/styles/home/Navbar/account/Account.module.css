@@ -18,7 +18,7 @@
     display: flex;
     flex-direction: column;
     width: calc( ( var( --icon-size ) + 2rem ) * 3 );
-    height: calc( var( --icon-size ) * 2 );
+    height: calc( ( var( --icon-size ) + 1rem )* 3 );
     max-height: 0;
     overflow: hidden;
     background-color: var(--grey);
@@ -27,5 +27,5 @@
 }
 
 .account_wrap:focus-within .account_menu_bar, .account_wrap:active .account_menu_bar {
-    max-height: calc( var( --icon-size ) * 2 );
+    max-height: calc( ( var( --icon-size ) + 1rem ) * 2 );
 }

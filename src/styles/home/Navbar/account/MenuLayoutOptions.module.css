@@ -1,0 +1,37 @@
+.menu_option {
+    cursor: pointer;
+    display: grid;
+    align-items: center;
+    grid-template-columns: calc( var(--icon-size) + 1rem ) auto;
+    height: calc( var(--icon-size) + 1rem );
+    font-family: 'Poppins';
+    color: var(--font-color);
+}
+
+.menu_option:hover {
+    background-color: var(--bg);
+}
+
+.menu_icon {
+    width: var(--icon-size);
+    height: var(--icon-size);
+}
+
+.user_icon {
+    display: grid;
+    place-self: center;
+    background-color: var(--yellow);
+    width: var(--icon-size);
+    height: var(--icon-size);
+    border-radius: 50%;
+}
+
+.account_info_wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.account_info {
+    width: 100%;
+    width: 100%;
+}
