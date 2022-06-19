@@ -12,8 +12,6 @@ import dotenv from 'dotenv'
 import { serialize } from 'cookie'
 import cookiePaser from 'cookie-parser'
 import path from 'path'
-import { createElement } from 'react'
-import ReactDOMServer from 'react-dom/server'
 
 dotenv.config()
 
@@ -64,7 +62,7 @@ const publicPath = path.join( __dirname, '..' )
 console.log( publicPath )
 app.use(express.static(publicPath));
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'roothtml.html'));
 });
 
