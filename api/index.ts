@@ -64,11 +64,8 @@ const publicPath = path.join( __dirname, '..' )
 console.log( publicPath )
 app.use(express.static(publicPath));
 
-app.get('/api', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(publicPath, 'roothtml.html'));
-  res.setHeader('Content-Type', 'text/html');
-  res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
-  res.end(`Hello! Go to item: <div>${ "hello" }</div>`);
 });
 
 // create application/json parser
@@ -147,7 +144,7 @@ app.use( '/login', async( req, res ) => {
       } ) )
   }
 
-  data.length ? res.json( { data } ) : res.json( { error: 'user not found' } )
+  data.length ? res.json( { data, accessToken: token } ) : res.json( { error: 'user not found' } )
 } )
 
 app.use( '/create_user', async( req, res ) => {
@@ -203,5 +200,3 @@ const port = process.env.PORT || 4000
 
 app.listen( port );
 console.log('Running a GraphQL API server at http://localhost:4000/graphql');
-
-export default app
