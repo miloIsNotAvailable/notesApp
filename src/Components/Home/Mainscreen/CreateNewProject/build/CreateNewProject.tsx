@@ -1,12 +1,6 @@
-import { FC } from "react";
-import { noteInputState } from "../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
-import { useAppSelector } from "../../../../../store/hooks";
+import { FC, useEffect } from "react";
 import { styles } from "./CreateNewProjectStyles";
-import NoteDraw from "../draw/NoteDraw";
-import NoteImage from "../Images/NoteImage";
-import TextNote from "../write/TextNote";
 import ChooseNoteType from "./chooseNoteType";
-import ImageNoteInput from "../Images/ImageNoteInput";
 import InputType from "./InputType";
 import { useNoteType } from "../../../../../hooks/home/useNoteType";
 import Submit from "../submit";
