@@ -12,6 +12,7 @@
     font-family: 'Poppins';
     font-weight: 600;
     border-radius: .2em;
+    
 }
 
 .submit_button::after {

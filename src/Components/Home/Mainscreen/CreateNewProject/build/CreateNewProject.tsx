@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { styles } from "./CreateNewProjectStyles";
 import ChooseNoteType from "./chooseNoteType";
 import InputType from "./InputType";

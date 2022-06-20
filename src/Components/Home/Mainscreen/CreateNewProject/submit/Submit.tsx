@@ -6,7 +6,10 @@ import { styles } from "./SubmitStyles";
 
 const Submit: FC = () => {
 
-    const { content, type } = useNoteType()
+    const { 
+        content, 
+        type 
+    } = useNoteType()
 
     const dispatch = useAppDispatch()
 

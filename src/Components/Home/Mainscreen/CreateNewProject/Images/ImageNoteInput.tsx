@@ -1,4 +1,4 @@
-import { ChangeEvent, DragEvent, FC } from "react";
+import { FC } from "react";
 import { styles } from "./NoteImageStyles";
 import { useOpenImage } from "./useOpenImage";
 

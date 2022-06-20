@@ -10,7 +10,7 @@ import { styles } from "./NavbarStyles";
 const Navbar: FC = () => {
 
     const { email } = useData()
-    console.log( email )
+    email && console.log( email )
 
     return (
         <div className={ styles.navbar_wrap }>

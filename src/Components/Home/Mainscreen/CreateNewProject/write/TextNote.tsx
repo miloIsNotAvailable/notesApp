@@ -1,6 +1,4 @@
 import { FC, FormEvent, MouseEventHandler } from "react";
-import { useData } from "../../../../../contexts/HomeContext";
-import { useNoteType } from "../../../../../hooks/home/useNoteType";
 import { setNoteType } from "../../../../../store/Home/NoteInputType";
 import { useAppDispatch } from "../../../../../store/hooks";
 import { styles } from "./WriteStyles";
@@ -33,9 +31,6 @@ const TextNote: FC = () => {
         contentEditable
         className={ styles.write_input } 
         placeholder={ "create new note..." }
-        style={ {
-
-        } }
     />
 }
 

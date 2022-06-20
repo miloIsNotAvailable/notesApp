@@ -4,6 +4,7 @@ import { useAppDispatch } from "../../../../../store/hooks"
 
 type event = DragEvent<HTMLDivElement> | ChangeEvent<HTMLInputElement>
 
+// check for drag evemts
 const eventIsDrag = ( e: event ): 
 e is DragEvent<HTMLDivElement> => {
     const v = e as DragEvent<HTMLDivElement>
