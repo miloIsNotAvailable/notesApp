@@ -3,17 +3,67 @@
     --display-icon-grid: calc( var(--mainscreen-icon-size) + 1rem );
     display: grid;
     place-self: center;
-    grid-template-columns: auto var(--display-icon-grid) var(--display-icon-grid) var(--display-icon-grid);
+    grid-template-columns: auto var(--display-icon-grid) var(--display-icon-grid);
     width: 50%;
-    height: var(--mainscreen-icon-size);
+    min-height: var(--mainscreen-icon-size);
     border-radius: .5rem;
     border: 2px solid var(--grey);
     margin: 1rem 0;
+    transition: all 100ms ease;
+}
+
+.new_project_wrap:focus-within, .new_project_wrap:active {
+    min-height: 5rem;
+}
+
+.new_project_wrap:focus-within .note_icon, .new_project_wrap:active .note_icon {
+    align-self: flex-end;
+    margin: .1rem 0;
+}
+
+.new_project_wrap:focus-within div[placeholder]:empty::after, .new_project_wrap:active div[placeholder]:empty::after {
+    content: attr(placeholder);
+    position: absolute;
+    display: grid;
+    place-items: center;
+    top: calc( 1.25vw - 0.4vw );
+    color: white;
+    font-family: 'Poppins';
+    font-size: .8vw;
+    transform: translate(0, 0%);
+    transition-delay: -1s;
+    transition: all 100ms ease;
 }
 
 .note_icon {
+    position: relative;
+    cursor: pointer;
     display: flex;
     place-self: center;
-    width: calc( 100% - 1rem );
-    height: calc( 100% - 1rem );
+    width: calc( var(--mainscreen-icon-size) - 1rem );
+    height: calc( var(--mainscreen-icon-size) - 1rem );
+}
+
+.note_icon[placeholder]::after {
+    content: attr(placeholder);
+    position: absolute;
+    display: grid;
+    place-items: center;
+    height: 1.5rem;
+    width: max-content;
+    padding-inline: 1rem;
+    background-color: var(--grey);
+    top: calc(100%  + 1rem);
+    left: 50%;
+    border-radius: .1rem;
+    color: white;
+    font-family: 'Poppins';
+    font-size: .8vw;
+    opacity: 0;
+    transform: translate(-50%, 0);
+    transition: all 100ms ease;
+}
+
+.note_icon[placeholder]:hover::after {
+    opacity: 1;
 }

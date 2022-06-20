@@ -3,7 +3,8 @@ import { styles } from "./WriteStyles";
 
 const TextNote: FC = () => {
 
-    return <input 
+    return <div 
+        contentEditable
         className={ styles.write_input } 
         placeholder={ "create new note..." }
     />
