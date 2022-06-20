@@ -5,7 +5,7 @@ import { styles } from "../build/CreateNewProjectStyles";
 const NoteDraw: FC = () => {
 
     return <div 
-        className={ styles.note_icon } 
+        className={ styles.note_icon_wrap } 
         placeholder="draw"
     >
         <img 

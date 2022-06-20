@@ -25,7 +25,7 @@ const TextNote: FC = () => {
     }
 
     return <div 
-        // onClick={ getType }
+        onClick={ getType }
         onInput={ getType }
         contentEditable
         className={ styles.write_input } 

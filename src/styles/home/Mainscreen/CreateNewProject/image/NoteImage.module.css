@@ -1,6 +1,8 @@
 .img_input_wrap {
     position: relative;
     display: grid;
+    place-items: center;
+    height: 100%;
     /* grid-template-rows: 80% auto; */
 }
 

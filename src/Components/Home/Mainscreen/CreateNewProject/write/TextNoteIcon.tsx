@@ -1,10 +1,13 @@
 import { FC } from "react";
 import { default as Icon } from '../../../../../graphics/pencil.svg'
+import { useNoteType } from "../../../../../hooks/home/useNoteType";
 import { NoteTypeInterface } from "../../../../../interfaces/homeInterfaces/homeTypes";
 import { styles } from "../build/CreateNewProjectStyles";
 
 const TextNoteIcon: FC<NoteTypeInterface> 
 = ( { onClick, selected } ) => {
+
+    const { content, type } = useNoteType()
 
     return <div 
         className={ styles.note_icon_wrap } 
