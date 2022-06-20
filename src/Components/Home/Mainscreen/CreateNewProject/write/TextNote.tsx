@@ -5,6 +5,7 @@ import { styles } from "./WriteStyles";
 
 type argsType = MouseEventHandler<HTMLDivElement> | FormEvent<HTMLDivElement>
 
+// check if event is an input event
 const isOnInput = ( arg: argsType ): 
 arg is FormEvent<HTMLDivElement> => {
     const v = arg as FormEvent<HTMLDivElement>

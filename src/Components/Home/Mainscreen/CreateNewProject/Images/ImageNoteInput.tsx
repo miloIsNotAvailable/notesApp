@@ -1,13 +1,19 @@
 import { FC } from "react";
 import { styles } from "./NoteImageStyles";
 
-const ImageNotInput: FC = () => {
+const ImageNoteInput: FC = () => {
 
-    return <div 
-    contentEditable
-    className={ styles.write_input } 
-    placeholder={ "+" }
-/>
+    return (
+        <div className={ styles.img_input_wrap }>
+            <input 
+                type={ "file" } 
+                className={ styles.write_input }
+                placeholder={ "+" }/>
+            <div className={ styles.img_input_text }>
+                { `+` }
+            </div>
+        </div>
+    )
 }
 
-export default ImageNotInput
+export default ImageNoteInput

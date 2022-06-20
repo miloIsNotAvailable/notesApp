@@ -56,7 +56,7 @@
     height: calc( var(--mainscreen-icon-size) - 1rem );
 }
 
-.note_icon[placeholder]::after {
+.note_icon_wrap[placeholder]::after, .note_icon[placeholder]::after {
     content: attr(placeholder);
     position: absolute;
     display: grid;
@@ -76,6 +76,6 @@
     transition: all 100ms ease;
 }
 
-.note_icon[placeholder]:hover::after {
+.note_icon_wrap[placeholder]:hover::after, .note_icon[placeholder]:hover::after {
     opacity: 1;
 }
