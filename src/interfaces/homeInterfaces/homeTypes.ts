@@ -4,3 +4,8 @@ export type userDataType = {
     id: string
     iat: string
 }
+
+export interface NoteTypeInterface {
+    onClick: () => void
+    selected: string
+}

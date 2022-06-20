@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import CreateNewProject from '../../../Components/Home/Mainscreen/CreateNewProject'
+import CreateNewProject from '../../../Components/Home/Mainscreen/CreateNewProject/build'
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from '../../../store/store';

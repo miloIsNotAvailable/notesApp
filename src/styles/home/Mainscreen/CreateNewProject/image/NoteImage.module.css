@@ -1,0 +1,36 @@
+.write_input {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg);
+    border: none;
+    outline: none;
+    color: var(--font-color);
+    font-family: 'Poppins';
+    font-weight: 500;
+    padding: 0 1rem;
+    resize: none;
+    max-width: 100%;
+    word-break: break-word
+}
+
+.write_input > *, .write_input::placeholder {
+    padding: calc( 1.25vw - .5vw ) 0;
+    color: var(--font-color);
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 1vw;
+}
+
+.write_input[placeholder]:empty::after {
+    content: attr(placeholder);
+    position: absolute;
+    display: grid;
+    place-items: center;
+    top: 50%;
+    color: white;
+    font-family: 'Poppins';
+    font-size: .8vw;
+    transform: translate(0, -50%);
+    transition: all 100ms ease;
+}

@@ -3,6 +3,7 @@ import getUserEmail from './Auth/getEmail'
 import getUserPassword from './Auth/getPassword'
 import getUserUsername from './Auth/getUsername'
 import getAccountOpen from './Home/accountIsOpen'
+import getNoteType from './Home/NoteInputType'
 
 import checkForDataLoading from './Auth/checkforLoading'
 
@@ -14,7 +15,8 @@ export const store = configureStore({
       getUserUsername 
     } ),
     checkForDataLoading,
-    getAccountOpen
+    getAccountOpen,
+    getNoteType
   }
 })
 

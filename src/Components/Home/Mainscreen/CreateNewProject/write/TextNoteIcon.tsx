@@ -1,25 +1,25 @@
 import { FC } from "react";
-import { default as Icon } from '../../../../../graphics/image.svg'
+import { default as Icon } from '../../../../../graphics/pencil.svg'
 import { NoteTypeInterface } from "../../../../../interfaces/homeInterfaces/homeTypes";
 import { styles } from "../build/CreateNewProjectStyles";
 
-const NoteImage: FC<NoteTypeInterface> 
+const TextNoteIcon: FC<NoteTypeInterface> 
 = ( { onClick, selected } ) => {
 
     return <div 
         className={ styles.note_icon_wrap } 
-        placeholder="add image"
+        placeholder="text note"
         onClick={ onClick }  
-        style={ selected === 'image' ? 
-        { backgroundColor: 'var(--grey)' } 
-        : {} 
-    }
+        style={ selected === 'text' ? 
+            { backgroundColor: 'var(--grey)' } 
+            : {} 
+        }
     >
     <img 
         src={ Icon } 
         className={ styles.note_icon }
-        alt="add image"/>
+        alt="text note"/>
 </div> 
 }
 
-export default NoteImage
+export default TextNoteIcon

@@ -3,7 +3,7 @@
     --display-icon-grid: calc( var(--mainscreen-icon-size) + 1rem );
     display: grid;
     place-self: center;
-    grid-template-columns: auto var(--display-icon-grid) var(--display-icon-grid);
+    grid-template-columns: auto var(--display-icon-grid) var(--display-icon-grid) var(--display-icon-grid);
     width: 50%;
     min-height: var(--mainscreen-icon-size);
     border-radius: .5rem;
@@ -12,16 +12,16 @@
     transition: all 100ms ease;
 }
 
-.new_project_wrap:focus-within, .new_project_wrap:active {
+/* .new_project_wrap:focus-within, .new_project_wrap:active {
     min-height: 5rem;
 }
 
 .new_project_wrap:focus-within .note_icon, .new_project_wrap:active .note_icon {
     align-self: flex-end;
     margin: .1rem 0;
-}
+} */
 
-.new_project_wrap:focus-within div[placeholder]:empty::after, .new_project_wrap:active div[placeholder]:empty::after {
+/* .new_project_wrap:focus-within div[placeholder]:empty::after, .new_project_wrap:active div[placeholder]:empty::after {
     content: attr(placeholder);
     position: absolute;
     display: grid;
@@ -33,6 +33,18 @@
     transform: translate(0, 0%);
     transition-delay: -1s;
     transition: all 100ms ease;
+} */
+
+.note_icon_wrap {
+    position: relative;
+    cursor: pointer;
+    display: grid;
+    place-self: center;
+    place-items: center;
+    width: calc( var(--mainscreen-icon-size) - .25rem );
+    height: calc( var(--mainscreen-icon-size) - .25rem );
+    border-radius: 50%;
+    transition: all 300ms ease;
 }
 
 .note_icon {

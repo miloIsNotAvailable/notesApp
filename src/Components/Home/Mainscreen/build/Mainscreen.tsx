@@ -1,5 +1,5 @@
 import { FC } from "react";
-import CreateNewProject from '../CreateNewProject';
+import CreateNewProject from '../CreateNewProject/build';
 import { styles } from "./MainscreensStyles";
 
 const Mainscreen: FC = () => {
