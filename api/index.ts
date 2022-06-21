@@ -28,10 +28,21 @@ var schema = buildSchema(`
     email: String
   }
 
+  type Note {
+    id: String
+    title: String
+    content: String
+  }
+
   type Query {
     hello: String
     say( msg: String ): sayHi
     user: [User]
+    note: [Note]
+  }
+
+  type Mutation {
+    newNote( id: String, title: String, content: String ): Note
   }
 `);
 
@@ -44,8 +55,12 @@ var root = {
     return args
   },
   user: async() => {
-    const data = await create()
+    const data = await orm.select( { table: 'create_user' } )
     return data
+  },
+  newNote: ( args: any ) => {
+    console.log( args )
+    return args
   }
 };
 
@@ -187,9 +202,9 @@ app.use( '/create_user', async( req, res ) => {
   !findExisting.length ? res.json( { data: data } ) : res.json( { error: 'user already exists' } )
 } )
 
-// orm.remove( {
-//   table: 'create_user',
-//   where: { email: 'hello@gmail.com' }
+// orm.create( {
+//   table: 'Funkee',
+//   data: { values: { id: v4(), name: 'hello' } }
 // } )
 
 connect()

@@ -21,7 +21,7 @@ const CreateNewProject: FC = () => {
                 } }
             >
                 <InputType content={ content } type={ type }/>
-                { content?.trim() ? <Submit/> : <div/> }
+                 <Submit/>
                 <ChooseNoteType/>
             </div>
         </div>

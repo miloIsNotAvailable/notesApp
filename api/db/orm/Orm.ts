@@ -1,5 +1,8 @@
 import { Client } from "pg"
 import { connect } from "./connectdb"
+import fs from 'fs'
+import { conv } from "./convertToType"
+import { tableFromObject } from "./createTableFromObject"
 
 type createTypes = { 
     table: string, 
@@ -9,7 +12,7 @@ type createTypes = {
 }
 
 type selectType = {
-    where: any
+    where?: any
     table: string
     AND?: any | undefined
 }
@@ -18,6 +21,11 @@ type removeType = {
     table: string,
     where: any,
     AND?: any | undefined
+}
+
+type convTypes = {
+    table: string 
+    args: any
 }
 
 export const ORM = class {
@@ -54,8 +62,7 @@ export const ORM = class {
         const client = await connect()
 
         const value = where ? Object.keys( where ).map( v => `WHERE ${v} = '${ where[v] }'` ) : null
-        if( !where ) return
-        
+
         const queryData = value ?  `SELECT * FROM ${ table } ${ value }`
         : `SELECT * FROM ${ table }`
         
@@ -81,11 +88,28 @@ export const ORM = class {
         const keys = Object.keys( values ).join( ',' )
         const vals = Object.values( values ).map( v => `'${ v }'` ).join( ',' )
 
-        // const insertStatement = `CREATE TABLE IF NOT EXISTS ${ table } ( ${ keys } );`
+        if( process.env.NODE_ENV !== 'production' ) {
 
-        // await client.query( insertStatement, ( err, res ) => {
-        //     console.log( err, res.rows )
-        // } );
+            const insertStatement = tableFromObject( {
+                table, 
+                values
+            } )
+    
+            await client.query( insertStatement, ( err, res ) => {
+                
+                if( err ) return
+                console.log( res?.rows )
+    
+                  try {                  
+                      console.log( "\n" + conv( { table: table, args: values }) + "\n" )
+                      fs.appendFile( 'dbinterfaces.ts', "\n" + conv( { table: table, args: values }) + "\n" , ( err ) => {
+                          console.log( err || "done" )
+                      })
+                  }catch( e ) {
+                      console.log( e )  
+                  }
+            } );
+        }
 
         let res: any
 

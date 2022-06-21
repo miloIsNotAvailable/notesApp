@@ -3,7 +3,7 @@
     place-self: center;
     align-self: flex-start;
     width: calc(100% - 2rem);
-    height: 100%;
+    height: auto;
     max-height: calc(100% - 2rem);
     overflow-y: auto;
     scrollbar-width: thin;
