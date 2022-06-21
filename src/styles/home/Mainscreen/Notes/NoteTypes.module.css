@@ -1,0 +1,4 @@
+.note_types_align {
+    display: flex;
+    flex-wrap: wrap;
+}

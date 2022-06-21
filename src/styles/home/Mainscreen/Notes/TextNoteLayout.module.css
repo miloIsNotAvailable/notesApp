@@ -1,0 +1,16 @@
+.text_layout {
+    --size: 10vw;
+    display: flex;
+    min-width: 1vw;
+    width: auto;
+    max-width: clamp(45ch, 50%, 75ch);
+    border-radius: .3rem;
+    padding: 1rem;
+    height: var(--size);
+    font-family: "Poppins";
+    font-size: 1vw;
+    font-weight: normal;
+    color: var(--font-color);
+    margin: .1rem;
+    flex-grow: 10vw;
+}

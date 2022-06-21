@@ -11,9 +11,24 @@
     padding: 0 1rem;
     resize: none;
     max-width: 100%;
-    word-break: break-word
+    word-break: break-word;
+    overflow-y: auto;
+    scrollbar-color: var(--grey) var(--bg);
+    scrollbar-width: thin;
 }
 
+.write_input::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+    background-color: var(--bg);
+  }
+
+.write_input::-webkit-scrollbar-thumb {
+    width: 5px;
+    height: 8px;
+    background-color: var(--grey);
+  }
+  
 .write_input > *, .write_input::placeholder {
     padding: calc( 1.25vw - .5vw ) 0;
     color: var(--font-color);

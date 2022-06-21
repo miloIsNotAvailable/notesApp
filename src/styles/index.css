@@ -24,6 +24,12 @@ code {
   --blue: #C7F7FA;
   --purple: #C7D5FA;
   --orange: #FFCCAF;
+  --red-note: rgba(255, 175, 175, .92);
+  --yellow-note: rgba(234, 196, 61, 1);
+  --green-note: rgba(203, 255, 208, .92);
+  --blue-note: rgba(199, 247, 250, .92);
+  --purple-note: rgba(199, 213, 250, .92);
+  --orange-note: rgba(255, 204, 175, .92);
   --input-height: 3vw;
   --icon-size: 3vw;
 }

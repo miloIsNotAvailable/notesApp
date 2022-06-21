@@ -1,0 +1,24 @@
+.notes_wrap {
+    display: grid;
+    place-self: center;
+    align-self: flex-start;
+    width: calc(100% - 2rem);
+    height: 100%;
+    max-height: calc(100% - 2rem);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gre) var(--bg);
+}
+
+
+.notes_wrap::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+    background-color: var(--bg);
+  }
+
+.notes_wrap::-webkit-scrollbar-thumb {
+    width: 5px;
+    height: 8px;
+    background-color: var(--grey);
+  }
