@@ -1,19 +1,10 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect } from "react";
+import { NOTE_MUTATION } from "../../../../../constants/queries";
 import { useMutation } from "../../../../../hooks/graphql/useMutation";
 import { useNoteType } from "../../../../../hooks/home/useNoteType";
 import { setNoteType } from "../../../../../store/Home/NoteInputType";
 import { useAppDispatch } from "../../../../../store/hooks";
 import { styles } from "./SubmitStyles";
-
-const NOTE_MUTATION = `
-    mutation createNote( $id:String, $title:String, $content:String ){
-        newNote( id:$id, content:$content, title:$title ) {
-            id
-            title
-            content
-        }
-    }
-`
 
 const Submit: FC = () => {
 
@@ -37,7 +28,8 @@ const Submit: FC = () => {
                 args: {
                     id: 'hello', 
                     content,
-                    title: 'hey'
+                    title: 'hey',
+                    type
                 }
             }
         )
@@ -52,7 +44,7 @@ const Submit: FC = () => {
         if( textNote?.innerText ) textNote.innerText = ""
     }
 
-    if( !content?.trim ) return <div/>
+    if( !content?.trim() ) return <div/>
 
     return (
         <div className={ styles.submit_button }

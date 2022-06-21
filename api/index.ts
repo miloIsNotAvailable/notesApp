@@ -1,6 +1,4 @@
 import express, { NextFunction } from 'express'
-import { graphqlHTTP } from 'express-graphql'
-import { buildSchema } from 'graphql'
 import cors from 'cors'
 import { connect } from './db/orm/connectdb.js'
 import { create } from './db/orm/create.js'
@@ -12,57 +10,9 @@ import dotenv from 'dotenv'
 import { serialize } from 'cookie'
 import cookiePaser from 'cookie-parser'
 import path from 'path'
+import { grpahqlEndpoint } from './graphql/graphqlHTTP.js'
 
 dotenv.config()
-
-// Construct a schema, using GraphQL schema language
-var schema = buildSchema(`
-  
-  type sayHi {
-    msg: String
-  }
-
-  type User {
-    id: String
-    username: String
-    email: String
-  }
-
-  type Note {
-    id: String
-    title: String
-    content: String
-  }
-
-  type Query {
-    hello: String
-    say( msg: String ): sayHi
-    user: [User]
-    note: [Note]
-  }
-
-  type Mutation {
-    newNote( id: String, title: String, content: String ): Note
-  }
-`);
-
-// The root provides a resolver function for each API endpoint
-var root = {
-  hello: () => {
-    return 'hi!';
-  },
-  say: ( args: any ) => {
-    return args
-  },
-  user: async() => {
-    const data = await orm.select( { table: 'create_user' } )
-    return data
-  },
-  newNote: ( args: any ) => {
-    console.log( args )
-    return args
-  }
-};
 
 var app = express();
 
@@ -85,15 +35,11 @@ app.get('/', (req, res) => {
 var jsonParser = bodyParser.json()
  
 // create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
+var urlencodedParser = bodyParser.urlencoded({ extended: false, limit: '100mb' })
 app.use( urlencodedParser )
 app.use( jsonParser )
 
-app.use('/graphql', graphqlHTTP({
-  schema: schema,
-  rootValue: root,
-  graphiql: true,
-}));
+app.use('/graphql', grpahqlEndpoint );
 
 const orm = new ORM()
 
