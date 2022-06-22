@@ -1,4 +1,4 @@
-import express, { NextFunction } from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import cors from 'cors'
 import { connect } from './db/orm/connectdb.js'
 import { create } from './db/orm/create.js'
@@ -38,6 +38,14 @@ var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false, limit: '100mb' })
 app.use( urlencodedParser )
 app.use( jsonParser )
+
+app.get('/api', (req: Request, res: Response) => {
+  const randomId = `${Math.random()}`.slice(2);
+  const path = `/api/item/${randomId}`;
+  res.setHeader('Content-Type', 'text/html');
+  res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
+  res.end(`Hello! Fetch one item: <a href="${path}">${path}</a>`);
+});
 
 app.use('/graphql', grpahqlEndpoint );
 
