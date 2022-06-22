@@ -1,4 +1,5 @@
 import { useRef, useState } from "react"
+import { check_env } from "../../check_env"
 
 type queryStateType = {
     data: any, 
@@ -38,7 +39,7 @@ export const useMutation: ( ) => [
             error: undefined, 
         }
 
-        const res = await fetch( `api/graphql`, {
+        const res = await fetch( `${ check_env }/graphql`, {
             method: "POST", 
             headers: {
                 'Content-Type': 'application/json',
