@@ -1,6 +1,4 @@
-import { useEffect, useRef, useState } from "react"
-import { check_env } from "../../check_env"
-import Loading from "../../Components/Auth/Forms/Loading"
+import { useRef, useState } from "react"
 
 type queryStateType = {
     data: any, 
@@ -40,7 +38,7 @@ export const useMutation: ( ) => [
             error: undefined, 
         }
 
-        const res = await fetch( `${ check_env }/graphql`, {
+        const res = await fetch( `api/graphql`, {
             method: "POST", 
             headers: {
                 'Content-Type': 'application/json',
