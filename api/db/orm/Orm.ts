@@ -4,10 +4,16 @@ import fs from 'fs'
 import { conv } from "./convertToType"
 import { tableFromObject } from "./createTableFromObject"
 
-type createTypes = { 
+type createTypes<T=any> = { 
     table: string, 
     data: {
         values: any
+        reference?: { table: string, data: any, ref: string }
+    }
+    update?: {
+        data: T extends unknown ? any : T,
+        table: string, 
+        where: T extends unknown ? any : T,
     }
 }
 
@@ -21,11 +27,6 @@ type removeType = {
     table: string,
     where: any,
     AND?: any | undefined
-}
-
-type convTypes = {
-    table: string 
-    args: any
 }
 
 export const ORM = class {
@@ -77,11 +78,15 @@ export const ORM = class {
         } catch( e ) {
             err = e
         }
-        console.log( err || res )
+        // console.log( err || res )
         return res || err
     }
 
-    create = async( { table, data: { values } }: createTypes ) => {
+    create = async( { 
+        table, 
+        data: { values, reference },
+        update 
+    }: createTypes ) => {
         
         const client = await connect()
 
@@ -92,15 +97,17 @@ export const ORM = class {
 
             const insertStatement = tableFromObject( {
                 table, 
-                values
+                values            
             } )
     
             await client.query( insertStatement, ( err, res ) => {
                 
                 if( err ) return
+                if( !res?.rows ) return
+
                 console.log( res?.rows )
-    
-                  try {                  
+
+                try {                  
                       console.log( "\n" + conv( { table: table, args: values }) + "\n" )
                       fs.appendFile( 'dbinterfaces.ts', "\n" + conv( { table: table, args: values }) + "\n" , ( err ) => {
                           console.log( err || "done" )
@@ -120,6 +127,33 @@ export const ORM = class {
         }catch( e ) {
             res = e
         }
+
+        if( update ) {
+            const client = await connect()
+            const { data, table, where } = update
+            
+            const updateKeys = Object.keys( data )
+            .map( ( n: string ) => `${ n }='${ data[n] }'` )
+            .join( "," )
+
+            const updateCondition = Object.keys( where )
+            .map( ( n: any ) => `${ n }=${ n }, '${ where[n] }'` )
+            .join( "," )
+
+            const updateQuery = `UPDATE ${ table } SET ${ updateKeys } WHERE ${ updateCondition }`
+            console.log( updateQuery )
+
+            try {
+                await client.query( updateQuery, ( err, res ) => {
+                    console.log( err, res )
+                } )
+                // res = r.rows
+            }catch( e ) {
+                // res = e
+                console.log( 'new Error => \n' + e )
+            }
+        }
+
         // console.log( res )
         return res
     }

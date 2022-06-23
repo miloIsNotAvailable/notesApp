@@ -1,18 +1,49 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
+import { useQuery } from "../../../../../../hooks/graphql/useQuery";
 import TextNoteLayout from "../text/TextNoteLayout";
+import Loading from "./Loading";
 import { styles } from "./NoteTypesStyles";
+import { Note } from '../../../../../../../api/dbinterfaces'
+import { useData } from "../../../../../../contexts/HomeContext";
+import { useLazyQuery } from "../../../../../../hooks/graphql/useLazyQuery";
 
-const NoteTypes: FC = () => {
+const QUERY_USER_NOTES = `
+query note( $users: String ) {
+    note( users:$users ){
+      users
+      title
+      content
+      type
+    }
+  }
+`
 
+interface NoteTypesProps {
+    id: string
+}
+
+const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
+
+    // const { id } = useData()
+    console.log( id )
+
+    const { data, loading, error } = useQuery( QUERY_USER_NOTES, {
+        variables: {
+            users: id
+        }
+    }  )
+
+    console.log( data, loading )
     return (
         <div className={ styles.note_types_align }>
-            <TextNoteLayout text="lorem ipsum dolorem sit amet" />
-            <TextNoteLayout text="lorem ipsum dolorem sit amet lorem ipsum dolorem sit amet lorem ipsum dolorem sit ametlorem ipsum dolorem sit ametlorem ipsum dolorem sit ametlorem ipsum dolorem sit ametlorem ipsum dolorem sit ametlorem ipsum dolorem sit amet" />
-            <TextNoteLayout text="lorem ipsum dolorem sit amet lorem " />
-            <TextNoteLayout text="sit ametlorem ipsum dolorem sit ametlorem ipsum dolorem sit amet ametlorem ipsum dolorem sit amet ametlorem ipsum dolorem sit amet ametlorem ipsum dolorem sit amet" />
-            <TextNoteLayout text="sit ametlorem ipsum dolorem sit amet" />
-            <TextNoteLayout text="sit ametlorem ipsum dolorem sit amet" />
-            <TextNoteLayout text="sit ametlorem  ametlorem ipsum dolorem sit amet ametlorem ipsum dolorem sit amet" />
+            
+            {
+                data?.data?.note && data?.data?.note.map(
+                    ( { content, title, type }: any ) => (
+                        <TextNoteLayout text={  content } key={ content }  />
+                    )
+                )
+            }
         </div>
     )
 }

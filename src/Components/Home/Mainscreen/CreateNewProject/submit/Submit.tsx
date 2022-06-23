@@ -1,5 +1,6 @@
 import { FC, useEffect } from "react";
 import { NOTE_MUTATION } from "../../../../../constants/queries";
+import { useData } from "../../../../../contexts/HomeContext";
 import { useMutation } from "../../../../../hooks/graphql/useMutation";
 import { useNoteType } from "../../../../../hooks/home/useNoteType";
 import { setNoteType } from "../../../../../store/Home/NoteInputType";
@@ -13,6 +14,8 @@ const Submit: FC = () => {
         type 
     } = useNoteType()
 
+    const { id } = useData()
+
     const dispatch = useAppDispatch()
     const [ { data, loading, error }, setNote ] = useMutation()
 
@@ -22,14 +25,15 @@ const Submit: FC = () => {
 
     const handleClick: () => void = () => {
 
+        content && content?.length < 255 && 
         setNote(
             NOTE_MUTATION, 
             {
                 args: {
-                    id: 'hello', 
                     content,
                     title: 'hey',
-                    type
+                    type,
+                    userId: id
                 }
             }
         )

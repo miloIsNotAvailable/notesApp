@@ -4,7 +4,7 @@ import { useQueryType } from "../../interfaces/hooksInterfaces/graphqlTypes";
 
 export const useQuery = ( 
     query: string, 
-    vars: { variables: any }
+    vars?: { variables: any }
 ) => {
     
     const [ data, setData ] = useState<useQueryType>( {
@@ -48,7 +48,7 @@ export const useQuery = (
                 } 
             )
             .then( setData );
-    }, [] )
+    }, [  ] )
 
     return data
 }

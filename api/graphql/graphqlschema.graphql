@@ -6,22 +6,30 @@
     id: String
     username: String
     email: String
+    note_id: String
   }
 
   type Note {
-    id: String
     title: String
     content: String
     type: String
+    userId: String
+  }
+
+  type Notes {
+    title: String
+    content: String
+    type: String
+    users: String
   }
 
   type Query {
     hello: String
     say( msg: String ): sayHi
     user: [User]
-    note: [Note]
+    note( users: String ): [Notes]
   }
 
   type Mutation {
-    newNote( id: String, title: String, content: String, type: String ): Note
+    newNote( userId: String, title: String, content: String, type: String ): Note
   }
