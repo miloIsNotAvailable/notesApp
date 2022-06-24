@@ -23,6 +23,12 @@ type selectType = {
     AND?: any | undefined
 }
 
+type updateType = {
+    table: string
+    data: any
+    where: any
+}
+
 type removeType = {
     table: string,
     where: any,
@@ -58,6 +64,27 @@ export const ORM = class {
         return res || err
     }
 
+    update = async( { where, table, data }: updateType ) => {
+        
+        const client = await connect()
+
+        const value = Object.keys( where ).map( v => `${v} = '${ where[v] }'` )
+        const updateValue = Object.keys( data ).map( v => `${v} = '${ data[v] }'` )
+
+        const queryData = `UPDATE ${ table } SET ${ updateValue } WHERE ${ value }`
+
+        let res: any;
+        let err = undefined
+        try {
+            const r = await client.query( queryData )
+            res = r.rows
+        } catch( e ) {
+            err = e
+        }
+        // console.log( err || res )
+        return res || err
+    }
+    
     select = async( { where, table, AND }: selectType ) => {
         
         const client = await connect()

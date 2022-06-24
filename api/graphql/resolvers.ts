@@ -43,5 +43,13 @@ export const root = {
       } )
       console.log( data )
       return args
-    }
+    },
+    newTitle: async( args: any ) => {
+      const data = await orm.update( {
+        table: 'Note',
+        where: { id: args?.noteId },
+        data: { title: args?.title }
+      } )
+      return args
+    } 
   };

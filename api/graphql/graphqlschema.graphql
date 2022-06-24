@@ -17,10 +17,17 @@
   }
 
   type Notes {
+    id: String
     title: String
     content: String
     type: String
     users: String
+  }
+
+  type updateTitle {
+    id: String
+    title: String
+    noteId: String
   }
 
   type Query {
@@ -32,4 +39,5 @@
 
   type Mutation {
     newNote( userId: String, title: String, content: String, type: String ): Note
+    newTitle( title: String, id: String, noteId: String ): updateTitle
   }

@@ -12,6 +12,7 @@ query note( $users: String ) {
       title
       content
       type
+      id
     }
   }
 `
@@ -47,9 +48,11 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
                             exit={ { opacity: 0, transform: 'translate(0, 100%)' } }
                         >
                             <TextNoteLayout 
+                                title={ '' }
                                 text={  `` } 
                                 key={ `${(ind + 1) * 10}` }  
                                 loading={ loading }
+                                noteId={ ind.toString() }
                             />
                         </motion.div>
                     )
@@ -64,7 +67,7 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
             <AnimatePresence exitBeforeEnter>
                 {
                     data?.data?.note && data?.data?.note.map(
-                        ( { content }: Note, ind: number ) => (
+                        ( { content, title, id }: Note, ind: number ) => (
                             <motion.div 
                                 key={ ind }
                                 transition={ { delay: ind * .1 } }
@@ -72,9 +75,11 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
                                 animate={ { opacity: 1, transform: 'translate(0, 0%)' } }
                                 exit={ { opacity: 0, transform: 'translate(0, 100%)' } }
                             >
-                            <TextNoteLayout 
+                            <TextNoteLayout
+                                title={ title } 
                                 text={  content } 
                                 loading={ loading }
+                                noteId={ id }
                             />
                             </motion.div>
                         )
