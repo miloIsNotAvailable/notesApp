@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { EventHandler, FC, MouseEvent, useEffect } from "react";
 import { NOTE_MUTATION } from "../../../../../constants/queries";
 import { useData } from "../../../../../contexts/HomeContext";
 import { useMutation } from "../../../../../hooks/graphql/useMutation";
@@ -23,7 +23,11 @@ const Submit: FC = () => {
         console.log( data, loading )
     }, [ data, loading ] )
 
-    const handleClick: () => void = () => {
+    const handleClick: 
+    ( e: MouseEvent<HTMLDivElement> ) => void = ( e ) => {
+
+        // prevent default to avoid unnecessary refresh
+        e.preventDefault()
 
         content && content?.length < 255 && 
         setNote(

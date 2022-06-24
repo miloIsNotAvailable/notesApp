@@ -14,3 +14,28 @@
     margin: .1rem;
     flex-grow: 10vw;
 }
+
+@keyframes loading {
+    0% {
+        background-position: 0% 0%;
+	}
+	40%, 100% {
+		background-position: 100% 0%;
+	}
+}
+
+.text_note_loading {
+    width: 100%;
+    height: 1.5vw;
+    border-radius: .1rem;
+    background-repeat: no-repeat;
+    background: linear-gradient( to left, 
+        rgba( 255, 255, 255, .3 ) 33%,  
+        rgba( 255, 255, 255, .8 ) 66%,
+        rgba( 255, 255, 255, .3 ) 100%
+    );
+    background-size: 800% 800%;
+    /* background-position: -100% 0; */
+
+    animation: loading 2s ease infinite;
+}

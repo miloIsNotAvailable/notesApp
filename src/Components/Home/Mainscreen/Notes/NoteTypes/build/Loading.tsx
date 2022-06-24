@@ -1,13 +1,14 @@
 import { FC } from "react";
-import { default as LoadingIcon } from '../../../../../../graphics/loading.svg'
+// import { default as LoadingIcon } from '../../../../../../graphics/loading.svg'
+import Loading from "../../../../../Auth/Forms/Bg";
 
-const Loading: FC = () => {
+const LoadingScreen: FC = () => {
 
     return (
         <div>
-            <img src={ LoadingIcon } alt="" />
+            <Loading/>
         </div>
     )
 }
 
-export default Loading
+export default LoadingScreen
