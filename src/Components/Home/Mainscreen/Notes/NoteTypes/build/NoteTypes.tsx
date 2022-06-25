@@ -1,10 +1,9 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { useQuery } from "../../../../../../hooks/graphql/useQuery";
 import TextNoteLayout from "../text/TextNoteLayout";
 import { styles } from "./NoteTypesStyles";
 import { Note } from '../../../../../../../api/dbinterfaces'
 import { AnimatePresence, motion } from "framer-motion";
-import { useNotesContext } from "../../../../../../contexts/NotesContext";
 import { useAppSelector } from "../../../../../../store/hooks";
 import { newNoteState } from "../../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
 
@@ -32,9 +31,6 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
         }
     }  )
     const selector = useAppSelector( ( state: newNoteState ) => state.getNewNotes )
-    console.log( selector )
-
-    console.log( 'its loading ' + loading )
 
     if( loading ) return (
         <div className={ styles.note_types_align }>

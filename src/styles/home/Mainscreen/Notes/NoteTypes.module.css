@@ -1,5 +1,5 @@
 .note_types_align {
     display: flex;
     flex-wrap: wrap;
-    height: 100%;
+    height: calc(100% - 2rem);
 }

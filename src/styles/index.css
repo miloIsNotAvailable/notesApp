@@ -17,6 +17,7 @@ code {
 :root {
   --font-color: #FFFFFF;
   --bg: #4B4949;
+  --bg-modal: rgba(75, 73, 73, .7);
   --grey: #605C5C;
   --red: #FFAFAF;
   --yellow: #EAC43D;

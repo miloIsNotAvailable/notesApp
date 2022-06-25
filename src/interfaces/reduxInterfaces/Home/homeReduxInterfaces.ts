@@ -4,6 +4,14 @@ export type accountOpen = {
     open: boolean
 }
 
+export type noteModalOpen = {
+    open: boolean
+    content: string,
+    title: string 
+    id: string 
+    users: string
+}
+
 export type noteInputType = {
     type: string
     content: string | null
@@ -20,3 +28,4 @@ export type newNoteType = {
 }
 
 export type newNoteState = {  getNewNotes: newNoteType }
+export type getNoteModalState = {  getNoteModal: noteModalOpen }

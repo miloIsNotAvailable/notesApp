@@ -1,10 +1,10 @@
 .notes_wrap {
     display: grid;
     place-self: center;
-    align-self: flex-start;
+    align-self: center;
     width: calc(100% - 2rem);
     height: auto;
-    max-height: calc(100% - 2rem);
+    max-height: calc(100% - 10vw);
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--gre) var(--bg);
