@@ -1,3 +1,5 @@
+import { Note } from "../../../../api/dbinterfaces"
+
 export type accountOpen = {
     open: boolean
 }
@@ -10,3 +12,11 @@ export type noteInputType = {
 export type noteInputState = {
     getNoteType: noteInputType
 }
+
+export type newNoteType = {
+    newNotes: any,
+    notesLoading: number,
+    loading: boolean
+}
+
+export type newNoteState = {  getNewNotes: newNoteType }

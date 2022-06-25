@@ -18,6 +18,13 @@ interface TextNoteTitleProps {
     noteId: string
 }
 
+type Event = KeyboardEvent<HTMLDivElement> | MouseEvent<HTMLDivElement>
+const isOnClick = ( e: Event ): 
+e is MouseEvent<HTMLDivElement> => {
+    const event = e as KeyboardEvent<HTMLDivElement>
+    return event.key === 'Enter'
+}
+
 const TextNoteTitle: FC<TextNoteTitleProps> = ( { title, noteId } ) => {
 
     const [newTitle, setTitle] = useState<string>( title )
@@ -27,13 +34,10 @@ const TextNoteTitle: FC<TextNoteTitleProps> = ( { title, noteId } ) => {
     const [ { data, loading, error }, setNewTitle ] = useMutation()
     const { id } = useData()
 
-    console.log( data )
-
     const editTitle: 
     ( e: KeyboardEvent<HTMLDivElement> ) => void
     = e => {
-        if( e.key !== "Enter" ) return
-        
+
         e.currentTarget.contentEditable = "false"
         setTitle( e.currentTarget.innerText )
 
@@ -59,7 +63,7 @@ const TextNoteTitle: FC<TextNoteTitleProps> = ( { title, noteId } ) => {
                 if(titleRef.current) titleRef.current.innerText = data?.newTitle?.title || title 
                 
             } }
-            onKeyDown={ editTitle }  
+            onKeyDown={ e => e.key == 'Enter' && editTitle( e ) }  
             onInput={ e => setTitle( e.currentTarget.innerText ) }
         >
             { title }
@@ -68,15 +72,9 @@ const TextNoteTitle: FC<TextNoteTitleProps> = ( { title, noteId } ) => {
             className={ styles.text_layout_edit } 
             onClick={ () => setEditable( true ) }
         >
-        {
-            newTitle.trim() !== title && editable &&
-            <div className={ styles.title_buttons }>
-                ✔
-            </div>
-        }
-            <div className={ styles.title_buttons }>
-                edit
-            </div>
+        <div className={ styles.title_buttons }>
+            edit
+        </div>
         </div>
     </div>
     )

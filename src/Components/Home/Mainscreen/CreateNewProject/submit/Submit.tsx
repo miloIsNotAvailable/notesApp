@@ -1,8 +1,9 @@
-import { EventHandler, FC, MouseEvent, useEffect } from "react";
+import { EventHandler, FC, MouseEvent, useEffect, useState } from "react";
 import { NOTE_MUTATION } from "../../../../../constants/queries";
 import { useData } from "../../../../../contexts/HomeContext";
 import { useMutation } from "../../../../../hooks/graphql/useMutation";
 import { useNoteType } from "../../../../../hooks/home/useNoteType";
+import { setNewNote } from "../../../../../store/Home/newNote";
 import { setNoteType } from "../../../../../store/Home/NoteInputType";
 import { useAppDispatch } from "../../../../../store/hooks";
 import { styles } from "./SubmitStyles";
@@ -18,9 +19,15 @@ const Submit: FC = () => {
 
     const dispatch = useAppDispatch()
     const [ { data, loading, error }, setNote ] = useMutation()
+    const [ notesLoading, setNotesLoading ] = useState( 0 )
 
     useEffect( () =>{
         console.log( data, loading )
+        dispatch( setNewNote( {
+            newNotes: data?.newNote || null,
+            loading: !data,
+            notesLoading: notesLoading
+        } ) )
     }, [ data, loading ] )
 
     const handleClick: 
@@ -41,6 +48,8 @@ const Submit: FC = () => {
                 }
             }
         )
+
+        setNotesLoading( prev => !data ? prev + 1 : 0 )
 
         // reset input on submit
         dispatch(setNoteType( { 

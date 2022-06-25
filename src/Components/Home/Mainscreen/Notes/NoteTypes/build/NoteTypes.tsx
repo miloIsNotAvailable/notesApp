@@ -4,6 +4,9 @@ import TextNoteLayout from "../text/TextNoteLayout";
 import { styles } from "./NoteTypesStyles";
 import { Note } from '../../../../../../../api/dbinterfaces'
 import { AnimatePresence, motion } from "framer-motion";
+import { useNotesContext } from "../../../../../../contexts/NotesContext";
+import { useAppSelector } from "../../../../../../store/hooks";
+import { newNoteState } from "../../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
 
 const QUERY_USER_NOTES = `
 query note( $users: String ) {
@@ -23,14 +26,13 @@ interface NoteTypesProps {
 
 const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
 
-    // const { id } = useData()
-    console.log( id )
-
     const { data, loading, error } = useQuery( QUERY_USER_NOTES, {
         variables: {
             users: id
         }
     }  )
+    const selector = useAppSelector( ( state: newNoteState ) => state.getNewNotes )
+    console.log( selector )
 
     console.log( 'its loading ' + loading )
 
@@ -44,7 +46,7 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
                             key={ ( ind + 1 )* 10 }
                             transition={ { delay: ind * .1 } }
                             initial={ { opacity: 0, transform: 'translate(0, -100%)' } }
-                            animate={ { opacity: 1, transform: 'translate(0, 0%)' } }
+                            animate={ { opacity: 1, transform: 'translate(0, 0%)', maxWidth: 'fit-content' } }
                             exit={ { opacity: 0, transform: 'translate(0, 100%)' } }
                         >
                             <TextNoteLayout 
@@ -66,7 +68,7 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
         <div className={ styles.note_types_align }>
             <AnimatePresence exitBeforeEnter>
                 {
-                    data?.data?.note && data?.data?.note.map(
+                    data?.data?.note && [...data?.data?.note, ...selector?.newNotes].map(
                         ( { content, title, id }: Note, ind: number ) => (
                             <motion.div 
                                 key={ ind }
@@ -75,12 +77,12 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
                                 animate={ { opacity: 1, transform: 'translate(0, 0%)' } }
                                 exit={ { opacity: 0, transform: 'translate(0, 100%)' } }
                             >
-                            <TextNoteLayout
-                                title={ title } 
-                                text={  content } 
-                                loading={ loading }
-                                noteId={ id }
-                            />
+                                <TextNoteLayout
+                                    title={ title } 
+                                    text={  content } 
+                                    loading={ loading }
+                                    noteId={ id }
+                                />
                             </motion.div>
                         )
                     )

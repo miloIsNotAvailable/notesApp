@@ -42,7 +42,13 @@ export const root = {
         }
       } )
       console.log( data )
-      return args
+      return {
+        userId: data[0]?.id,
+        title: data[0]?.title,
+        content: data[0]?.content,
+        type: data[0]?.type,
+        users: data[0]?.users
+      }
     },
     newTitle: async( args: any ) => {
       const data = await orm.update( {

@@ -27,7 +27,7 @@ const TextNoteLayout: FC<TextNoteLayoutProps>
     return (
         <div className={ styles.text_layout }
             style={ { 
-                backgroundColor: colors[ Math.floor( Math.random() * colors.length ) ]
+                backgroundColor: colors[ Math.floor( Math.random() * colors.length ) ]                
             } }>
             <TextNoteTitle title={ title } noteId={ noteId }/>
             <p>{ text }</p>

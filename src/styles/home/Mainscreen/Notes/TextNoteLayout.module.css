@@ -4,7 +4,7 @@
     flex-direction: column;
     min-width: 1vw;
     width: auto;
-    max-width: clamp(45ch, 50%, 75ch);
+    /* max-width: clamp(45ch, 50%, 75ch); */
     border-radius: .3rem;
     padding: 1rem;
     height: var(--size);
