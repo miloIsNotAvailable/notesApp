@@ -3,7 +3,9 @@ import { FC } from "react";
 import { getNoteModalState, noteModalOpen } from "../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
 import { useAppSelector } from "../../../../../store/hooks";
 import CloseModal from "./CloseModal";
+import DisplayNoteContent from "./DisplayNoteContent";
 import { styles } from "./DisplayNoteStyles";
+import ModalNoteTitle from "./DisplayNoteTitle";
 
 const DisplayNote: FC = () => {
 
@@ -22,12 +24,8 @@ const DisplayNote: FC = () => {
                     exit={ { opacity: 0, transform: 'translate(-50%, -10%)' } }
                 >
                     <CloseModal/>
-                    <div className={ styles.modal_title }>
-                        { title }
-                    </div>
-                    <div>
-                        { content }
-                    </div>
+                    <ModalNoteTitle title={ title } noteId={ id } />
+                    <DisplayNoteContent content={ content } noteId={ id } />
                 </motion.div>
             }
         </AnimatePresence>

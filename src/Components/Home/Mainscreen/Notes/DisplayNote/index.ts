@@ -1,1 +1,1 @@
-export { default } from './DsiplayNote'
+export { default } from './DisplayNote'

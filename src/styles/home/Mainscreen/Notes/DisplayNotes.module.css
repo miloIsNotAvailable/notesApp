@@ -18,7 +18,20 @@
 }
 
 .modal_title {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    align-items: center;
     font-weight: bold;
+}
+
+.modal_edit {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.modal_edit > div {
+    cursor: pointer;
+    font-weight: normal;
 }
 
 .modal_close {
@@ -39,4 +52,29 @@
     display: flex;
     transform-origin: center;
     transform: rotate(45deg);
+}
+
+.modal_content_wrap {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto calc(6vw + 1rem);
+}
+
+.modal_content_actions {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-around;
+}
+
+.modal_selector {
+    position: absolute;
+    width: 6vw;
+    height: 6vw;
+    top: 98%;
+    right: calc(6vw + 1rem);
+}
+
+.modal_content_actions > img {
+    cursor: pointer;
 }

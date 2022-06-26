@@ -57,5 +57,8 @@ export const root = {
         data: { title: args?.title }
       } )
       return args
+    },
+    newContent: async( args: any ) => {
+      return args
     } 
   };
