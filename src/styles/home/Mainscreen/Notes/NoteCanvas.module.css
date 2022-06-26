@@ -1,0 +1,51 @@
+.note_navbar {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: calc( 3vw + 1rem );
+    align-items: center;
+    /* justify-content: space-around; */
+}
+
+.note_go_back {
+    width: var(--icon-size);
+    height: var(--icon-size);
+}
+
+.navbar_middle {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrap_color_picker {
+    position: relative;
+}
+
+.note_color_picker {
+    display: flex;
+    justify-self: center;
+    border-radius: 50%;
+    background-color: white;
+    width: calc(var(--icon-size));
+    height: calc(var(--icon-size));
+}
+
+.note_colors_wrap {
+    position: absolute;
+    display: grid;
+    grid-template-columns: repeat( 3, calc(3vw + 1rem) );
+    grid-auto-rows: calc(3vw + 1rem);
+    top: calc(3vw + 1rem);
+    right: 0vw;
+    background-color: var(--grey);
+    border-radius: .5rem;
+}
+
+.note_colors {
+    place-self: center;
+    width: calc(var(--icon-size) * .5);
+    height: calc(var(--icon-size) * .5);
+    border-radius: 50%;
+}

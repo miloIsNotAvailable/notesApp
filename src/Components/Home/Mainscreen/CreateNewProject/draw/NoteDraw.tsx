@@ -1,10 +1,12 @@
 import { FC } from "react";
+import { Link } from "react-router-dom";
 import { default as Icon } from '../../../../../graphics/brush.svg'
 import { styles } from "../build/CreateNewProjectStyles";
 
 const NoteDraw: FC = () => {
 
-    return <div 
+    return <Link
+        to={ '/note_canvas' } 
         className={ styles.note_icon_wrap } 
         placeholder="draw"
     >
@@ -12,7 +14,7 @@ const NoteDraw: FC = () => {
             src={ Icon } 
             className={ styles.note_icon }
             alt="draw"/>
-    </div> 
+    </Link> 
 }
 
 export default NoteDraw

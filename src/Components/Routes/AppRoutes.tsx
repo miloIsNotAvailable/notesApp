@@ -9,6 +9,7 @@ import {
 import Login from "../Auth/Login/Login";
 import Register from '../Auth/Register/Register'
 import Home from "../Home/Home";
+import NoteCanvas from "../Home/Mainscreen/Notes/NoteTypes/draw/build/NoteCanvas";
 
 const AppRoutes: FC = () => {
 
@@ -20,6 +21,7 @@ const AppRoutes: FC = () => {
                 <Route path="/"  element={ <Login/> } />
                 <Route path="/signup" element={ <Register/> } />
                 <Route path="/home" element={ <Home/> } />
+                <Route path="/note_canvas" element={ <NoteCanvas/> } />
             </Routes>
         </AnimatePresence>
     )
