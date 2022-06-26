@@ -59,6 +59,11 @@ export const root = {
       return args
     },
     newContent: async( args: any ) => {
+      const data = await orm.update( {
+        table: 'Note',
+        where: { id: args?.noteId },
+        data: { content: args?.content }
+      } )
       return args
     } 
   };

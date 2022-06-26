@@ -72,7 +72,13 @@
     width: 6vw;
     height: 6vw;
     top: 98%;
-    right: calc(6vw + 1rem);
+    right: calc( 3vw + 1rem );
+}
+
+.modal_content {
+    outline: none;
+    border: none;
+    height: fit-content
 }
 
 .modal_content_actions > img {

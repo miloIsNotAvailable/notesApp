@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, KeyboardEvent, useEffect, useRef, useState } from "react";
 import { useData } from "../../../../../contexts/HomeContext";
 import { useMutation } from "../../../../../hooks/graphql/useMutation";
 import { default as Edit } from '../../../../../graphics/pencil.svg'
@@ -28,10 +28,28 @@ const DisplayNoteContent: FC<DisplayNoteContentProps>
     const [ { data, error, loading }, setNewNote ] = useMutation()
     const { id } = useData()
 
-    const [ selected, setSelected ] = useState( '10%' )
+    console.log( data )
+
+    const [ editable, setEditable ] = useState<boolean>( false ) 
+    
+    const editContent: 
+    ( e: KeyboardEvent<HTMLDivElement> ) => void = e => {
+
+        if( e.key !== 'Enter' ) return
+        setNewNote( CONTENT_MUTATION, {
+            args: {
+                noteId: noteId, 
+                id: id,
+                content: e.currentTarget.innerText
+            }
+        } )
+        setEditable( false )
+    }
+
+    const [ selected, setSelected ] = useState( '0%' )
     const arr = [
-        { transform: '10%', Icon: Edit },
-        { transform: '35%', Icon: AddImage },
+        { transform: '0%', Icon: Edit },
+        { transform: '3vw', Icon: AddImage },
     ]
 
     useEffect( () => {
@@ -42,7 +60,11 @@ const DisplayNoteContent: FC<DisplayNoteContentProps>
 
     return (
         <div className={ styles.modal_content_wrap }>
-            <div>
+            <div 
+                className={ styles.modal_content }
+                contentEditable={ editable }
+                onBlur={ () => setEditable( false ) }
+                onKeyDown={ editContent }>
                 { content }
                 <div className={ styles.modal_selector }>
                     <SelectorIcon/>
@@ -53,7 +75,10 @@ const DisplayNoteContent: FC<DisplayNoteContentProps>
                     arr.map( ( { Icon, transform } ) => (
                         <img 
                             src={ Icon } 
-                            onClick={ () => setSelected( transform ) }
+                            onClick={ () => {
+                                setSelected( transform )
+                                setEditable( true )
+                            } }
                         />
                     ) )
                 }
