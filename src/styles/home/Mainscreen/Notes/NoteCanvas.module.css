@@ -92,9 +92,9 @@
 .canvas {
     position: absolute;
     display: flex;
-    width: 100%;
+    /* width: 100%; */
     top: calc( 3vw + 1rem );
-    height: calc( 100% - 3vw - 1rem );
+    /* height: calc( 100% - 3vw - 1rem ); */
     /* background-color: aliceblue; */
     z-index: 1;
 }
