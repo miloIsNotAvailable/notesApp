@@ -3,7 +3,12 @@ import { styles } from "../build/NoteCanvasStyles";
 
 const Canvas: FC = () => {
 
-    const [coords, setCoords] = useState<{ x: number, y: number }>( { x: 0, y: 0 } )
+    const [coords, setCoords] = useState<{ 
+        prevx: number, 
+        prevy: number,
+        x: number, 
+        y: number 
+    }>( { prevx: 0, prevy: 0, x: 0, y: 0 } )
     const [mouseDown, setMouseDown] = useState<boolean>( false )
     const canvasRef = useRef<HTMLCanvasElement | null>( null )
 
@@ -16,18 +21,19 @@ const Canvas: FC = () => {
         context.fillStyle = 'white'
         context.beginPath();
     
-        context.lineWidth = coords.y * .1 * Math.sin( Math.random() * Math.PI * 2 );
+        context.lineWidth = 10
          
         // Sets the end of the lines drawn
         // to a round shape.
         context.lineCap = 'round';
+        context.lineJoin = 'round';
           
         context.strokeStyle = 'white';
             
         // The cursor to start drawing
         // moves to this coordinate
-        context.moveTo(coords.x, coords.y);
-         
+        context.moveTo(coords.prevx, coords.prevy);
+         !mouseDown && context.moveTo(coords.prevx, coords.prevy);
         // A line is traced from start
         // coordinate to this coordinate
         context.lineTo(coords.x, coords.y);
@@ -44,8 +50,29 @@ const Canvas: FC = () => {
             ref={ canvasRef }
             className={ styles.canvas }
             onMouseDown={ ( ) => setMouseDown( true ) }
-            onMouseMove={ ( { pageX, pageY } ) => mouseDown && setCoords( { x: pageX, y: pageY } ) }
-            onMouseUp={ ( ) => setMouseDown( false ) }
+            onMouseMove={ ( { pageX, pageY } ) => 
+            mouseDown && 
+            setCoords( 
+                ( { x, y } ) => ({ 
+                    // when x is zero set to mouse's current coords, 
+                    // else get the previous ones
+                    prevx: !x ? pageX : x,
+                    prevy: !y ? pageY : y,
+                    x: pageX, 
+                    y: pageY 
+                } ) 
+            ) }
+            onMouseUp={ ( { pageX, pageY } ) => { 
+                setMouseDown( false ) 
+                setCoords( { 
+                        // when x is zero set to mouse's current coords, 
+                        // else get the previous ones
+                        prevx: pageX,
+                        prevy: pageY,
+                        x: pageX, 
+                        y: pageY 
+                    } ) 
+            }}
         />
     }
 
