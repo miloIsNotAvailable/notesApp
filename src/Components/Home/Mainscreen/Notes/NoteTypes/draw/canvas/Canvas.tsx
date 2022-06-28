@@ -1,4 +1,6 @@
 import { FC, MouseEvent, useEffect, useRef, useState } from "react";
+import { setNewColorState } from "../../../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
+import { useAppSelector } from "../../../../../../../store/hooks";
 import { styles } from "../build/NoteCanvasStyles";
 
 const Canvas: FC = () => {
@@ -12,6 +14,8 @@ const Canvas: FC = () => {
     const [mouseDown, setMouseDown] = useState<boolean>( false )
     const canvasRef = useRef<HTMLCanvasElement | null>( null )
 
+    const selector = useAppSelector( ( state: setNewColorState ) => state.getNewColor.color )
+
     useEffect(() => {
         if( !canvasRef.current ) return
         const canvas = canvasRef.current
@@ -21,14 +25,14 @@ const Canvas: FC = () => {
         context.fillStyle = 'white'
         context.beginPath();
     
-        context.lineWidth = 10
+        context.lineWidth = 5
          
         // Sets the end of the lines drawn
         // to a round shape.
         context.lineCap = 'round';
         context.lineJoin = 'round';
           
-        context.strokeStyle = 'white';
+        context.strokeStyle = selector;
             
         // The cursor to start drawing
         // moves to this coordinate
@@ -40,6 +44,7 @@ const Canvas: FC = () => {
           
         // Draws the line.
         context.stroke();
+        context.closePath();
 
       }, [ coords ])
 

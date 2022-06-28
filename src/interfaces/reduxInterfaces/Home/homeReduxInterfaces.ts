@@ -27,5 +27,10 @@ export type newNoteType = {
     loading: boolean
 }
 
+export type chooseColorType = {
+    color: string
+}
+
 export type newNoteState = {  getNewNotes: newNoteType }
 export type getNoteModalState = {  getNoteModal: noteModalOpen }
+export type setNewColorState ={ getNewColor: chooseColorType }

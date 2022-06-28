@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { default as BrushIcon } from '../../.../../../../../../../graphics/brush.svg'
 import { styles } from "../build/NoteCanvasStyles";
 import { default as PencilIcon } from '../../.../../../../../../../graphics/pencil.svg'

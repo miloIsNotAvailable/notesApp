@@ -6,6 +6,7 @@ import getAccountOpen from './Home/accountIsOpen'
 import getNoteType from './Home/NoteInputType'
 import getNewNotes from './Home/newNote'
 import getNoteModal from './Home/noteModalOpen'
+import getNewColor from './Home/chooseColor'
 
 import checkForDataLoading from './Auth/checkforLoading'
 
@@ -20,7 +21,8 @@ export const store = configureStore({
     getAccountOpen,
     getNoteType,
     getNewNotes,
-    getNoteModal
+    getNoteModal,
+    getNewColor
   }
 })
 
