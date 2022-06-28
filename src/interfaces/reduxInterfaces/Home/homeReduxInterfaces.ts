@@ -31,6 +31,14 @@ export type chooseColorType = {
     color: string
 }
 
+export type chooseBrushType = {
+    brush: string
+}
+
 export type newNoteState = {  getNewNotes: newNoteType }
+
 export type getNoteModalState = {  getNoteModal: noteModalOpen }
-export type setNewColorState ={ getNewColor: chooseColorType }
+
+export type setNewColorState = { getNewColor: chooseColorType }
+
+export type setNewBrushState = { getNewBrush: chooseBrushType }

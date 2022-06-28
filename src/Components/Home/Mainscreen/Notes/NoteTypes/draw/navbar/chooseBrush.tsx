@@ -4,6 +4,8 @@ import { styles } from "../build/NoteCanvasStyles";
 import { default as PencilIcon } from '../../.../../../../../../../graphics/pencil.svg'
 import { default as Eraser } from '../../.../../../../../../../graphics/eraser.svg'
 import { AnimatePresence, motion } from "framer-motion";
+import { useAppDispatch } from "../../../../../../../store/hooks";
+import { setNewBrush } from "../../../../../../../store/Home/chooseBrush";
 
 const ChooseBrush: FC = () => {
 
@@ -14,6 +16,8 @@ const ChooseBrush: FC = () => {
 
     const[ open, setOpen ] = useState<boolean>( false )
     const[ selected, setSelected ] = useState<string>( PencilIcon )
+
+    const dispatch = useAppDispatch()
 
     return (
         <div className={ styles.choose_brush_wrap }>
@@ -37,8 +41,14 @@ const ChooseBrush: FC = () => {
                                 <img
                                     className={ styles.brush_icon }
                                     src={ Icon } 
+                                    key={ type }
                                     alt=""
-                                    onClick={ () => setSelected( Icon ) }
+                                    onClick={ () =>{ 
+                                        setSelected( Icon ) 
+                                        dispatch( setNewBrush( {
+                                            brush: type
+                                        } ) )
+                                    } }
                                 />
                             ) )
                         }

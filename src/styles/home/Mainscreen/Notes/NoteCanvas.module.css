@@ -20,6 +20,12 @@
     margin: 0 1rem;
 }
 
+.navbar_left {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
 .navbar_middle {
     display: flex;
     width: 100%;
@@ -87,6 +93,23 @@
 .brush_icon {
     width: (var(--icon-size) * .5);
     height: (var(--icon-size) * .5);
+}
+
+.save_note {
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    padding: 0 1.5rem;
+    background-color: var(--blue);
+    border: 2px solid var(--blue);
+    font-family: "Poppins";
+    color: white;
+    border-radius: .4rem;
+    transition: all 100ms ease;
+}
+
+.save_note:hover {
+    background-color: var(--bg);
 }
 
 .canvas {

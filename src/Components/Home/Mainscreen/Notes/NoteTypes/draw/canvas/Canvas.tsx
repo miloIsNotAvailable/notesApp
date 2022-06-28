@@ -1,7 +1,8 @@
 import { FC, MouseEvent, useEffect, useRef, useState } from "react";
-import { setNewColorState } from "../../../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
+import { setNewBrushState, setNewColorState } from "../../../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
 import { useAppSelector } from "../../../../../../../store/hooks";
 import { styles } from "../build/NoteCanvasStyles";
+import { draw } from "./draw";
 
 const Canvas: FC = () => {
 
@@ -15,52 +16,43 @@ const Canvas: FC = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>( null )
 
     const selector = useAppSelector( ( state: setNewColorState ) => state.getNewColor.color )
+    const brush = useAppSelector( ( state: setNewBrushState ) => state.getNewBrush.brush )
 
     useEffect(() => {
         if( !canvasRef.current ) return
         const canvas = canvasRef.current
         const context = canvas.getContext('2d')
-        //Our first draw
-        if( !context ) return
-        context.fillStyle = 'white'
-        context.beginPath();
-    
-        context.lineWidth = 5
-         
-        // Sets the end of the lines drawn
-        // to a round shape.
-        context.lineCap = 'round';
-        context.lineJoin = 'round';
-          
-        context.strokeStyle = selector;
-            
-        // The cursor to start drawing
-        // moves to this coordinate
-        context.moveTo(coords.prevx, coords.prevy);
-         !mouseDown && context.moveTo(coords.prevx, coords.prevy);
-        // A line is traced from start
-        // coordinate to this coordinate
-        context.lineTo(coords.x, coords.y);
-          
-        // Draws the line.
-        context.stroke();
-        context.closePath();
 
+        draw( {
+            context, 
+            coords, 
+            mouseDown, 
+            selector,
+            brush
+        } )
       }, [ coords ])
 
     return <canvas 
             id="canvas"
             width={ window.innerWidth }
-            height={ window.innerHeight }
+            height={ window.innerHeight - window.innerHeight * .09 }
             ref={ canvasRef }
             className={ styles.canvas }
-            onMouseDown={ ( ) => setMouseDown( true ) }
+            onMouseDown={ ( { pageX, pageY } ) => {
+                setMouseDown( true ) 
+                setCoords( { 
+                    // when x is zero set to mouse's current coords, 
+                    // else get the previous ones
+                    prevx: pageX,
+                    prevy: pageY,
+                    x: pageX, 
+                    y: pageY 
+                } ) 
+            }}
             onMouseMove={ ( { pageX, pageY } ) => 
             mouseDown && 
             setCoords( 
                 ( { x, y } ) => ({ 
-                    // when x is zero set to mouse's current coords, 
-                    // else get the previous ones
                     prevx: !x ? pageX : x,
                     prevy: !y ? pageY : y,
                     x: pageX, 
@@ -69,14 +61,6 @@ const Canvas: FC = () => {
             ) }
             onMouseUp={ ( { pageX, pageY } ) => { 
                 setMouseDown( false ) 
-                setCoords( { 
-                        // when x is zero set to mouse's current coords, 
-                        // else get the previous ones
-                        prevx: pageX,
-                        prevy: pageY,
-                        x: pageX, 
-                        y: pageY 
-                    } ) 
             }}
         />
     }
