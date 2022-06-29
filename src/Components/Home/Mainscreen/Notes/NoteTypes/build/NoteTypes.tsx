@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState, useEffect, useRef } from "react";
 import { useQuery } from "../../../../../../hooks/graphql/useQuery";
 import TextNoteLayout from "../text/TextNoteLayout";
 import { styles } from "./NoteTypesStyles";
@@ -6,19 +6,7 @@ import { Note } from '../../../../../../../api/dbinterfaces'
 import { AnimatePresence, motion } from "framer-motion";
 import { useAppSelector } from "../../../../../../store/hooks";
 import { newNoteState } from "../../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
-import { useGetAllPostsQuery } from "../../../../../../store/apis/getPosts";
-
-const QUERY_USER_NOTES = `
-query note( $users: String ) {
-    note( users:$users ){
-      users
-      title
-      content
-      type
-      id
-    }
-  }
-`
+import { useGetAllPostsQuery, useGetNewPostsMutation } from "../../../../../../store/apis/getPosts";
 
 const QUERY_USER_NOTES_WITH_USERS = `
 query Notes( $users: String ) {
@@ -54,7 +42,29 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
         variables: { users: id }
     })
 
-    // console.log( e?.isLoading, e?.data )
+    const [setCreateNewNote, createNewNote] = 
+    useGetNewPostsMutation( {
+        fixedCacheKey: 'get-new-note'
+    } )
+    const [ newNotes, setNewNotes ] = useState<any[]>( [] )
+    const newNoteRef = useRef<any[]>( [] )
+
+    useEffect( () => {
+        
+        setNewNotes( ( prev ) => [ 
+            ...prev, 
+            { content: "", title: "", loading: true } 
+        ] )
+
+            if( createNewNote?.data?.newNote ) newNoteRef.current = [ 
+            ...newNoteRef.current, 
+            { ...createNewNote?.data?.newNote, 
+                loading: createNewNote?.isLoading
+            } ]
+
+    }, [ createNewNote ] )  
+
+    console.log( createNewNote?.data )
 
     if( isLoading ) return (
         <div className={ styles.note_types_align }>
@@ -85,7 +95,7 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
         <div className={ styles.note_types_align }>
             <AnimatePresence exitBeforeEnter>
                 {
-                    data?.queryNotes && [...data?.queryNotes, ...selector?.newNotes].map(
+                    data?.queryNotes && [...data?.queryNotes, ...newNoteRef.current ].map(
                         ( v: any, ind: number ) => (
                             <motion.div 
                                 key={ ind }
@@ -97,6 +107,7 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
                                 <TextNoteLayout
                                     {  ...v }
                                     noteId={ v?.id }
+                                    loading={ !v?.content }
                                 />
                             </motion.div>
                         )

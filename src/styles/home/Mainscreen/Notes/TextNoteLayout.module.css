@@ -3,7 +3,7 @@
     --size: 10vw;
     display: flex;
     flex-direction: column;
-    min-width: 1vw;
+    min-width: var(--size);
     width: auto;
     border-radius: .3rem;
     padding: 1rem;

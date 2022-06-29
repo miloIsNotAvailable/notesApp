@@ -3,6 +3,7 @@ import { NOTE_MUTATION } from "../../../../../constants/queries";
 import { useData } from "../../../../../contexts/HomeContext";
 import { useMutation } from "../../../../../hooks/graphql/useMutation";
 import { useNoteType } from "../../../../../hooks/home/useNoteType";
+import { useGetNewPostsMutation } from "../../../../../store/apis/getPosts";
 import { setNewNote } from "../../../../../store/Home/newNote";
 import { setNoteType } from "../../../../../store/Home/NoteInputType";
 import { useAppDispatch } from "../../../../../store/hooks";
@@ -21,6 +22,10 @@ const Submit: FC = () => {
     const [ { data, loading, error }, setNote ] = useMutation()
     const [ notesLoading, setNotesLoading ] = useState( 0 )
 
+    const [setCreateNewNote, createNewNote] = useGetNewPostsMutation( {
+        fixedCacheKey: 'get-new-note',
+    } )
+
     useEffect( () =>{
         console.log( data, loading )
         dispatch( setNewNote( {
@@ -36,18 +41,28 @@ const Submit: FC = () => {
         // prevent default to avoid unnecessary refresh
         e.preventDefault()
 
-        content && content?.length < 255 && 
-        setNote(
-            NOTE_MUTATION, 
-            {
-                args: {
-                    content,
-                    title: 'hey',
-                    type,
-                    userId: id
-                }
+        // content && content?.length < 255 && 
+        // setNote(
+        //     NOTE_MUTATION, 
+        //     {
+        //         args: {
+        //             content,
+        //             title: 'hey',
+        //             type,
+        //             userId: id
+        //         }
+        //     }
+        // )
+
+        setCreateNewNote( {
+            body: NOTE_MUTATION,
+            variables: {
+                content,
+                type, 
+                title: 'hey',
+                userId: id,
             }
-        )
+        } )
 
         setNotesLoading( prev => !data ? prev + 1 : 0 )
 

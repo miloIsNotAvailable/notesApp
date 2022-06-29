@@ -9,12 +9,19 @@ const graphqlBaseQuery =
     return { data: result };
   }
 
+type queryType = {
+    body: string, 
+    variables: any
+}
+
 export const getPosts = createApi( {
     reducerPath: 'getPosts',
+    tagTypes: ['Note'],
     baseQuery: graphqlBaseQuery( 
         { baseUrl: `${ check_env }/graphql` } ),
-    endpoints: ( { query } ) => ( {
-        getAllPosts: query<any, any>( {
+    endpoints: ( { query, mutation } ) => ( {
+        getAllPosts: query<any, queryType>( {
+            providesTags: ['Note'],
             query: ( { body, variables } ) => ( {
                 url: `/graphql`,
                 method: 'POST',
@@ -24,9 +31,23 @@ export const getPosts = createApi( {
                 body: body,
                 variables
             } )
-
+        } ),
+        getNewPosts: mutation<any, queryType>( {
+            invalidatesTags: ['Note'],
+            query: ( { body, variables } ) => ( {
+                url: `/graphql`,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: body,
+                variables
+            } )
         } )
     } )
 } )
 
-export const { useGetAllPostsQuery } = getPosts
+export const { 
+    useGetAllPostsQuery, 
+    useGetNewPostsMutation 
+} = getPosts

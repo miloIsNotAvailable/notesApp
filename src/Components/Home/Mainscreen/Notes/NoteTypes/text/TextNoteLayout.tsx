@@ -5,8 +5,10 @@ import { useQuery } from "../../../../../../hooks/graphql/useQuery";
 import { getPosts, useGetAllPostsQuery } from "../../../../../../store/apis/getPosts";
 import { setNoteModalOpen } from "../../../../../../store/Home/noteModalOpen";
 import { useAppDispatch } from "../../../../../../store/hooks";
+import TextNoteContent from "./TextNoteContent";
 import { styles } from "./TextNoteLayoutStyles";
 import TextNoteTitle from "./TextNoteTitle";
+import TextNoteUsers from "./TextNoteUsers";
 
 interface TextNoteLayoutProps {
     content: string
@@ -25,18 +27,6 @@ const TextNoteLayout: FC<Partial<TextNoteLayoutProps>>
     noteUsers=[]
 } ) => {
 
-    const dispatch = useAppDispatch()
-
-    const handleOpenModal: () => void = () => {
-        dispatch( setNoteModalOpen( {
-            open: true,
-            content: content,
-            title: title,
-            id: noteId!,
-            users: ""
-        } ) ) 
-    }
-
     if ( loading ) return (
         <div className={ styles.text_layout }
         style={ { 
@@ -50,22 +40,16 @@ const TextNoteLayout: FC<Partial<TextNoteLayoutProps>>
 
     return (
         <div className={ styles.text_layout }
-        onClick={ handleOpenModal }
             style={ { 
                 backgroundColor: colors[ Math.floor( Math.random() * colors.length ) ]                
             } }>
             <TextNoteTitle title={ title } noteId={ noteId! }/>
-            <p>{ content }</p>
-            <div className={ styles.add_new_users_wrap }>
-                <div className={ styles.add_new_users }>
-                    {
-                        noteUsers!.map( ( { users }: any ) => (
-                            <div key={ users } className={ styles.note_user }/>
-                        ) )
-                    }
-                    <div className={ styles.add_user }>+</div>
-                </div>
-            </div>
+            <TextNoteContent 
+                content={ content }
+                noteId={ noteId! }
+                title={ title }
+            />
+            <TextNoteUsers noteUsers={ noteUsers } />
         </div>
     )
 }
