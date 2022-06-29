@@ -6,6 +6,7 @@ import { Note } from '../../../../../../../api/dbinterfaces'
 import { AnimatePresence, motion } from "framer-motion";
 import { useAppSelector } from "../../../../../../store/hooks";
 import { newNoteState } from "../../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
+import { useGetAllPostsQuery } from "../../../../../../store/apis/getPosts";
 
 const QUERY_USER_NOTES = `
 query note( $users: String ) {
@@ -19,25 +20,48 @@ query note( $users: String ) {
   }
 `
 
+const QUERY_USER_NOTES_WITH_USERS = `
+query Notes( $users: String ) {
+    queryNotes( users:$users ){
+          id
+      title
+      content
+      type
+      users
+      noteUsers {
+        id
+        users
+      }
+    }
+  }
+`
+
 interface NoteTypesProps {
     id: string
 }
 
 const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
 
-    const { data, loading, error } = useQuery( QUERY_USER_NOTES, {
-        variables: {
-            users: id
-        }
-    }  )
+    // const { data, loading, error } = useQuery( QUERY_USER_NOTES, {
+    //     variables: {
+    //         users: id
+    //     }
+    // }  )
     const selector = useAppSelector( ( state: newNoteState ) => state.getNewNotes )
 
-    if( loading ) return (
+    const  { data, isLoading } = useGetAllPostsQuery( {
+        body: QUERY_USER_NOTES_WITH_USERS, 
+        variables: { users: id }
+    })
+
+    // console.log( e?.isLoading, e?.data )
+
+    if( isLoading ) return (
         <div className={ styles.note_types_align }>
         <AnimatePresence exitBeforeEnter>
             {
                 Array(5).fill( { content: "" } ).map(
-                    ( { content }: Note, ind: number ) => (
+                    ( v: any, ind: number ) => (
                         <motion.div 
                             key={ ( ind + 1 )* 10 }
                             transition={ { delay: ind * .1 } }
@@ -46,10 +70,7 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
                             exit={ { opacity: 0, transform: 'translate(0, 100%)' } }
                         >
                             <TextNoteLayout 
-                                title={ '' }
-                                text={  `` } 
-                                key={ `${(ind + 1) * 10}` }  
-                                loading={ loading }
+                                loading={ isLoading }
                                 noteId={ ind.toString() }
                             />
                         </motion.div>
@@ -64,8 +85,8 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
         <div className={ styles.note_types_align }>
             <AnimatePresence exitBeforeEnter>
                 {
-                    data?.data?.note && [...data?.data?.note, ...selector?.newNotes].map(
-                        ( { content, title, id }: Note, ind: number ) => (
+                    data?.queryNotes && [...data?.queryNotes, ...selector?.newNotes].map(
+                        ( v: any, ind: number ) => (
                             <motion.div 
                                 key={ ind }
                                 transition={ { delay: ind * .1 } }
@@ -74,10 +95,8 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
                                 exit={ { opacity: 0, transform: 'translate(0, 100%)' } }
                             >
                                 <TextNoteLayout
-                                    title={ title } 
-                                    text={  content } 
-                                    loading={ loading }
-                                    noteId={ id }
+                                    {  ...v }
+                                    noteId={ v?.id }
                                 />
                             </motion.div>
                         )

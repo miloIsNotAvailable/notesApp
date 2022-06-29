@@ -24,6 +24,25 @@
     users: String
   }
 
+  type Users {
+    id: String
+    users: String
+  }
+
+  input UsersInput {
+    id: String
+    username: String
+  }
+
+  type GetNotes {
+    id: String
+    title: String
+    content: String
+    type: String
+    users: String
+    noteUsers: [Users]
+  }
+
   type updateTitle {
     id: String
     title: String
@@ -41,6 +60,8 @@
     say( msg: String ): sayHi
     user: [User]
     note( users: String ): [Notes]
+    noteByID( id: String ): [Notes]
+    queryNotes( users: String ): [GetNotes]
   }
 
   type Mutation {

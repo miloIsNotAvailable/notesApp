@@ -1,3 +1,4 @@
+import { GraphQLID, GraphQLInterfaceType } from "graphql";
 import { v4 } from "uuid";
 import { ORM } from "../db/orm/Orm";
 
@@ -21,6 +22,28 @@ export const root = {
     note: async( args: any ) => {
       console.log( args )
       const data = args?.users && await orm.select( { table: 'Note', where: { users: args.users } } )
+      return data
+    },
+    
+  queryNotes: async( args: any ) => {
+
+    const note = args?.users && await orm.select( { table: "Note", where: { users: args.users } } )
+
+    const notes = note.map(  (n: any) => ({ 
+      ...n, 
+      noteUsers: async() => await orm.select( { 
+        table: "Note", 
+        where: { id: n?.id } 
+      } ) 
+      }) 
+    )
+
+    return notes
+  }, 
+
+    noteByID: async( args: any ) => {
+      console.log( args )
+      const data = args?.id && await orm.select( { table: 'Note', where: { id: args.id } } )
       return data
     },
 

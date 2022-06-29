@@ -10,6 +10,7 @@ import getNewColor from './Home/chooseColor'
 import getNewBrush from './Home/chooseBrush'
 
 import checkForDataLoading from './Auth/checkforLoading'
+import { getPosts } from './apis/getPosts'
 
 export const store = configureStore({
   reducer: {
@@ -24,8 +25,11 @@ export const store = configureStore({
     getNewNotes,
     getNoteModal,
     getNewColor,
-    getNewBrush
-  }
+    getNewBrush,
+    [getPosts.reducerPath]: getPosts.reducer
+  },
+  middleware: (getDefaultMiddleware: any) =>
+  getDefaultMiddleware().concat(getPosts.middleware),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
