@@ -29,11 +29,6 @@
     users: String
   }
 
-  input UsersInput {
-    id: String
-    username: String
-  }
-
   type GetNotes {
     id: String
     title: String
@@ -55,6 +50,18 @@
     noteId: String
   }
 
+  type newUser {
+    id: String
+    username: String
+    noteId: String
+  }
+
+  input newUserInput {
+    id: String
+    username: String
+    noteId: String
+  }
+
   type Query {
     hello: String
     say( msg: String ): sayHi
@@ -68,4 +75,5 @@
     newNote( userId: String, title: String, content: String, type: String ): Note
     newTitle( title: String, id: String, noteId: String ): updateTitle
     newContent( content: String, id: String, noteId: String ): updateContent
+    updateUsers( input: newUserInput ): newUser
   }

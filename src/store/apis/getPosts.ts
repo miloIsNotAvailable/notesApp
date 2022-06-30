@@ -43,11 +43,24 @@ export const getPosts = createApi( {
                 body: body,
                 variables
             } )
-        } )
+        } ),
+        getNewUsers: mutation<any, queryType>( {
+            invalidatesTags: ["Note"],
+            query: ( { body, variables } ) => ( {
+                url: `/graphql`,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: body,
+                variables
+            } )
+        } ) 
     } )
 } )
 
 export const { 
     useGetAllPostsQuery, 
-    useGetNewPostsMutation 
+    useGetNewPostsMutation,
+    useGetNewUsersMutation
 } = getPosts

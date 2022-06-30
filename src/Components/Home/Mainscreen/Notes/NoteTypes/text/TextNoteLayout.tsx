@@ -49,7 +49,10 @@ const TextNoteLayout: FC<Partial<TextNoteLayoutProps>>
                 noteId={ noteId! }
                 title={ title }
             />
-            <TextNoteUsers noteUsers={ noteUsers } />
+            <TextNoteUsers 
+                noteUsers={ noteUsers } 
+                noteId={ noteId! }
+            />
         </div>
     )
 }

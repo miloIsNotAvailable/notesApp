@@ -1,4 +1,5 @@
 import { GraphQLID, GraphQLInterfaceType } from "graphql";
+import { async } from "rxjs";
 import { v4 } from "uuid";
 import { ORM } from "../db/orm/Orm";
 
@@ -72,7 +73,7 @@ export const root = {
         type: data[0]?.type,
         users: data[0]?.users
       }
-      return args
+      // return args
     },
     newTitle: async( args: any ) => {
       const data = await orm.update( {
@@ -89,5 +90,9 @@ export const root = {
         data: { content: args?.content }
       } )
       return args
-    } 
+    },
+    updateUsers: async( { input }: any ) => {
+      console.log( input )
+      return input
+    }
   };

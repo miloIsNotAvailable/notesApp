@@ -11,10 +11,12 @@ import { serialize } from 'cookie'
 import cookiePaser from 'cookie-parser'
 import path from 'path'
 import { grpahqlEndpoint } from './graphql/graphqlHTTP.js'
+import { Server } from 'socket.io'
+import { createServer } from 'http'
+import { app, server } from './createAppServer.js'
+import Sockets from './sockets/sockets.js'
 
 dotenv.config()
-
-var app = express();
 
 app.use( cors( {
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -38,6 +40,9 @@ var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false, limit: '100mb' })
 app.use( urlencodedParser )
 app.use( jsonParser )
+
+// run websockets
+Sockets()
 
 app.use('/graphql', grpahqlEndpoint );
 
@@ -158,5 +163,5 @@ connect()
 
 const port = process.env.PORT || 4000
 
-app.listen( port );
+server.listen( port );
 console.log('Running a GraphQL API server at http://localhost:4000/graphql');
