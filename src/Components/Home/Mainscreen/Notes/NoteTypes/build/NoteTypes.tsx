@@ -46,23 +46,16 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
     useGetNewPostsMutation( {
         fixedCacheKey: 'get-new-note'
     } )
-    const [ newNotes, setNewNotes ] = useState<any[]>( [] )
     const newNoteRef = useRef<any[]>( [] )
 
-    useEffect( () => {
+    // whuh huh, how it work
+    // useEffect( () => {
         
-        setNewNotes( ( prev ) => [ 
-            ...prev, 
-            { content: "", title: "", loading: true } 
-        ] )
+    //         if( createNewNote?.data?.newNote ) newNoteRef.current = [ 
+    //         ...newNoteRef.current, 
+    //         createNewNote?.data?.newNote ]
 
-            if( createNewNote?.data?.newNote ) newNoteRef.current = [ 
-            ...newNoteRef.current, 
-            { ...createNewNote?.data?.newNote, 
-                loading: createNewNote?.isLoading
-            } ]
-
-    }, [ createNewNote ] )  
+    // }, [ createNewNote?.data?.newNote ] )  
 
     console.log( createNewNote?.data )
 
@@ -99,7 +92,7 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
                         ( v: any, ind: number ) => (
                             <motion.div 
                                 key={ ind }
-                                transition={ { delay: ind * .1 } }
+                                // transition={ { delay: ind * .05 } }
                                 initial={ { opacity: 0, transform: 'translate(0, -100%)' } }
                                 animate={ { opacity: 1, transform: 'translate(0, 0%)' } }
                                 exit={ { opacity: 0, transform: 'translate(0, 100%)' } }

@@ -72,7 +72,7 @@ export const root = {
         type: data[0]?.type,
         users: data[0]?.users
       }
-      // return args
+      return args
     },
     newTitle: async( args: any ) => {
       const data = await orm.update( {
