@@ -3,16 +3,19 @@
     width: 100%;
     height: calc( 100% - 1rem );
     align-self: center;
-    justify-content: center;
+    margin: 0 calc( 25% );
+    border-radius: .3rem;
+    /* justify-content: center; */
 }
 
 .search_wrap {
     display: grid;
     grid-template-columns: calc( var(--icon-size) + .5rem ) auto;
     place-self: center;
+    align-self: flex-start;
     align-items: center;
     justify-content: center;
-    border-radius: 2rem;
+    border-radius: inherit;
     background-color: var(--grey);
     width: calc(7rem + 3vw + 4rem);
     /* height: 100% */
@@ -24,7 +27,7 @@
 
 .search_input {
     outline: none;
-    border-radius: 2rem;
+    border-radius: inherit;
     border: none;
     padding: 0 1rem;
     background-color: var(--grey);

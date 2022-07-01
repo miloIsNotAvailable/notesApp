@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useAppSelector } from "../../../../../../store/hooks";
 import { newNoteState } from "../../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
 import { useGetAllPostsQuery, useGetNewPostsMutation } from "../../../../../../store/apis/getPosts";
+import TextNoteAddUsers from "../text/TextNoteAddUser";
 
 const QUERY_USER_NOTES_WITH_USERS = `
 query Notes( $users: String ) {
@@ -86,6 +87,7 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
 
     return (
         <div className={ styles.note_types_align }>
+                        <TextNoteAddUsers />
             <AnimatePresence exitBeforeEnter>
                 {
                     data?.queryNotes && [...data?.queryNotes, ...newNoteRef.current ].map(

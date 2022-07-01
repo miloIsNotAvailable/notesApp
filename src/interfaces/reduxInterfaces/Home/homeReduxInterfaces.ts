@@ -35,6 +35,13 @@ export type chooseBrushType = {
     brush: string
 }
 
+export type searchModalOpen = {
+    x: number
+    y: number
+    open: boolean
+    noteId: string
+}
+
 export type newNoteState = {  getNewNotes: newNoteType }
 
 export type getNoteModalState = {  getNoteModal: noteModalOpen }
@@ -42,3 +49,5 @@ export type getNoteModalState = {  getNoteModal: noteModalOpen }
 export type setNewColorState = { getNewColor: chooseColorType }
 
 export type setNewBrushState = { getNewBrush: chooseBrushType }
+
+export type setSearchModalState = { getSearchModalOpen: searchModalOpen }

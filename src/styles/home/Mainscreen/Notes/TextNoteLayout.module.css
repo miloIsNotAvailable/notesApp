@@ -152,3 +152,84 @@
 .add_user:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
+
+.find_user {
+    position: fixed;
+    display: grid;
+    grid-template-columns: 20rem 3vw;
+    place-self: center;
+    width: fit-content;
+    height: 3rem;
+    z-index: 3;
+    top: 50%;
+    left: 50%;
+    /* transform: translate(-50%, 0); */
+    transform: translate( -50%, -50% );
+    border-radius: .5rem;
+    color: white; 
+    font-family: 'Poppins';
+}
+
+.find_user_input {
+    width: 100%;
+    height: 100%;
+    background-color: var(--grey);
+    outline: none;
+    border: none;
+    padding: 0 1rem;
+    color: inherit; 
+    font-family: inherit;
+    border-radius: inherit;
+}
+
+.find_user_add {
+    cursor: pointer;
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: calc(100% - 2rem);
+    height: auto;
+    color: inherit; 
+    font-family: inherit;
+}
+
+.find_user_add::after {
+    position: absolute;
+    display: grid;
+    content: "click to add";
+    top: 100%;
+    place-items: center;
+    width: max-content;
+    height: auto;
+    margin: .5rem 0;
+    padding: 0 1rem;
+    border-radius: .3rem;
+    background-color: var(--grey);
+    color: inherit; 
+    font-family: inherit;
+    opacity: 0;
+    transition: all 100ms ease;
+}
+
+.find_user_add::before {
+    position: absolute;
+    display: grid;
+    content: "";
+    --triangle-size: 7px;
+    top: calc(100% - var(--triangle-size) + 1px);
+    width: 0px;
+    height: 0px;
+    /* background-color: tomato; */
+    border: var(--triangle-size) solid transparent;
+    border-bottom: var(--triangle-size) solid var(--grey);
+    opacity: 0;
+    transition: all 100ms ease;
+}
+
+.find_user_add:hover::after, .find_user_add:hover::before {
+    opacity: 1;
+}
+
+.find_user_add[children^="❌"]:hover::after {
+    opacity: 0;
+}

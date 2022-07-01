@@ -92,7 +92,36 @@ export const root = {
       return args
     },
     updateUsers: async( { input }: any ) => {
-      console.log( input )
-      return input
+      
+      const data = await orm.select( {
+        table: 'create_user',
+        where: {
+          username: input?.username
+        }
+      } )
+
+      const note = await orm.select( {
+        table: 'Note', 
+        where: { id: input?.noteId }
+      } )
+
+      // console.log( {
+      //   ...note[0],
+      //   users: data[0]?.id
+      // } )
+
+      if( !data[0] ) return new Error( 'user not found' )
+
+      note[0] && await orm.create( {
+        table: 'Note',
+        data: {
+          values: {
+            ...note[0],
+            users: data[0]?.id
+          }
+        }
+      } )
+
+      return { ...data[0], noteId: input?.noteId }
     }
   };

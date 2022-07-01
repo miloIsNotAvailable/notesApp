@@ -1,6 +1,8 @@
-import { FC } from "react";
+import { FC, useRef } from "react";
 import { useData } from "../../../../../../contexts/HomeContext";
 import { useGetNewUsersMutation } from "../../../../../../store/apis/getPosts";
+import { setSearchModalOpen } from "../../../../../../store/Home/SearchBarOpen";
+import { useAppDispatch } from "../../../../../../store/hooks";
 import { styles } from "./TextNoteLayoutStyles";
 
 interface TextNoteUsersProps {
@@ -8,38 +10,24 @@ interface TextNoteUsersProps {
     noteId: string
 }
 
-const UPDATE_USERS = `
-mutation updateUsers( $id: String, $noteId:String, $username:String ) {
-    updateUsers(  input:{
-      id:$id, 
-      username:$username,
-        noteId: $noteId
-    } ) {
-      id
-      username
-      noteId
-    }
-  }
-`
-
 const TextNoteUsers: FC<TextNoteUsersProps> 
 = ( { 
     noteUsers, 
     noteId 
 } ) => {
 
-    const [ getNewUsers, { data, isLoading } ] = useGetNewUsersMutation()
-    const { id, username } = useData()
+    const openModalRef = useRef<HTMLDivElement | null>( null )
+
+    const dispatch = useAppDispatch()
 
     const handleClick: () => void = () => {
-        getNewUsers( {
-            body: UPDATE_USERS, 
-            variables: {
-                noteId,
-                id,
-                username
-            }
-        } )
+
+        dispatch( setSearchModalOpen( {
+            open: true,
+            x: openModalRef.current!.getBoundingClientRect()!.left,
+            y: openModalRef.current!.getBoundingClientRect()!.top,
+            noteId: noteId
+        } ) )
     }
 
     return (
@@ -51,7 +39,8 @@ const TextNoteUsers: FC<TextNoteUsersProps>
                     ) )
                 }
                 <div className={ styles.add_user }
-                    // onClick={ handleClick }
+                    ref={ openModalRef }
+                    onClick={ handleClick }
                 >
                     +
                 </div>
