@@ -3,7 +3,6 @@ import { v4 } from "uuid";
 import { ORM } from "../db/orm/Orm";
 import { initializeApp } from 'firebase/app'
 import { getDownloadURL, getStorage, ref, uploadString } from 'firebase/storage'
-import { useEffect } from "react";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDOMrkY_z_wII-bv1-EFMVk-5AP6TqVYls",
@@ -74,7 +73,7 @@ export const root = {
         
         uploadString( storageRef, args?.content, 'data_url' )
         .then( async( snapshot ) => {
-          console.log( snapshot )
+          // console.log( snapshot )
         } ).then( async() => {
           const url = await getDownloadURL( storageRef )
           console.log( url )
