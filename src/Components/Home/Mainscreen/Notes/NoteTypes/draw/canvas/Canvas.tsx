@@ -1,4 +1,6 @@
 import { FC, MouseEvent, useEffect, useRef, useState } from "react";
+import { fromEvent, map, of, switchMap } from "rxjs";
+import { socket, _socket } from "../../../../../../../constants/SocketsConstants";
 import { setNewBrushState, setNewColorState } from "../../../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
 import { useAppSelector } from "../../../../../../../store/hooks";
 import { styles } from "../build/NoteCanvasStyles";
@@ -22,6 +24,31 @@ const Canvas: FC = () => {
         if( !canvasRef.current ) return
         const canvas = canvasRef.current
         const context = canvas.getContext('2d')
+
+        socket.pipe(
+            switchMap(
+                socket => fromEvent( socket, 'msg' )
+                .pipe(
+                    map( data => ( { socket, data } ) )
+                )
+            )
+        ).subscribe( ( { data, socket } ) => {
+            console.log( data )
+            socket.emit( 'message', { ye: 'ye' } )
+        } )
+
+        socket.pipe(
+            switchMap(
+                socket => fromEvent( socket, 'm' )
+                .pipe(
+                    map( data => ( { socket, data } ) )
+                )
+            )
+        ).subscribe( ( { data, socket } ) => {
+            console.log( data, socket.emit( 'message', { ye: 'ye' } ) )
+            socket.emit( 'message', { ye: 'ye' } )
+        } )
+
 
         draw( {
             context, 

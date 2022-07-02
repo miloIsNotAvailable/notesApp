@@ -1,3 +1,5 @@
+import { MutableRefObject } from "react"
+
 export const draw: 
 ( 
     args: {
@@ -44,7 +46,7 @@ export const draw:
         // The cursor to start drawing
         // moves to this coordinate
         context.moveTo(coords.prevx, coords.prevy);
-         !mouseDown && context.moveTo(coords.x, coords.y);
+
         // A line is traced from start
         // coordinate to this coordinate
         context.lineTo(coords.x, coords.y);
@@ -52,6 +54,12 @@ export const draw:
         // Draws the line.
         context.stroke();
         context.closePath();
+}
 
+const useDraw: 
+( context: CanvasRenderingContext2D | null ) => any 
+= context => {
+    
+    
 
 }

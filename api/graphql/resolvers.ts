@@ -105,11 +105,6 @@ export const root = {
         where: { id: input?.noteId }
       } )
 
-      // console.log( {
-      //   ...note[0],
-      //   users: data[0]?.id
-      // } )
-
       if( !data[0] ) return new Error( 'user not found' )
 
       note[0] && await orm.create( {

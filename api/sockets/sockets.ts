@@ -8,11 +8,11 @@ export default function Sockets() {
         cors: {
           allowedHeaders: ['Content-Type', 'Authorization'],
           credentials: true,
-          origin: ['http://localhost:3000', 'http://localhost:4000', 'https://app-of-the-heck.herokuapp.com/', 'https://notes-app-three-beta.vercel.app']
+          origin: ['http://localhost:3000', 'http://localhost:4000', 'https://app-of-the-heck.herokuapp.com/', 'https://notes-app-three-beta.vercel.app'],
+          methods: [ 'GET', 'POST' ]
         }
     } )
     
-
     const io: Observable<typeof _io> = of( _io )
     io.pipe( 
         switchMap( 
@@ -23,23 +23,7 @@ export default function Sockets() {
          )
      ).subscribe( socket => {
          console.log( 'connected socket' )
-         _io.emit( 'msg', { msg: 'hello' } )
-     } )
-
-     io.pipe( 
-         switchMap(
-             socket => of( { msg: 'hello' } )
-             .pipe(
-                 map( data => ( { socket, data } ) )
-             )
-         )
-     ).subscribe(
-         ( { data, socket } ) => {
-            _io.emit( 'msg', data )
-         }
-     )
-
-    // _io.on( "connection", () => {
-    //   console.log( 'socket connected' )
-    // } )
-}
+         socket.emit( 'msg', { msg: 'hello' } )
+         socket.on( 'message', console.log )
+        } )
+    }
