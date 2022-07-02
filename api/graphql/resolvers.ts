@@ -1,7 +1,22 @@
 import { GraphQLID, GraphQLInterfaceType } from "graphql";
-import { async } from "rxjs";
 import { v4 } from "uuid";
 import { ORM } from "../db/orm/Orm";
+import { initializeApp } from 'firebase/app'
+import { getDownloadURL, getStorage, ref, uploadString } from 'firebase/storage'
+import { useEffect } from "react";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDOMrkY_z_wII-bv1-EFMVk-5AP6TqVYls",
+  authDomain: "notes-stuff.firebaseapp.com",
+  projectId: "notes-stuff",
+  storageBucket: "notes-stuff.appspot.com",
+  messagingSenderId: "1026829113779",
+  appId: "1:1026829113779:web:308a6abbfbe793b3aa13c6",
+  measurementId: "G-TRPD6GBNXS"
+};
+
+// Initialize Firebase
+initializeApp(firebaseConfig);
 
 const orm = new ORM()
 
@@ -53,25 +68,65 @@ export const root = {
 
       const id = v4()
 
-      const data = args && await orm.create( {
-        table: 'Note', 
-        data: {
-          values: { 
-            id, 
-            content: args?.content, 
-            type: args?.type, 
-            title: args?.title, 
-            users: args?.userId 
+      if( args?.type === 'image' ) {
+        const storage = getStorage()
+        const storageRef = ref( storage, `${ args?.userId }/${ id }` )
+        
+        uploadString( storageRef, args?.content, 'data_url' )
+        .then( async( snapshot ) => {
+          console.log( snapshot )
+        } ).then( async() => {
+          const url = await getDownloadURL( storageRef )
+          console.log( url )
+
+          const data = args && url && await orm.create( {
+            table: 'Note', 
+            data: {
+              values: { 
+                id, 
+                content: url, 
+                type: args?.type, 
+                title: args?.title, 
+                users: args?.userId 
+              }
+            }
+          } )
+
+          console.log( data )
+          
+          return {
+            userId: data[0]?.id,
+            title: data[0]?.title,
+            content: data[0]?.content,
+            type: data[0]?.type,
+            users: data[0]?.users
           }
+
+        } )
+      }
+
+      if( args?.type === 'text' ) {
+
+        const data = args && await orm.create( {
+          table: 'Note', 
+          data: {
+            values: { 
+              id, 
+              content: args?.content, 
+              type: args?.type, 
+              title: args?.title, 
+              users: args?.userId 
+            }
+          }
+        } )
+        console.log( data )
+        return {
+          userId: data[0]?.id,
+          title: data[0]?.title,
+          content: data[0]?.content,
+          type: data[0]?.type,
+          users: data[0]?.users
         }
-      } )
-      console.log( data )
-      return {
-        userId: data[0]?.id,
-        title: data[0]?.title,
-        content: data[0]?.content,
-        type: data[0]?.type,
-        users: data[0]?.users
       }
       // return args
     },
@@ -91,6 +146,7 @@ export const root = {
       } )
       return args
     },
+
     updateUsers: async( { input }: any ) => {
       
       const data = await orm.select( {

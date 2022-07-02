@@ -5,6 +5,7 @@ import { of, fromEvent, map, Observable, switchMap } from 'rxjs'
 export default function Sockets() {
 
     const _io = new Server( server, {
+        transports: [ 'websocket' ],
         cors: {
           allowedHeaders: ['Content-Type', 'Authorization'],
           credentials: true,

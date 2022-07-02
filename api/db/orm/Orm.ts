@@ -120,30 +120,30 @@ export const ORM = class {
         const keys = Object.keys( values ).join( ',' )
         const vals = Object.values( values ).map( v => `'${ v }'` ).join( ',' )
 
-        if( process.env.NODE_ENV !== 'production' ) {
+        // if( process.env.NODE_ENV !== 'production' ) {
 
-            const insertStatement = tableFromObject( {
-                table, 
-                values            
-            } )
+        //     const insertStatement = tableFromObject( {
+        //         table, 
+        //         values            
+        //     } )
     
-            await client.query( insertStatement, ( err, res ) => {
+        //     await client.query( insertStatement, ( err, res ) => {
                 
-                if( err ) return
-                if( !res?.rows ) return
+        //         if( err ) return
+        //         if( !res?.rows ) return
 
-                console.log( res?.rows )
+        //         console.log( res?.rows )
 
-                try {                  
-                      console.log( "\n" + conv( { table: table, args: values }) + "\n" )
-                      fs.appendFile( 'dbinterfaces.ts', "\n" + conv( { table: table, args: values }) + "\n" , ( err ) => {
-                          console.log( err || "done" )
-                      })
-                  }catch( e ) {
-                      console.log( e )  
-                  }
-            } );
-        }
+        //         try {                  
+        //               console.log( "\n" + conv( { table: table, args: values }) + "\n" )
+        //               fs.appendFile( 'dbinterfaces.ts', "\n" + conv( { table: table, args: values }) + "\n" , ( err ) => {
+        //                   console.log( err || "done" )
+        //               })
+        //           }catch( e ) {
+        //               console.log( e )  
+        //           }
+        //     } );
+        // }
 
         let res: any
 

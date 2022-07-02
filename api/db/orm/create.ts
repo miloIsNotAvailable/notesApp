@@ -6,7 +6,7 @@ export const create = async() => {
     const client = await connect()
 
     const insertStatement =
-    "SELECT * FROM  Note";
+    `DELETE FROM Note WHERE content='[object Object]'`;
     // const insertStatement =
     // `INSERT INTO Note(id, title, content, type, users) SELECT id, title, content, type, '2539cd15-6fc1-4d41-92b4-026b8cc8edb4' FROM Note WHERE id='65dcd050-566e-402e-9d20-c5c97aca680b'`;
     

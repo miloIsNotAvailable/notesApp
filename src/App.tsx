@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { fromEvent, map, switchMap } from "rxjs";
+import { check_env } from "./check_env";
 import AppRoutes from "./Components/Routes/AppRoutes";
 import { socket, _socket } from "./constants/SocketsConstants";
 

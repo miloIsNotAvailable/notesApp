@@ -87,7 +87,7 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
 
     return (
         <div className={ styles.note_types_align }>
-                        <TextNoteAddUsers />
+            <TextNoteAddUsers />
             <AnimatePresence exitBeforeEnter>
                 {
                     data?.queryNotes && [...data?.queryNotes, ...newNoteRef.current ].map(
@@ -96,7 +96,7 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
                                 key={ ind }
                                 // transition={ { delay: ind * .05 } }
                                 initial={ { opacity: 0, transform: 'translate(0, -100%)' } }
-                                animate={ { opacity: 1, transform: 'translate(0, 0%)' } }
+                                animate={ { opacity: 1, transform: 'translate(0, 0%)', maxWidth: 'clamp(45ch, 50%, 75ch)', flexGrow: '1' } }
                                 exit={ { opacity: 0, transform: 'translate(0, 100%)' } }
                             >
                                 <TextNoteLayout

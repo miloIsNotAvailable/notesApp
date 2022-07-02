@@ -1,15 +1,17 @@
 import { FC } from "react";
 import { setNoteModalOpen } from "../../../../../../store/Home/noteModalOpen";
 import { useAppDispatch } from "../../../../../../store/hooks";
+import { styles } from "./TextNoteLayoutStyles";
 
 interface TextNoteContentProps {
     content: string
     title: string
     noteId: string
+    type: string
 }
 
 const TextNoteContent: FC<TextNoteContentProps> 
-= ( { content="", title, noteId } ) => {
+= ( { content="", title, noteId, type } ) => {
 
     const dispatch = useAppDispatch()
 
@@ -24,10 +26,23 @@ const TextNoteContent: FC<TextNoteContentProps>
     }
 
     return (
-        <div>
-            <p onClick={ handleOpenModal }>
-                { content }
-            </p>
+        <div className={ styles.note_img_wrap }>
+            { 
+                type === "image" ?
+                <div 
+                    className={ styles.note_img_wrap }
+                    onClick={ handleOpenModal }
+                >
+                    <img 
+                        src={ content } 
+                        alt=""
+                        className={ styles.note_img }
+                    />
+                </div> :
+                <p onClick={ handleOpenModal }>
+                    { content }
+                </p>
+            }
         </div>
     )
 }

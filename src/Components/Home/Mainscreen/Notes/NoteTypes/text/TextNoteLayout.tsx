@@ -16,6 +16,7 @@ interface TextNoteLayoutProps {
     loading: boolean
     noteId: string
     noteUsers: ( { id: string, users: string } )[]
+    type: string
 }
 
 const TextNoteLayout: FC<Partial<TextNoteLayoutProps>> 
@@ -24,7 +25,8 @@ const TextNoteLayout: FC<Partial<TextNoteLayoutProps>>
     loading, 
     title="", 
     noteId, 
-    noteUsers=[]
+    noteUsers=[],
+    type=""
 } ) => {
 
     if ( loading ) return (
@@ -48,6 +50,7 @@ const TextNoteLayout: FC<Partial<TextNoteLayoutProps>>
                 content={ content }
                 noteId={ noteId! }
                 title={ title }
+                type={ type } 
             />
             <TextNoteUsers 
                 noteUsers={ noteUsers } 
