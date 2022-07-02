@@ -28,7 +28,7 @@ const TextNoteContent: FC<TextNoteContentProps>
     return (
         <div className={ styles.note_img_wrap }>
             { 
-                type === "image" ?
+                type !== "text" ?
                 <div 
                     className={ styles.note_img_wrap }
                     onClick={ handleOpenModal }

@@ -120,4 +120,5 @@
     /* height: calc( 100% - 3vw - 1rem ); */
     /* background-color: aliceblue; */
     z-index: 1;
+    touch-action: none;
 }

@@ -21,7 +21,7 @@ const AppRoutes: FC = () => {
                 <Route path="/"  element={ <Login/> } />
                 <Route path="/signup" element={ <Register/> } />
                 <Route path="/home" element={ <Home/> } />
-                <Route path="/note_canvas" element={ <NoteCanvas/> } />
+                <Route path="/home/note_canvas/:id" element={ <NoteCanvas/> } />
             </Routes>
         </AnimatePresence>
     )

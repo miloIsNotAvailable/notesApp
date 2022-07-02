@@ -14,6 +14,7 @@
     content: String
     type: String
     userId: String
+    id: String
   }
 
   type Notes {
@@ -72,7 +73,7 @@
   }
 
   type Mutation {
-    newNote( userId: String, title: String, content: String, type: String ): Note
+    newNote( userId: String, title: String, content: String, type: String, id: String ): Note
     newTitle( title: String, id: String, noteId: String ): updateTitle
     newContent( content: String, id: String, noteId: String ): updateContent
     updateUsers( input: newUserInput ): newUser

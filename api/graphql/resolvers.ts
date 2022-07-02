@@ -67,14 +67,12 @@ export const root = {
 
       const id = v4()
 
-      if( args?.type === 'image' ) {
+      if( args?.type === 'image' || args?.type === 'draw' ) {
         const storage = getStorage()
-        const storageRef = ref( storage, `${ args?.userId }/${ id }` )
+        const storageRef = ref( storage, `${ args?.userId }/${ args?.id || id }` )
         
         uploadString( storageRef, args?.content, 'data_url' )
-        .then( async( snapshot ) => {
-          // console.log( snapshot )
-        } ).then( async() => {
+        .then( async() => {
           const url = await getDownloadURL( storageRef )
           console.log( url )
 
@@ -82,7 +80,7 @@ export const root = {
             table: 'Note', 
             data: {
               values: { 
-                id, 
+                id: args?.id || id, 
                 content: url, 
                 type: args?.type, 
                 title: args?.title, 

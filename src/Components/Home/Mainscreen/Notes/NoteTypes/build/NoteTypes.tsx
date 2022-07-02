@@ -96,7 +96,13 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
                                 key={ ind }
                                 // transition={ { delay: ind * .05 } }
                                 initial={ { opacity: 0, transform: 'translate(0, -100%)' } }
-                                animate={ { opacity: 1, transform: 'translate(0, 0%)', maxWidth: 'clamp(45ch, 50%, 75ch)', flexGrow: '1' } }
+                                animate={ { 
+                                    opacity: 1, 
+                                    transform: 'translate(0, 0%)', 
+                                    maxWidth: 'clamp(45ch, 50%, 100%)', 
+                                    flexGrow: '1',
+                                    alignSelf: "stretch"
+                                } }
                                 exit={ { opacity: 0, transform: 'translate(0, 100%)' } }
                             >
                                 <TextNoteLayout

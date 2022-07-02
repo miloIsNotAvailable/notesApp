@@ -49,7 +49,6 @@ const Canvas: FC = () => {
             socket.emit( 'message', { ye: 'ye' } )
         } )
 
-
         draw( {
             context, 
             coords, 
@@ -87,6 +86,34 @@ const Canvas: FC = () => {
                 } ) 
             ) }
             onMouseUp={ ( { pageX, pageY } ) => { 
+                setMouseDown( false ) 
+            }}
+            onPointerDown={ ( { pageX, pageY, pointerType } ) => {
+                
+                if( pointerType !=="pen" ) return
+
+                setMouseDown( true ) 
+                setCoords( { 
+                    // when x is zero set to mouse's current coords, 
+                    // else get the previous ones
+                    prevx: pageX,
+                    prevy: pageY,
+                    x: pageX, 
+                    y: pageY 
+                } ) 
+            }}
+            onPointerMove={ ( { pageX, pageY, pointerType } ) => 
+            mouseDown && pointerType ==="pen" && 
+            setCoords( 
+                ( { x, y } ) => ({ 
+                    prevx: !x ? pageX : x,
+                    prevy: !y ? pageY : y,
+                    x: pageX, 
+                    y: pageY 
+                } ) 
+            ) }
+            onPointerUp={ ( { pageX, pageY, pointerType } ) => {
+                if( pointerType !=="pen" ) return 
                 setMouseDown( false ) 
             }}
         />
