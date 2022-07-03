@@ -72,7 +72,7 @@ const TextNoteAddUsers: FC<TextNoteAddUsersProps>
                 open &&
                 <motion.div
                     style={ {
-                        left: x + 'px',
+                        left: x > window.innerWidth * .8 ? x * .9 + 'px' : x + 'px',
                         top: `calc( ${ y }px - 2rem )`,
                     } }
                     ref={ wrapperRef }

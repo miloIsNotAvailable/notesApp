@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 });
 
 // create application/json parser
-var jsonParser = bodyParser.json()
+var jsonParser = bodyParser.json( { limit: '10mb' } )
  
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false, limit: '100mb' })
