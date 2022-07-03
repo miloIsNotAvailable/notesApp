@@ -74,6 +74,7 @@
     font-weight: normal;
     height: 3vw;
     border-radius: 50%;
+    transition: all 100ms ease-out;
 }
 .new_theme_add:hover {
     background-color: var(--bg);

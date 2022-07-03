@@ -10,6 +10,7 @@ import getNewColor from './Home/chooseColor'
 import getNewBrush from './Home/chooseBrush'
 import getSearchModalOpen from './Home/SearchBarOpen'
 import getNewTheme from './Home/createNewTheme'
+import getNewNoteToTheme from './Home/addNotesToTheme'
 
 import checkForDataLoading from './Auth/checkforLoading'
 import { getPosts } from './apis/getPosts'
@@ -30,6 +31,7 @@ export const store = configureStore({
     getNewBrush,
     getSearchModalOpen,
     getNewTheme,
+    getNewNoteToTheme,
     [getPosts.reducerPath]: getPosts.reducer
   },
   middleware: (getDefaultMiddleware: any) =>

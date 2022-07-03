@@ -4,3 +4,24 @@
     flex-wrap: wrap;
     height: calc(100% - 2rem);
 }
+
+.add_theme_wrap {
+    position: relative;
+    /* opacity: 0.7;    */
+}
+
+.add_theme_accept {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate( -50%, -50% );
+    z-index: 3;
+    font-size: 4rem;
+    color: white;
+    width: 10vw;
+    height: 10vw;
+    border-radius: 50%;
+    background-color: rgba( 0, 0, 0, .1 );
+}

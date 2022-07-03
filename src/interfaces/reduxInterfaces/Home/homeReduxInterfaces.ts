@@ -47,6 +47,10 @@ export type setNewThemeType = {
     create: boolean
 }
 
+export type addNewNotesToThemeState = {
+    add: boolean
+}
+
 export type newNoteState = {  getNewNotes: newNoteType }
 
 export type getNoteModalState = {  getNoteModal: noteModalOpen }
@@ -56,4 +60,7 @@ export type setNewColorState = { getNewColor: chooseColorType }
 export type setNewBrushState = { getNewBrush: chooseBrushType }
 
 export type setSearchModalState = { getSearchModalOpen: searchModalOpen }
+
 export type getNewThemeState = { getNewTheme: setNewThemeType }
+
+export type getNewNotesToThemeState = { getNewNoteToTheme: addNewNotesToThemeState }

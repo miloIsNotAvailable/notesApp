@@ -5,7 +5,7 @@ import { styles } from "./NoteTypesStyles";
 import { Note } from '../../../../../../../api/dbinterfaces'
 import { AnimatePresence, motion } from "framer-motion";
 import { useAppSelector } from "../../../../../../store/hooks";
-import { newNoteState } from "../../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
+import { getNewNotesToThemeState, newNoteState } from "../../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
 import { useGetAllPostsQuery, useGetNewPostsMutation } from "../../../../../../store/apis/getPosts";
 import TextNoteAddUsers from "../text/TextNoteAddUser";
 
@@ -58,6 +58,10 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
 
     // }, [ createNewNote?.data?.newNote ] )  
 
+    const addNoteToTheme = useAppSelector( 
+        ( state: getNewNotesToThemeState ) => state.getNewNoteToTheme.add
+     )
+
     if( isLoading ) return (
         <div className={ styles.note_types_align }>
         <AnimatePresence exitBeforeEnter>
@@ -70,6 +74,7 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
                             initial={ { opacity: 0, transform: 'translate(0, -100%)' } }
                             animate={ { opacity: 1, transform: 'translate(0, 0%)', maxWidth: 'fit-content' } }
                             exit={ { opacity: 0, transform: 'translate(0, 100%)' } }
+                            
                         >
                             <TextNoteLayout 
                                 loading={ isLoading }
@@ -101,11 +106,25 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
                                     flexGrow: '1' } }
                                 exit={ { opacity: 0, transform: 'translate(0, 100%)' } }
                             >
-                                <TextNoteLayout
-                                    {  ...v }
-                                    noteId={ v?.id }
-                                    loading={ !v?.content }
-                                />
+                                {
+                                    addNoteToTheme ? 
+                                    <div className={ styles.add_theme_wrap }>
+                                        <div className={ styles.add_theme_accept }>
+                                            ✔
+                                        </div>
+                                        <TextNoteLayout
+                                            {  ...v }
+                                            noteId={ v?.id }
+                                            loading={ !v?.content }
+                                        />
+                                    </div> :
+                                    <TextNoteLayout
+                                        {  ...v }
+                                        noteId={ v?.id }
+                                        loading={ !v?.content }
+                                    />
+
+                                }
                             </motion.div>
                         )
                     )

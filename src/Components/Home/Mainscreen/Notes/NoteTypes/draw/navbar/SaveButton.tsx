@@ -20,18 +20,18 @@ const SaveButton: FC = () => {
         console.log( doc.toDataURL( 'image/png' ) )
 
         const content = doc.toDataURL( 'image/png' )
-        console.log( content )
+        // console.log( content )
 
-        // content && setCreateNewNote( {
-        //     body: NOTE_MUTATION,
-        //     variables: {
-        //         content,
-        //         type: 'draw', 
-        //         title: 'hey',
-        //         userId: id,
-        //         id: paramId
-        //     }
-        // } )
+        content && setCreateNewNote( {
+            body: NOTE_MUTATION,
+            variables: {
+                content,
+                type: 'draw', 
+                title: 'hey',
+                userId: id,
+                id: paramId
+            }
+        } )
     }
 
     return (
