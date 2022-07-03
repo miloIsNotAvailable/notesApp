@@ -1,0 +1,92 @@
+.new_theme {
+    display: grid;
+    grid-template-columns: auto 3vw;
+    width: 100%;
+    margin: 1rem 0;
+    height: 3vw;
+    align-items: center;
+    border-radius: inherit;
+    font-family: 'Poppins';
+    color: white;
+    font-weight: bolder;
+}
+
+.new_theme_input_display {
+    display: grid;
+    grid-template-columns: auto 3vw 3vw;
+    place-items: center;
+    width: 100%;
+    margin: 1rem 0;
+    height: 3vw;
+    align-items: center;
+    border-radius: inherit;
+    font-family: 'Poppins';
+    color: white;
+    font-weight: bolder;
+}
+
+.new_theme_input_wrap {
+    position: relative;
+    /* display: grid; */
+    /* grid-template-columns: auto 3vw; */
+    width: auto;
+    /* margin: 1rem 0; */
+    /* height: 3vw; */
+    /* align-items: center; */
+    border-radius: .3rem;
+    font-family: 'Poppins';
+    color: white;
+    font-weight: bolder;
+}
+
+.new_theme_input::placeholder {
+    font-family: 'Poppins';
+    color: white;
+    font-weight: normal;
+}
+
+.new_theme_input_wrap::after {
+    position: absolute;
+    display: block;
+    content: "";
+    width: 100%;
+    height: 1px;
+    background-color: white;
+}
+
+.new_theme_input {
+    position: relative;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    align-items: center;
+    border-radius: inherit;
+    font-family: 'Poppins';
+    color: white;
+    font-weight: bolder;
+}
+
+.new_theme_add {
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    font-weight: normal;
+    height: 3vw;
+    border-radius: 50%;
+}
+.new_theme_add:hover {
+    background-color: var(--bg);
+}
+
+.new_theme_esc {
+    cursor: pointer;
+    transform-origin: center;
+    transform: rotate(45deg);
+}
+
+.new_theme_create {
+    cursor: pointer;
+}
+
+

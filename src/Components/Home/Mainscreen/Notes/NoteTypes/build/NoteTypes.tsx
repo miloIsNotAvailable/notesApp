@@ -58,8 +58,6 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
 
     // }, [ createNewNote?.data?.newNote ] )  
 
-    console.log( createNewNote?.data )
-
     if( isLoading ) return (
         <div className={ styles.note_types_align }>
         <AnimatePresence exitBeforeEnter>

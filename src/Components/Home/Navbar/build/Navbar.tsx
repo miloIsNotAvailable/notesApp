@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useData } from "../../../../contexts/HomeContext";
 import Account from "../account";
-import Menu from "../menu";
+import Menu from "../menu/build";
 import Refresh from "../refresh";
 import Search from "../search";
 import Settings from "../settings";

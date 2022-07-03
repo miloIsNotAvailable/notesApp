@@ -4,3 +4,18 @@
     width: var(--icon-size);
     height: fit-content;
 }
+
+.menu_body_wrap {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--grey);
+    width: 20%;
+    height: calc(100% - var(--icon-size));
+    top: var(--icon-size);
+    left: 0;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 0 1rem 0 0;
+    padding: 0 1rem;
+}
