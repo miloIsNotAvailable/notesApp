@@ -98,11 +98,9 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
                                 initial={ { opacity: 0, transform: 'translate(0, -100%)' } }
                                 animate={ { 
                                     opacity: 1, 
-                                    transform: 'translate(0, 0%)', 
+                                    transform: `translate(0, 0%)`, 
                                     maxWidth: 'clamp(45ch, 50%, 100%)', 
-                                    flexGrow: '1',
-                                    alignSelf: "stretch"
-                                } }
+                                    flexGrow: '1' } }
                                 exit={ { opacity: 0, transform: 'translate(0, 100%)' } }
                             >
                                 <TextNoteLayout

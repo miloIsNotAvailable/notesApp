@@ -5,7 +5,7 @@ import { of, fromEvent, map, Observable, switchMap } from 'rxjs'
 export default function Sockets() {
 
     const _io = new Server( server, {
-        transports: [ 'websocket' ],
+        // transports: [ 'websocket' ],
         cors: {
           allowedHeaders: ['Content-Type', 'Authorization'],
           credentials: true,
@@ -25,6 +25,20 @@ export default function Sockets() {
      ).subscribe( socket => {
          console.log( 'connected socket' )
          socket.emit( 'msg', { msg: 'hello' } )
-         socket.on( 'message', console.log )
+         _io.on( 'message', console.log )
+        } )
+    
+    io.pipe( 
+        switchMap( 
+            socket => fromEvent( socket, "message" )
+            .pipe(
+                map( () => socket )
+            )
+         )
+     ).subscribe( socket => {
+         console.log( 'connected socket' )
+         socket.emit( 'connection', null )
+         socket.emit( 'msg', { msg: 'hello' } )
+         _io.on( 'message', console.log )
         } )
     }

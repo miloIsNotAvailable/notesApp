@@ -10,6 +10,7 @@ export type noteModalOpen = {
     title: string 
     id: string 
     users: string
+    type: string
 }
 
 export type noteInputType = {

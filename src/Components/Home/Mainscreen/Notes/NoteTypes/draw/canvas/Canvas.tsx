@@ -1,5 +1,5 @@
 import { FC, MouseEvent, useEffect, useRef, useState } from "react";
-import { fromEvent, map, of, switchMap } from "rxjs";
+import { fromEvent, map, mergeMap, of, switchMap } from "rxjs";
 import { socket, _socket } from "../../../../../../../constants/SocketsConstants";
 import { setNewBrushState, setNewColorState } from "../../../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
 import { useAppSelector } from "../../../../../../../store/hooks";
@@ -47,6 +47,7 @@ const Canvas: FC = () => {
         ).subscribe( ( { data, socket } ) => {
             console.log( data, socket.emit( 'message', { ye: 'ye' } ) )
             socket.emit( 'message', { ye: 'ye' } )
+            socket.on(  'msg2', console.log)
         } )
 
         draw( {
@@ -66,6 +67,7 @@ const Canvas: FC = () => {
             className={ styles.canvas }
             onMouseDown={ ( { pageX, pageY } ) => {
                 setMouseDown( true ) 
+                // _socket.emit(  'message', { e: 'e' })
                 setCoords( { 
                     // when x is zero set to mouse's current coords, 
                     // else get the previous ones

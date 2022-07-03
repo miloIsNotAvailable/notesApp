@@ -6,7 +6,8 @@ const initialState: noteModalOpen = {
     content: "",
     id: "",
     title: "",
-    users: ''
+    users: '',
+    type: ""
 }
 
 const getNoteModalSlice = createSlice( {
@@ -23,6 +24,7 @@ const getNoteModalSlice = createSlice( {
                 state.users = action.payload.users
                 state.id = action.payload.id
                 state.title = action.payload.title
+                state.type = action.payload.type
             }
         }   
     } 

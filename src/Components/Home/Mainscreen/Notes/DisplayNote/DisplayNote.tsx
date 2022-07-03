@@ -9,7 +9,7 @@ import ModalNoteTitle from "./DisplayNoteTitle";
 
 const DisplayNote: FC = () => {
 
-    const { content, id, open, title, users } = useAppSelector( 
+    const { content, id, open, title, type } = useAppSelector( 
         ( state: getNoteModalState ) => state.getNoteModal 
     )
 
@@ -24,8 +24,15 @@ const DisplayNote: FC = () => {
                     exit={ { opacity: 0, transform: 'translate(-50%, -10%)' } }
                 >
                     <CloseModal/>
-                    <ModalNoteTitle title={ title } noteId={ id } />
-                    <DisplayNoteContent content={ content } noteId={ id } />
+                    <ModalNoteTitle 
+                        title={ title } 
+                        noteId={ id } 
+                    />
+                    <DisplayNoteContent 
+                        type={ type } 
+                        content={ content } 
+                        noteId={ id } 
+                    />
                 </motion.div>
             }
         </AnimatePresence>

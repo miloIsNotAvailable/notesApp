@@ -8,8 +8,8 @@
     /* max-width: clamp(45ch, 50%, 75ch); */
     border-radius: .3rem;
     padding: 1rem;
-    height: var(--size);
-    max-height: calc(var(--size) * 2);
+    min-height: var(--size);
+    /* max-height: calc(var(--size) * 2); */
     overflow: hidden;
     font-family: "Poppins";
     font-size: 1vw;
@@ -239,6 +239,7 @@
 
 .note_img_wrap {
     width: 100%;
+    min-height: calc(var(--size) - 2rem)
 }
 
 .note_img {
@@ -247,7 +248,7 @@
     /* width: auto; */
     height: 100%;
     /* object-position: 50%; */
-    object-fit: fill;
+    object-fit: contain;
     object-position: center;
     border-radius: .3rem;
 }

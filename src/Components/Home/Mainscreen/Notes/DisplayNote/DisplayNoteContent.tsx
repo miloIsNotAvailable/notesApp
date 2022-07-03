@@ -19,11 +19,12 @@ mutation newContent( $content:String, $noteId:String ) {
 
 interface DisplayNoteContentProps {
     content: string, 
-    noteId: string
+    noteId: string,
+    type: string
 }
 
 const DisplayNoteContent: FC<DisplayNoteContentProps> 
-= ( { content, noteId } ) => {
+= ( { content, noteId, type } ) => {
 
     const [ { data, error, loading }, setNewNote ] = useMutation()
     const { id } = useData()
@@ -65,7 +66,11 @@ const DisplayNoteContent: FC<DisplayNoteContentProps>
                 contentEditable={ editable }
                 onBlur={ () => setEditable( false ) }
                 onKeyDown={ editContent }>
-                { content }
+                { 
+                type !== 'text' ? 
+                <img src={ content } alt=""/> 
+                : content 
+                }
                 <div className={ styles.modal_selector }>
                     <SelectorIcon/>
                 </div>
@@ -77,7 +82,9 @@ const DisplayNoteContent: FC<DisplayNoteContentProps>
                             src={ Icon } 
                             onClick={ () => {
                                 setSelected( transform )
-                                setEditable( true )
+                                setEditable( 
+                                    Icon === Edit && type === "text" 
+                                )
                             } }
                         />
                     ) )

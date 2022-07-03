@@ -41,9 +41,6 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false, limit: '100mb' }
 app.use( urlencodedParser )
 app.use( jsonParser )
 
-// run websockets
-Sockets()
-
 app.use('/graphql', grpahqlEndpoint );
 
 const orm = new ORM()
@@ -165,3 +162,6 @@ const port = process.env.PORT || 4000
 
 server.listen( port );
 console.log('Running a GraphQL API server at http://localhost:4000/graphql');
+
+// run websockets
+Sockets()

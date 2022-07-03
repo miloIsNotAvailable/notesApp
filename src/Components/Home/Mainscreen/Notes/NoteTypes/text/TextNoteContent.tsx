@@ -21,7 +21,8 @@ const TextNoteContent: FC<TextNoteContentProps>
             content: content,
             title: title,
             id: noteId!,
-            users: ""
+            users: "",
+            type
         } ) ) 
     }
 

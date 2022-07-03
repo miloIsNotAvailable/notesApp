@@ -18,7 +18,7 @@ function App() {
         )
     ).subscribe( socket => {
         console.log( 'connected socket' )
-        _socket.emit( 'message', { ye: 'ye' } )
+        socket.emit( 'message', { ye: 'ye' } )
     } )
 
     // _socket.on( 'connect', () => {
