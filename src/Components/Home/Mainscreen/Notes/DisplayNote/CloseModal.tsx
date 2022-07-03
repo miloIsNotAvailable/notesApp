@@ -13,7 +13,8 @@ const CloseModal: FC = () => {
             content: "",
             title: "",
             id: "",
-            users: ""
+            users: "",
+            type: ""
         } ) ) 
     }
 
