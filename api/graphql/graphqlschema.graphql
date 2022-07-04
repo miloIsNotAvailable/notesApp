@@ -30,12 +30,20 @@
     users: String
   }
 
+  type Theme {
+    id: String
+    theme_name: String
+    user_id: String
+  }
+
   type GetNotes {
     id: String
     title: String
     content: String
     type: String
     users: String
+    theme_id: String,
+    theme: [Theme],
     noteUsers: [Users]
   }
 
@@ -63,16 +71,15 @@
     noteId: String
   }
 
-  type Theme {
+  type createTheme {
     id: String
     theme_name: String
     user_id: String
   }
 
-  type createTheme {
+  type addThemeToNote {
     id: String
-    theme_name: String
-    user_id: String
+    theme_id: String
   }
 
   type Query {
@@ -91,4 +98,5 @@
     newContent( content: String, id: String, noteId: String ): updateContent
     updateUsers( input: newUserInput ): newUser
     newTheme( id: String, theme_name: String, user_id: String ): createTheme
+    newNoteTheme( id: String, theme_id: String ): addThemeToNote
   }

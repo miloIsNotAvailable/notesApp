@@ -80,6 +80,25 @@ export const getPosts = createApi( {
                 variables
             } )
         } ),
+        addThemeToNote: mutation<any, queryType>( {
+            invalidatesTags: ( res, err, arg ) =>{ 
+                
+            // console.log( res, arg )
+            // update notes with specific id
+            return [ 
+                { type: "Note", id: arg.variables.id } ,
+                { type: "Theme", id: arg.variables.theme_id } ,
+            ]},
+            query: ( { body, variables } ) => ( {
+                url: `/graphql`,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: body,
+                variables
+            } )
+        } ),
     } )
 } )
 
@@ -89,5 +108,6 @@ export const {
     useGetNewUsersMutation,
     useGetNewThemeMutation,
     useGetAllThemesQuery,
-    useLazyGetAllThemesQuery
+    useLazyGetAllThemesQuery,
+    useAddThemeToNoteMutation
 } = getPosts

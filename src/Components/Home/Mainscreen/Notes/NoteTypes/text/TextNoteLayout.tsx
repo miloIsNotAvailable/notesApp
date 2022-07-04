@@ -2,8 +2,8 @@ import { FC, useEffect, useState } from "react";
 import { colors } from "../../../../../../constants/homeConstants";
 import { useLazyQuery } from "../../../../../../hooks/graphql/useLazyQuery";
 import { useQuery } from "../../../../../../hooks/graphql/useQuery";
-import { getNewNotesToThemeState } from "../../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
-import { getPosts, useGetAllPostsQuery } from "../../../../../../store/apis/getPosts";
+import { getNewNotesToThemeState, getThemeIDState } from "../../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
+import { getPosts, useAddThemeToNoteMutation, useGetAllPostsQuery } from "../../../../../../store/apis/getPosts";
 import { setNoteModalOpen } from "../../../../../../store/Home/noteModalOpen";
 import { useAppDispatch, useAppSelector } from "../../../../../../store/hooks";
 import TextNoteContent from "./TextNoteContent";
@@ -12,6 +12,15 @@ import TextNoteTitle from "./TextNoteTitle";
 import TextNoteUsers from "./TextNoteUsers";
 import { default as CheckMarkIcon } from '../../../../../../graphics/checkMarkIcon.svg'
 
+const NEW_NOTE_THEME = `
+mutation newNoteTheme( $id:String, $theme_id:String ){
+    newNoteTheme( id:$id, theme_id:$theme_id ){
+      id
+      theme_id
+    }
+  }  
+`
+
 interface TextNoteLayoutProps {
     content: string
     title: string
@@ -19,6 +28,7 @@ interface TextNoteLayoutProps {
     noteId: string
     noteUsers: ( { id: string, users: string } )[]
     type: string
+    theme?: any
 }
 
 const TextNoteLayout: FC<Partial<TextNoteLayoutProps>> 
@@ -28,21 +38,34 @@ const TextNoteLayout: FC<Partial<TextNoteLayoutProps>>
     title="", 
     noteId, 
     noteUsers=[],
-    type=""
+    type="",
+    theme
 } ) => {
 
     const addNoteToTheme = useAppSelector( 
         ( state: getNewNotesToThemeState ) => state.getNewNoteToTheme.add
      )
+    const themeID = useAppSelector( 
+        ( state: getThemeIDState )   => state.getThemeID.id
+    )
+
+    const [ setNewNoteTheme, { data, isLoading } ] = useAddThemeToNoteMutation()
 
     const [ isAdded, setIsAdded ] = useState<boolean>( false )
 
     const handleAddToNewChannel: <T=any>(  
-        v: T 
+        v: any 
     ) => void = ( v ) => {
         if( !addNoteToTheme ) return
         setIsAdded( true )
-        console.log( v )
+        !isAdded && setNewNoteTheme( {
+            body: NEW_NOTE_THEME,
+            variables: {
+                id: noteId!, 
+                theme_id: themeID
+            }
+        } )
+        console.log( { ...v, themeID } )
     }
 
     if ( loading ) return (
@@ -75,7 +98,11 @@ const TextNoteLayout: FC<Partial<TextNoteLayoutProps>>
                     <img src={ CheckMarkIcon } />
                 </div>
             }
-            <TextNoteTitle title={ title } noteId={ noteId! }/>
+            <TextNoteTitle 
+                title={ title } 
+                noteId={ noteId! }
+                theme={ theme }
+            />
             <TextNoteContent 
                 content={ content }
                 noteId={ noteId! }

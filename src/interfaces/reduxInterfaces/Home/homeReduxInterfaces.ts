@@ -51,6 +51,10 @@ export type addNewNotesToThemeState = {
     add: boolean
 }
 
+export type getThemeIDType = {
+    id: string
+}
+
 export type newNoteState = {  getNewNotes: newNoteType }
 
 export type getNoteModalState = {  getNoteModal: noteModalOpen }
@@ -64,3 +68,5 @@ export type setSearchModalState = { getSearchModalOpen: searchModalOpen }
 export type getNewThemeState = { getNewTheme: setNewThemeType }
 
 export type getNewNotesToThemeState = { getNewNoteToTheme: addNewNotesToThemeState }
+
+export type getThemeIDState = { getThemeID: getThemeIDType }

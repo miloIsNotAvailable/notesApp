@@ -18,6 +18,10 @@ query Notes( $users: String ) {
       content
       type
       users
+      theme {
+        id
+        theme_name
+      }
       noteUsers {
         id
         users
@@ -42,20 +46,6 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
         fixedCacheKey: 'get-new-note'
     } )
     const newNoteRef = useRef<any[]>( [] )
-
-    const addNoteToTheme = useAppSelector( 
-        ( state: getNewNotesToThemeState ) => state.getNewNoteToTheme.add
-     )
-
-    const [ isAdded, setIsAdded ] = useState<boolean>( false )
-
-    const handleAddToNewChannel: (  
-        v: any 
-    ) => void = ( v ) => {
-        if( !addNoteToTheme ) return
-        setIsAdded( true )
-        console.log( v )
-    }
 
     if( isLoading ) return (
         <div className={ styles.note_types_align }>

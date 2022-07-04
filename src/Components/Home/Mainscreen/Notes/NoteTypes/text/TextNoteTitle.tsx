@@ -16,6 +16,7 @@ mutation newTitle( $title:String, $id:String, $noteId: String ) {
 interface TextNoteTitleProps {
     title: string
     noteId: string
+    theme?: any
 }
 
 type Event = KeyboardEvent<HTMLDivElement> | MouseEvent<HTMLDivElement>
@@ -25,7 +26,12 @@ e is MouseEvent<HTMLDivElement> => {
     return event.key === 'Enter'
 }
 
-const TextNoteTitle: FC<TextNoteTitleProps> = ( { title, noteId } ) => {
+const TextNoteTitle: FC<TextNoteTitleProps> 
+= ( { 
+    title, 
+    noteId,
+    theme
+} ) => {
 
     const [newTitle, setTitle] = useState<string>( title )
     const [editable, setEditable] = useState<boolean>( false )
@@ -67,6 +73,12 @@ const TextNoteTitle: FC<TextNoteTitleProps> = ( { title, noteId } ) => {
             onInput={ e => setTitle( e.currentTarget.innerText ) }
         >
             { title }
+            {
+                theme && theme[0]?.theme_name &&
+                <div className={ styles.text_layout_theme }>
+                    { theme[0]?.theme_name }
+                </div>
+            }
         </div>
         <div 
             className={ styles.text_layout_edit } 

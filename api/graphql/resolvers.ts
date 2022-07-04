@@ -48,6 +48,12 @@ export const root = {
 
     const notes = note.map(  (n: any) => ({ 
       ...n, 
+      theme: async() => await orm.select( {
+        table: 'Theme',
+        where: {
+          id: n?.theme_id
+        }
+      } ),
       noteUsers: async() => await orm.select( { 
         table: "Note", 
         where: { id: n?.id } 
@@ -195,5 +201,19 @@ export const root = {
 
       console.log( data[0] )
       return data[0]
+    },
+    newNoteTheme: async( args: any ) => {
+      console.log( args )
+      const data = await orm.update( {
+        table: 'Note', 
+        data: {
+          theme_id: args?.theme_id
+        },
+        where: {
+          id: args?.id
+        }
+      } )
+      console.log( data )
+      return args
     }
   };

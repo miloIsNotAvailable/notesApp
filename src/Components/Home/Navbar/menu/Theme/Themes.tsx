@@ -43,10 +43,10 @@ const Themes: FC = () => {
             {
                 data && !!data.theme.length ?
                 data?.theme
-                .map( ( { theme_name }: any ) => (
-                    <UsersTheme title={ theme_name } />
+                .map( ( { theme_name, id }: any ) => (
+                    <UsersTheme title={ theme_name } key={ id } id={ id } />
                 ) ) : isLoading &&
-                <UsersTheme title={ 'loading...' } />
+                <UsersTheme title={ 'loading...' } id={ "loading" }/>
             }
         </div>
     )

@@ -150,11 +150,6 @@ app.use( '/create_user', async( req, res ) => {
   !findExisting.length ? res.json( { data: data } ) : res.json( { error: 'user already exists' } )
 } )
 
-// orm.create( {
-//   table: 'Funkee',
-//   data: { values: { id: v4(), name: 'hello' } }
-// } )
-
 connect()
 // create()
 

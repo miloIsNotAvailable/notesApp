@@ -1,13 +1,15 @@
 import { FC, useRef, useState } from "react";
 import { setNewNotesToTheme } from "../../../../../store/Home/addNotesToTheme";
+import { setThemeID } from "../../../../../store/Home/getThemeID";
 import { useAppDispatch } from "../../../../../store/hooks";
 import { styles } from "./ThemeStyles";
 
 interface UsersThemeProps {
     title: string
+    id: string
 }
 
-const UsersTheme: FC<UsersThemeProps> = ( { title } ) => {
+const UsersTheme: FC<UsersThemeProps> = ( { title, id } ) => {
 
     const [ open, setOpen ] = useState<boolean>( false )
     const openRef = useRef<boolean>( false )
@@ -19,10 +21,12 @@ const UsersTheme: FC<UsersThemeProps> = ( { title } ) => {
         dispatch( setNewNotesToTheme( {
             add: openRef.current
         } ) )
+
+        dispatch( setThemeID( { id } ) )
     }
 
     return (
-        <div className={ styles.new_theme }>
+        <div className={ styles.new_theme } key={ id }>
             <div>
                { title }
             </div>
