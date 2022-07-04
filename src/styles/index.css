@@ -91,3 +91,21 @@ body {
  transform: translate(var(--transform-paw), 0);
  transition: all 100ms ease;
 }
+
+#check {
+  stroke-dashoffset: 10;
+  /* fill: none; */
+  animation: dash 1s ease infinite;
+  clip-path: circle( 0% at 10% );
+  animation: dash 1s ease forwards;
+  width: 50%;
+  height: auto;
+}
+
+@keyframes dash {
+  from {
+    clip-path: circle( 0% at 10% );
+  } to {
+    clip-path: circle( 200% at 10% );
+  }
+}

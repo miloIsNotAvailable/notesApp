@@ -16,12 +16,24 @@ type queryType = {
 
 export const getPosts = createApi( {
     reducerPath: 'getPosts',
-    tagTypes: ['Note'],
+    tagTypes: ['Note', 'Theme'],
     baseQuery: graphqlBaseQuery( 
         { baseUrl: `${ check_env }/graphql` } ),
     endpoints: ( { query, mutation } ) => ( {
         getAllPosts: query<any, queryType>( {
             providesTags: ['Note'],
+            query: ( { body, variables } ) => ( {
+                url: `/graphql`,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: body,
+                variables
+            } )
+        } ),
+        getAllThemes: query<any, queryType>( {
+            providesTags: ['Theme'],
             query: ( { body, variables } ) => ( {
                 url: `/graphql`,
                 method: 'POST',
@@ -55,12 +67,27 @@ export const getPosts = createApi( {
                 body: body,
                 variables
             } )
-        } ) 
+        } ),
+        getNewTheme: mutation<any, queryType>( {
+            invalidatesTags: ["Theme"],
+            query: ( { body, variables } ) => ( {
+                url: `/graphql`,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: body,
+                variables
+            } )
+        } ),
     } )
 } )
 
 export const { 
     useGetAllPostsQuery, 
     useGetNewPostsMutation,
-    useGetNewUsersMutation
+    useGetNewUsersMutation,
+    useGetNewThemeMutation,
+    useGetAllThemesQuery,
+    useLazyGetAllThemesQuery
 } = getPosts

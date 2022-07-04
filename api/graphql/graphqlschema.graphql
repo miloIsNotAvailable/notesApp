@@ -63,6 +63,18 @@
     noteId: String
   }
 
+  type Theme {
+    id: String
+    theme_name: String
+    user_id: String
+  }
+
+  type createTheme {
+    id: String
+    theme_name: String
+    user_id: String
+  }
+
   type Query {
     hello: String
     say( msg: String ): sayHi
@@ -70,6 +82,7 @@
     note( users: String ): [Notes]
     noteByID( id: String ): [Notes]
     queryNotes( users: String ): [GetNotes]
+    theme(user_id: String): [Theme]
   }
 
   type Mutation {
@@ -77,4 +90,5 @@
     newTitle( title: String, id: String, noteId: String ): updateTitle
     newContent( content: String, id: String, noteId: String ): updateContent
     updateUsers( input: newUserInput ): newUser
+    newTheme( id: String, theme_name: String, user_id: String ): createTheme
   }

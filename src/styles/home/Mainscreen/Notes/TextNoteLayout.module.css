@@ -252,3 +252,37 @@
     object-position: center;
     border-radius: .3rem;
 }
+
+.add_theme_accept {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate( -50%, -50% );
+    z-index: 3;
+    font-size: 4rem;
+    color: white;
+    width: 10vw;
+    height: 10vw;
+    border-radius: 50%;
+    background-color: rgba( 0, 0, 0, .1 );
+}
+
+.add_theme_accept > img {
+    stroke-dashoffset: 10;
+    /* fill: none; */
+    animation: dash 1s ease infinite;
+    clip-path: circle( 0% at 10% );
+    animation: dash 1s ease forwards;
+    width: 50%;
+    height: auto;
+  }
+  
+  @keyframes dash {
+    from {
+      clip-path: circle( 0% at 10% );
+    } to {
+      clip-path: circle( 200% at 10% );
+    }
+  }

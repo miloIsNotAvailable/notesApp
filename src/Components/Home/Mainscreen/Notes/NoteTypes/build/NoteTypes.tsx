@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, useRef } from "react";
+import { FC, useState, useEffect, useRef, MouseEvent } from "react";
 import { useQuery } from "../../../../../../hooks/graphql/useQuery";
 import TextNoteLayout from "../text/TextNoteLayout";
 import { styles } from "./NoteTypesStyles";
@@ -8,6 +8,7 @@ import { useAppSelector } from "../../../../../../store/hooks";
 import { getNewNotesToThemeState, newNoteState } from "../../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
 import { useGetAllPostsQuery, useGetNewPostsMutation } from "../../../../../../store/apis/getPosts";
 import TextNoteAddUsers from "../text/TextNoteAddUser";
+import { EventHandler } from "framer-motion/types/events/types";
 
 const QUERY_USER_NOTES_WITH_USERS = `
 query Notes( $users: String ) {
@@ -31,13 +32,6 @@ interface NoteTypesProps {
 
 const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
 
-    // const { data, loading, error } = useQuery( QUERY_USER_NOTES, {
-    //     variables: {
-    //         users: id
-    //     }
-    // }  )
-    const selector = useAppSelector( ( state: newNoteState ) => state.getNewNotes )
-
     const  { data, isLoading } = useGetAllPostsQuery( {
         body: QUERY_USER_NOTES_WITH_USERS, 
         variables: { users: id }
@@ -49,18 +43,19 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
     } )
     const newNoteRef = useRef<any[]>( [] )
 
-    // whuh huh, how it work
-    // useEffect( () => {
-        
-    //         if( createNewNote?.data?.newNote ) newNoteRef.current = [ 
-    //         ...newNoteRef.current, 
-    //         createNewNote?.data?.newNote ]
-
-    // }, [ createNewNote?.data?.newNote ] )  
-
     const addNoteToTheme = useAppSelector( 
         ( state: getNewNotesToThemeState ) => state.getNewNoteToTheme.add
      )
+
+    const [ isAdded, setIsAdded ] = useState<boolean>( false )
+
+    const handleAddToNewChannel: (  
+        v: any 
+    ) => void = ( v ) => {
+        if( !addNoteToTheme ) return
+        setIsAdded( true )
+        console.log( v )
+    }
 
     if( isLoading ) return (
         <div className={ styles.note_types_align }>
@@ -106,25 +101,11 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
                                     flexGrow: '1' } }
                                 exit={ { opacity: 0, transform: 'translate(0, 100%)' } }
                             >
-                                {
-                                    addNoteToTheme ? 
-                                    <div className={ styles.add_theme_wrap }>
-                                        <div className={ styles.add_theme_accept }>
-                                            ✔
-                                        </div>
-                                        <TextNoteLayout
-                                            {  ...v }
-                                            noteId={ v?.id }
-                                            loading={ !v?.content }
-                                        />
-                                    </div> :
-                                    <TextNoteLayout
-                                        {  ...v }
-                                        noteId={ v?.id }
-                                        loading={ !v?.content }
-                                    />
-
-                                }
+                                <TextNoteLayout
+                                    {  ...v }
+                                    noteId={ v?.id }
+                                    loading={ !v?.content }
+                                />
                             </motion.div>
                         )
                     )

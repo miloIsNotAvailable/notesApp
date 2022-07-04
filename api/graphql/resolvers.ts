@@ -3,6 +3,8 @@ import { v4 } from "uuid";
 import { ORM } from "../db/orm/Orm";
 import { initializeApp } from 'firebase/app'
 import { getDownloadURL, getStorage, ref, uploadString } from 'firebase/storage'
+import { async, fromEvent, map, of, switchMap } from "rxjs";
+import { io, _io } from "../sockets/sockets";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDOMrkY_z_wII-bv1-EFMVk-5AP6TqVYls",
@@ -171,5 +173,27 @@ export const root = {
       } )
 
       return { ...data[0], noteId: input?.noteId }
+    },
+    theme: async( args: any ) => {
+
+      const data = await orm.select( {
+        table: 'Theme',
+        where: {
+          user_id: args?.user_id
+        }
+      } )
+      return data
+    },
+    newTheme: async( args: any ) => {
+
+      const data = await orm.create( {
+        table: 'Theme',
+        data: {
+          values: args
+        }
+      } )
+
+      console.log( data[0] )
+      return data[0]
     }
   };

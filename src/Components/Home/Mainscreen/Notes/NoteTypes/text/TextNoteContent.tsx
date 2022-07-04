@@ -1,6 +1,7 @@
 import { FC } from "react";
+import { getNewNotesToThemeState } from "../../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
 import { setNoteModalOpen } from "../../../../../../store/Home/noteModalOpen";
-import { useAppDispatch } from "../../../../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../../../store/hooks";
 import { styles } from "./TextNoteLayoutStyles";
 
 interface TextNoteContentProps {
@@ -15,7 +16,12 @@ const TextNoteContent: FC<TextNoteContentProps>
 
     const dispatch = useAppDispatch()
 
+    const addNoteToTheme = useAppSelector( 
+        ( state: getNewNotesToThemeState ) => state.getNewNoteToTheme.add
+     )
+
     const handleOpenModal: () => void = () => {
+        if( addNoteToTheme ) return
         dispatch( setNoteModalOpen( {
             open: true,
             content: content,
