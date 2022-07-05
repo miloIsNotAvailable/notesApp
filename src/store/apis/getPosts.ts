@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { check_env } from '../../check_env'
 import { request } from 'graphql-request'
+import { argsToArgsConfig } from 'graphql/type/definition';
 
 const graphqlBaseQuery =
   ({ baseUrl }: { baseUrl: string } = { baseUrl: '' }): any =>
@@ -30,7 +31,22 @@ export const getPosts = createApi( {
                 },
                 body: body,
                 variables
-            } )
+            } ),
+            async onQueryStarted( v, { dispatch, queryFulfilled } ) {
+                const vars = v;
+                const e = dispatch( 
+                    getPosts.util.updateQueryData( 
+                        'getAllPosts', 
+                        vars, 
+                        draft => {
+                        console.log( draft, v )
+                    } )
+                 )
+                try {
+                    const { data } = await queryFulfilled
+                    console.log( e )
+                }catch{}
+            }
         } ),
         getAllThemes: query<any, queryType>( {
             providesTags: ['Theme'],
@@ -109,5 +125,5 @@ export const {
     useGetNewThemeMutation,
     useGetAllThemesQuery,
     useLazyGetAllThemesQuery,
-    useAddThemeToNoteMutation
+    useAddThemeToNoteMutation,
 } = getPosts

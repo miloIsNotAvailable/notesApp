@@ -5,10 +5,11 @@ import { styles } from "./NoteTypesStyles";
 import { Note } from '../../../../../../../api/dbinterfaces'
 import { AnimatePresence, motion } from "framer-motion";
 import { useAppSelector } from "../../../../../../store/hooks";
-import { getNewNotesToThemeState, newNoteState } from "../../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
+import { getNewNotesToThemeState, getThemeNameState, newNoteState } from "../../../../../../interfaces/reduxInterfaces/Home/homeReduxInterfaces";
 import { useGetAllPostsQuery, useGetNewPostsMutation } from "../../../../../../store/apis/getPosts";
 import TextNoteAddUsers from "../text/TextNoteAddUser";
 import { EventHandler } from "framer-motion/types/events/types";
+import { VariablesInAllowedPositionRule } from "graphql";
 
 const QUERY_USER_NOTES_WITH_USERS = `
 query Notes( $users: String ) {
@@ -40,6 +41,22 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
         body: QUERY_USER_NOTES_WITH_USERS, 
         variables: { users: id }
     })
+    const [ userNotes, setUserNotes ] = useState( [] )
+
+    const filterPostsThemes = useAppSelector(
+        ( state: getThemeNameState ) => state.getThemeName.title
+    )
+
+    useEffect( () => {
+        if( !data ) return
+        const v = filterPostsThemes && 
+        data?.queryNotes.filter( 
+            ( { theme }: any ) => theme[0]?.theme_name === filterPostsThemes 
+        )
+        setUserNotes( v || data?.queryNotes )
+    }, [ filterPostsThemes, data ] )
+
+    console.log( userNotes )
 
     const [setCreateNewNote, createNewNote] = 
     useGetNewPostsMutation( {
@@ -78,7 +95,7 @@ const NoteTypes: FC<NoteTypesProps> = ( { id } ) => {
             <TextNoteAddUsers />
             <AnimatePresence exitBeforeEnter>
                 {
-                    data?.queryNotes && [...data?.queryNotes, ...newNoteRef.current ].map(
+                    data?.queryNotes && [...userNotes, ...newNoteRef.current ].map(
                         ( v: any, ind: number ) => (
                             <motion.div 
                                 key={ ind }

@@ -12,6 +12,7 @@ import getSearchModalOpen from './Home/SearchBarOpen'
 import getNewTheme from './Home/createNewTheme'
 import getNewNoteToTheme from './Home/addNotesToTheme'
 import getThemeID from './Home/getThemeID' 
+import getThemeName from './Home/geThemeName' 
 
 import checkForDataLoading from './Auth/checkforLoading'
 import { getPosts } from './apis/getPosts'
@@ -34,6 +35,7 @@ export const store = configureStore({
     getNewTheme,
     getNewNoteToTheme,
     getThemeID,
+    getThemeName,
     [getPosts.reducerPath]: getPosts.reducer
   },
   middleware: (getDefaultMiddleware: any) =>

@@ -40,6 +40,7 @@ const Themes: FC = () => {
         <div>
             <CreateNewTheme/>
             <UserThemes/>
+            <UsersTheme title={ 'all' } id={ "all" }/>
             {
                 data && !!data.theme.length ?
                 data?.theme

@@ -215,5 +215,8 @@ export const root = {
       } )
       console.log( data )
       return args
+    },
+    getFilterNotes: async( args: any ) => {
+      return args
     }
   };

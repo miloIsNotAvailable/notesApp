@@ -36,6 +36,10 @@
     user_id: String
   }
 
+  type filterNotes {
+    title: String
+  }
+
   type GetNotes {
     id: String
     title: String
@@ -99,4 +103,5 @@
     updateUsers( input: newUserInput ): newUser
     newTheme( id: String, theme_name: String, user_id: String ): createTheme
     newNoteTheme( id: String, theme_id: String ): addThemeToNote
+    getFilterNotes( title: String ): filterNotes
   }
